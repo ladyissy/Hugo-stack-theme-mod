@@ -29,7 +29,7 @@ params:
     - post
   featuredImageField: image
   rssFullContent: true
-  favicon:
+  favicon: /favicon.ico
 
   footer:
     since: 2020
@@ -194,6 +194,11 @@ menu:
       url: https://github.com/ladyissy
       params:
         icon: brand-github
+    - identifier: linkedin
+      name: LinkedIn
+      url: https://www.linkedin.com/in/yang-cai/
+      params:
+        icon: brand-linkedin
 
 related:
   includeNewer: true

@@ -19,12 +19,12 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
   --accent-color-darker: #2c3e50;
   --accent-color-text: #fff;
   --body-text-color: #f9f6ee;
-
+  
   --tag-border-radius: 4px;
 
   --section-separation: 40px;
 
-  --scrollbar-thumb: hsl(0, 0%, 85%);
+  --scrollbar-thumb: rgba(149,116,187,1);
   --scrollbar-track: var(--body-background);
 
   &[data-scheme="dark"] {

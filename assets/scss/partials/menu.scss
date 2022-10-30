@@ -188,7 +188,12 @@
             display: inline-flex;
             align-items: center;
             color: var(--body-text-color);
+            transition: color 200ms ease-in-out;
+            &:hover {
+                color: var(--accent-color-darker);
+            }
         }
+
 
         span {
             flex: 1;
@@ -201,6 +206,7 @@
             }
         }
     }
+    
 }
 
 .social-menu {

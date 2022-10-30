@@ -5,7 +5,11 @@ date: 2022-10-29
 description: A brief guide to setup data fetching with R2DBC in Kotlin
 math: true
 categories:
-  - kotlin
+  - Kotlin
+  - BackEnd
+tags:
+- R2DBC
+- SpringData
 ---
 
 **[R2DBC](https://r2dbc.io/)** provides a fully-reactive non-blocking API to work with relational database. Most of the tutorials involving R2DBC and Spring data are written in Java, and sometimes it might be hard to find examples on Kotlin. That's why I wrote this tutorial, hoping to provide some persepctives on how to handle data with `Kotlin` & `ReactiveCrudRepository`.
@@ -13,7 +17,7 @@ categories:
 ## Set Up & Configurations
 
 We will skip configurations here for simplicity purpose. In this example, we are using `Flyway` as our database migration tool. Since flyway uses versioned migrations, and each versioned migration must be assigned a unique version -- we are going to first create a sql named `V1_CREATE_NEW_TABLES.sql` under the `db/migration` folder. (See the following naming convention from Flyway)
-![flyway version logic](flyway_version.png)
+![Flyway Versioned Migration](flyway_version.png)
 
 Here is an example of the migration file:
 
