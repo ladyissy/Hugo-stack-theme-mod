@@ -4,14 +4,14 @@ footer.site-footer {
     line-height: 1.75;
     margin-top: var(--section-separation);
 
-    &:before {
-        content: "";
-        display: block;
-        height: 3px;
-        width: 50px;
-        background: var(--body-text-color);
-        margin-bottom: 20px;
-    }
+    // &:before {
+    //     content: "";
+    //     display: block;
+    //     height: 3px;
+    //     width: 50px;
+    //     background: var(--body-text-color);
+    //     margin-bottom: 20px;
+    // }
 
     .copyright {
         color: var(--accent-color);

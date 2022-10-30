@@ -24,7 +24,7 @@
             {{ .Site.Params.footer.since }} -
         {{ end }}
         {{ now.Format "2006" }} <a href="https://ladyissy.vercel.app/">NEW BLOG</a>·<i class="fas fa-bell"></i> <a id="days">0</a>Days<br>
-      {{$var :=  $scratch.Get "total"}}{{$var = div $var 100.0}}{{$var = math.Ceil $var}}{{$var = div $var 10.0}}共书写了{{$var}}k字·共 {{ len (where .Site.RegularPages "Section" "post") }}篇文章</br><span><p>
+      {{$var :=  $scratch.Get "total"}}{{$var = div $var 100.0}}{{$var = math.Ceil $var}}{{$var = div $var 10.0}}Has written {{$var}}k words· Total {{ len (where .Site.RegularPages "Section" "post") }} blogs</br><span><p>
     </section>
 
     <section class="powerby">

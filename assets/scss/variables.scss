@@ -1,4 +1,4 @@
-$defaultTagBackgrounds: #8ea885, #df7988, #0177b8, #ffb900, #6b69d6;
+$defaultTagBackgrounds: #00C9AB, #df7988, #0177b8, #ffb900, #6b69d6;
 $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
 
 /*
@@ -13,16 +13,12 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
     --main-top-padding: 50px;
   }
 
-  --body-background: radial-gradient(
-    circle,
-    rgba(97, 67, 133, 1) 0%,
-    rgba(81, 99, 149, 1) 100%
-  );
+  --body-background: radial-gradient(circle, rgba(97,67,133,1) 0%, rgba(149,116,187,1) 100%);
 
-  --accent-color: #34495e;
+  --accent-color: #00C9AB;
   --accent-color-darker: #2c3e50;
   --accent-color-text: #fff;
-  --body-text-color: #bababa;
+  --body-text-color: #f9f6ee;
 
   --tag-border-radius: 4px;
 
@@ -50,8 +46,8 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
     "Helvetica Neue";
   --zh-font-family: "Noto Serif SC", "Hiragino Sans GB", "Droid Sans Fallback",
     "Microsoft YaHei";
-  --base-font-family: "Noto Serif SC", var(--sys-font-family),
-    var(--zh-font-family), sans-serif;
+  --base-font-family: "Open Sans", var(--sys-font-family), var(--zh-font-family),
+    sans-serif;
   --code-font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
@@ -59,7 +55,7 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
 *   Card style
 */
 :root {
-  --card-background: #fff;
+  --card-background:#FDF7FF;
   --card-background-selected: #eaeaea;
 
   --card-text-color-main: #000;
@@ -99,7 +95,8 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
 *   Article content font settings
 */
 :root {
-  --article-font-family: var(--base-font-family);
+  // --article-font-family: var(--base-font-family);
+  --article-font-family: "Open Sans",--sys-font-family;
   --article-font-size: 1.6rem;
 
   @include respond(md) {
