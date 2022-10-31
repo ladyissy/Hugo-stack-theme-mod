@@ -131,7 +131,7 @@
     flex-grow: 1;
     font-size: 1.4rem;
 
-    background-color: var(--card-background);
+    //background-color: var(--card-background);
     padding: 15px ;
     box-shadow: var(--shadow-l2); //改个阴影
     display: none;
@@ -142,7 +142,7 @@
     &.show {
         display: block;
     }
-
+    
     @include respond(md) {
         align-items: flex-end;
         display: flex;

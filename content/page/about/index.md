@@ -1,13 +1,7 @@
 ---
 title: About
-description: Hugo, the world's fastest framework for building websites
-date: '2019-02-28'
-aliases:
-  - about-us
-  - about-hugo
-  - contact
-license: CC BY-NC-ND
-lastmod: '2020-10-09'
+description: Software Engineer at fintech, loves Rilakkuma
+date: '2022-10-30'
 menu:
     main: 
         weight: -90
@@ -15,20 +9,23 @@ menu:
             icon: user
 ---
 
-Written in Go, Hugo is an open source static site generator available under the [Apache Licence 2.0.](https://github.com/gohugoio/hugo/blob/master/LICENSE) Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
+Currently a software engineer developing mortgage product at **Upstart**.
 
-Hugo makes use of a variety of open source projects including:
+- Tech stack: `React`, `Kotlin`, `Typescript`,`NextJS`,`SpringBoot`
 
-* https://github.com/yuin/goldmark
-* https://github.com/alecthomas/chroma
-* https://github.com/muesli/smartcrop
-* https://github.com/spf13/cobra
-* https://github.com/spf13/viper
+Previously an innovative **Data Scientist** with experience in analytics and success in credit risk management, digitization and customer relationship management.
 
-Hugo is ideal for blogs, corporate websites, creative portfolios, online magazines, single page applications or even a website with thousands of pages.
+- Tech stack: `Python`, `pandas`, `xlwings`, `Excel`, `PowerBI`, `SQLite`
 
-Hugo is for people who want to hand code their own website without worrying about setting up complicated runtimes, dependencies and databases.
+Personally I'm a huge fan of Rilakkuma, especially Korilakkuma.
 
-Websites built with Hugo are extremelly fast, secure and can be deployed anywhere including, AWS, GitHub Pages, Heroku, Netlify and any other hosting provider.
+![](wallpaper.png)
 
-Learn more and contribute on [GitHub](https://github.com/gohugoio).
+##### Attributions
+
+- <a href="https://www.flaticon.com/free-icons/atom" title="atom icons">Atom icons created by Freepik - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/javascript" title="javascript icons">Javascript icons created by Freepik - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/python" title="python icons">Python icons created by Freepik - Flaticon</a>
+- <a href="https://commons.wikimedia.org/wiki/File:Pandas_logo.svg">Marc Garcia</a>, <a href="http://opensource.org/licenses/bsd-license.php">BSD</a>, via Wikimedia Commons
+- <a href="https://www.flaticon.com/free-icons/seo-and-web" title="seo and web icons">Seo and web icons created by Freepik - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/bank" title="bank icons">Bank icons created by Freepik - Flaticon</a>
