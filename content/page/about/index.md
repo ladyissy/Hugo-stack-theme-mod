@@ -9,7 +9,7 @@ menu:
             icon: user
 ---
 
-Currently a software engineer developing mortgage product at **Upstart**.
+Currently a software engineer developing product at **Upstart**.
 
 - Tech stack: `React`, `Kotlin`, `Typescript`,`NextJS`,`SpringBoot`
 
