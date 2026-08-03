@@ -1,0 +1,7 @@
+{
+  "name": "yang-cai-creative-studio",
+  "private": true,
+  "engines": {
+    "node": "24.x"
+  }
+}
