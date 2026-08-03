@@ -1,10 +1,14 @@
 ---
-title: Creative Studio
-description: A quiet record of music, performance, photographs, and works in progress.
+title: Harper's Live Sessions
+description: 音乐、现场、照片，以及那些还没有完全成形的想法。
 ---
 
-An evolving studio archive by Yang Cai — music, photographs, and small unfinished things kept in the open.
+这里记录正在发生的事情：\
+音乐、现场、照片，以及那些还没有完全成形的想法。
 
-The work here moves slowly. A phrase is played until the room answers it. A photograph waits until the light stops performing. Nothing appears because it is finished; it appears because it has become honest.
+Harper's Live Sessions 是一个不断生长中的个人档案。
 
-This is not a showcase. It is a place to leave evidence: practice logs, half-formed pieces, and the shape of an idea before it knows what it is.
+这里保存演出记录、音乐练习、创作过程，以及一些仍在探索中的实验。
+
+有些作品并不是因为完成了才被记录，\
+而是在记录的过程中逐渐找到自己的形状。

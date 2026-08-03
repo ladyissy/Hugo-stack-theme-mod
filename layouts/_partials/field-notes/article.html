@@ -1,0 +1,114 @@
+{{- /*
+  Article mode for a field note — the reading mode of the publication.
+
+  Shared by layouts/field-notes/page.html (the default) and
+  layouts/field-notes/article.html (explicit `layout: article`), so a note
+  gets this treatment unless it opts into `layout: zine`.
+
+  The note's own H1 is dropped from the body: the masthead already sets the
+  title, and a second copy reads as a blog post rather than a printed piece.
+*/ -}}
+
+{{- $page := . -}}
+
+{{/* A stable running number, oldest note first, so a note keeps its number
+     as the archive grows. */}}
+{{- $ordered := sort (where site.RegularPages "Section" "field-notes") "Date" "asc" -}}
+{{- $number := 0 -}}
+{{- range $index, $note := $ordered -}}
+  {{- if eq $note.RelPermalink $page.RelPermalink -}}
+    {{- $number = add $index 1 -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $body := $page.Content | replaceRE `(?s)\A\s*<h1[^>]*>.*?</h1>` "" -}}
+
+<article class="note">
+  <header class="note__masthead">
+    <p class="note__runhead">
+      <span>{{ i18n "eyebrowFieldNotes" }}</span>
+      {{ with $number }}<span class="note__number">NO.&nbsp;{{ printf "%03d" . }}</span>{{ end }}
+    </p>
+
+    <h1 class="note__title">{{ $page.Title }}</h1>
+
+    {{ with $page.Params.subtitle }}
+      <p class="note__subtitle">{{ . }}</p>
+    {{ end }}
+
+    {{ with $page.Params.summary }}
+      <p class="note__deck">{{ . }}</p>
+    {{ end }}
+
+    <dl class="note__meta">
+      {{ if not $page.Date.IsZero }}
+        <div>
+          <dt>{{ i18n "metaDate" }}</dt>
+          <dd>
+            {{- with $page.Params.date_display }}{{ . }}
+            {{- else }}{{ $page.Date.Format (i18n "dateLayout") }}{{ end -}}
+          </dd>
+        </div>
+      {{ end }}
+
+      {{ with $page.Params.location }}
+        <div>
+          <dt>{{ i18n "metaPlace" }}</dt>
+          <dd>
+            {{ with $page.Params.location_zh }}<span>{{ . }}</span>{{ end }}
+            <span>{{ . }}</span>
+          </dd>
+        </div>
+      {{ end }}
+
+      {{ with $page.Params.tags }}
+        <div class="note__meta-keywords">
+          <dt>{{ i18n "metaKeywords" }}</dt>
+          <dd>{{ delimit . " · " }}</dd>
+        </div>
+      {{ end }}
+    </dl>
+  </header>
+
+  <div class="note__body">
+    {{ $body | safeHTML }}
+  </div>
+
+  <footer class="note__colophon">
+    <p class="note__end">
+      <span class="end-mark" aria-hidden="true"></span>
+      <span>{{ i18n "eyebrowFieldNotes" }}{{ with $number }} &middot; NO.&nbsp;{{ printf "%03d" . }}{{ end }}</span>
+    </p>
+
+    {{- $siblings := sort (where site.RegularPages "Section" "field-notes") "Date" "desc" -}}
+    {{- $previous := "" -}}
+    {{- $next := "" -}}
+    {{- range $index, $note := $siblings -}}
+      {{- if eq $note.RelPermalink $page.RelPermalink -}}
+        {{- if gt $index 0 }}{{ $previous = index $siblings (sub $index 1) }}{{ end -}}
+        {{- if lt $index (sub (len $siblings) 1) }}{{ $next = index $siblings (add $index 1) }}{{ end -}}
+      {{- end -}}
+    {{- end -}}
+
+    {{ if or $previous $next }}
+      <nav class="note__continue" aria-label="{{ i18n "eyebrowFieldNotes" }}">
+        {{ with $previous }}
+          <a class="note__continue-link note__continue-link--previous" href="{{ .RelPermalink }}">
+            <span class="note__continue-label">{{ i18n "notePrevious" }}</span>
+            <span class="note__continue-title">{{ .Title }}</span>
+          </a>
+        {{ end }}
+        {{ with $next }}
+          <a class="note__continue-link note__continue-link--next" href="{{ .RelPermalink }}">
+            <span class="note__continue-label">{{ i18n "noteNext" }}</span>
+            <span class="note__continue-title">{{ .Title }}</span>
+          </a>
+        {{ end }}
+      </nav>
+    {{ end }}
+
+    {{ with $page.Parent }}
+      <a class="text-link note__back" href="{{ .RelPermalink }}">{{ .Title }}</a>
+    {{ end }}
+  </footer>
+</article>

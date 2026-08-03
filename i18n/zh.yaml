@@ -4,68 +4,203 @@ languageNavigation:
 translationUnavailable:
   other: 此页暂无对应译文，将前往所选语言的首页。
 
+skipToContent:
+  other: 跳到正文
+
+# —— 封面 ——
 coverRunningHead:
-  other: 工作室档案
+  other: 现场档案
 
 coverEdition:
-  other: 版次
+  other: 编号
 
 coverPlate:
   other: 封面
 
 coverNoteMasthead:
-  other: 工作室是一个房间，不是一座机构。这里的一切都在房间里完成。
+  other: 这里保存演出记录、练习和创作过程，大部分内容仍在进行中。
 
 coverNoteSpine:
-  other: 请慢读。这些页面上没有一件事着急。
+  other: 按时间排列，最近的记录在前。
 
 coverOverleaf:
   other: 接下页
 
 coverStatement:
-  other: 自述
+  other: 关于
+
+coverStatementNote:
+  other: 内容会不定期增补和修改。
 
 coverContents:
   other: 目录
 
 coverContentsNote:
-  other: 页码只是装饰。这本册子没有固定的厚度。
-
-coverStatementNote:
-  other: 以现在时写成，一旦不再属实便重写。
+  other: 编号只用于排序，档案会持续增加。
 
 coverIndex:
-  other: 主题索引
+  other: 索引
 
 coverIndexPending:
-  other: 索引仍在编排中。
+  other: 索引还没有建立。
 
 coverColophon:
-  other: 版权页
+  other: 版本信息
 
-coverSetIn:
+coverColophonType:
   other: 字体
 
-coverSetInValue:
-  other: 正文衬线，注记等宽
+coverColophonTypeValue:
+  other: 衬线正文，等宽注记
 
-coverPaper:
-  other: 纸张
+coverColophonImages:
+  other: 影像
 
-coverPaperValue:
-  other: 暖白胶版，屏幕
+coverColophonImagesValue:
+  other: 35mm 胶片与数码
 
-coverBinding:
-  other: 装订
-
-coverBindingValue:
-  other: 单折，未装订
+coverColophonUpdated:
+  other: 更新
 
 coverImprint:
-  other: 于浏览器印制
+  other: 个人档案
 
 coverAlsoIn:
-  other: 另有版本
+  other: 其他语言
 
 coverEnd:
-  other: 前页部分结束
+  other: 前页结束
+
+# —— 页面与索引 ——
+eyebrowIndex:
+  other: 索引
+
+eyebrowFiledUnder:
+  other: 归类于
+
+eyebrowDocument:
+  other: 文档
+
+eyebrowFieldNote:
+  other: 现场记录
+
+eyebrowFieldNotes:
+  other: 现场记录
+
+eyebrowSelectedWork:
+  other: 作品
+
+eyebrowProject:
+  other: 作品
+
+emptyIndex:
+  other: 这里还没有内容。
+
+projectDetails:
+  other: 作品信息
+
+projectStatus:
+  other: 状态
+
+projectPeriod:
+  other: 时间
+
+projectMedium:
+  other: 媒介
+
+nowFocus:
+  other: 当前重点
+
+nowMaking:
+  other: 正在做
+
+nowPracticing:
+  other: 正在练
+
+nowListening:
+  other: 正在听
+
+nowReading:
+  other: 正在读
+
+notFoundTitle:
+  other: 这个页面不在了。
+
+notFoundBody:
+  other: 内容可能已经移动或删除。
+
+returnHome:
+  other: 回到首页
+
+# —— 图版 ——
+plate:
+  other: 图版
+
+platePending:
+  other: 图片待补
+
+siteTagline:
+  other: 个人档案
+
+metaDate:
+  other: 日期
+
+metaPlace:
+  other: 地点
+
+taxonomyMediums:
+  other: 媒介
+
+taxonomyTopics:
+  other: 主题
+
+taxonomySeries:
+  other: 系列
+
+pageNotFound:
+  other: 页面不存在
+
+dateLayout:
+  other: 2006年1月2日
+
+metaKeywords:
+  other: 关键词
+
+notePrevious:
+  other: 上一篇
+
+noteNext:
+  other: 下一篇
+
+zineLabel:
+  other: 杂志
+
+zineOpen:
+  other: 翻阅
+
+noteReadLabel:
+  other: 阅读
+
+zineReader:
+  other: 杂志阅读
+
+zineClose:
+  other: 关闭
+
+zinePrevious:
+  other: 上一页
+
+zineNext:
+  other: 下一页
+
+zinePagination:
+  other: 翻页
+
+zineHintDesktop:
+  other: ← → 键翻页，或点击左右两侧
+
+zineHintMobile:
+  other: 左右滑动翻页
+
+zineStatusTemplate:
+  other: 第 {range} 页，共 {total} 页

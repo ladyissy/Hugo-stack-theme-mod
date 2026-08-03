@@ -1,0 +1,317 @@
+@layer pages {
+  /* ------------------------------------------------------------------ */
+  /* Zine mode — a bound publication, opened.                            */
+  /*                                                                     */
+  /* The artwork is a finished editorial page. Everything here is the    */
+  /* furniture around it: a table to lie on, a fold down the middle, and */
+  /* a way to turn. Nothing is printed over or under a page.             */
+  /*                                                                     */
+  /* Sizing: each spread carries its true width-to-height ratio as       */
+  /* --spread-ratio (summed from the artwork). The spread is sized from  */
+  /* its height, so it always fits the window at the exact ratio it was  */
+  /* designed at — never cropped, never stretched.                       */
+  /* ------------------------------------------------------------------ */
+
+  .zine {
+    --zine-inline: clamp(1rem, 4vw, 4rem);
+    --zine-height: min(78svh, 54rem);
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+    padding: clamp(1.5rem, 4vh, 3rem) var(--zine-inline)
+      clamp(1.25rem, 3vh, 2.25rem);
+  }
+
+  .zine__reader {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .zine__exit {
+    position: absolute;
+    top: calc(var(--space-2) * -1);
+    right: 0;
+    z-index: 3;
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--color-muted);
+    font-family: var(--font-serif);
+    font-size: var(--step-1);
+    line-height: 1;
+    text-decoration: none;
+    place-items: center;
+  }
+
+  .zine__exit:hover {
+    color: var(--color-ink);
+  }
+
+  /* ---- The open book ----------------------------------------------- */
+
+  .zine__stage {
+    display: grid;
+    place-items: center;
+    width: 100%;
+  }
+
+  .zine__spread {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    /* Height-led: width follows the artwork's own ratio, and the whole
+       spread shrinks to fit a narrow window rather than overflowing it. */
+    width: min(100%, calc(var(--zine-height) * var(--spread-ratio)));
+    aspect-ratio: var(--spread-ratio);
+    margin-inline: auto;
+    background: var(--color-paper-deep);
+    box-shadow:
+      0 0.15rem 0.5rem rgba(23, 25, 21, 0.08),
+      0 1.5rem 4rem rgba(23, 25, 21, 0.18);
+  }
+
+  .zine__spread[hidden] {
+    display: none;
+  }
+
+  /* Without the script every spread is simply stacked and scrolled. */
+  .zine__reader:not([data-enhanced]) .zine__stage {
+    gap: var(--space-8);
+    padding-block: var(--space-6);
+  }
+
+  .zine__reader[data-enhanced] .zine__stage {
+    min-height: var(--zine-height);
+    cursor: pointer;
+  }
+
+  .zine__page {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .zine__page img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  /* The gutter. A printed spread darkens where the paper curves into the
+     binding — it is what makes two pages read as one open book. */
+  .zine__spread--spread::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    z-index: 2;
+    width: clamp(1.5rem, 4%, 3.5rem);
+    background: linear-gradient(
+      to right,
+      rgba(23, 25, 21, 0) 0%,
+      rgba(23, 25, 21, 0.16) 42%,
+      rgba(23, 25, 21, 0.24) 50%,
+      rgba(23, 25, 21, 0.16) 58%,
+      rgba(23, 25, 21, 0) 100%
+    );
+    pointer-events: none;
+    translate: -50% 0;
+  }
+
+  .zine__pending {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border: 1px dashed var(--color-rule);
+  }
+
+  /* ---- Turning ------------------------------------------------------ */
+
+  .zine__spread.is-turning-forward {
+    animation: zine-turn-forward 340ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+
+  .zine__spread.is-turning-back {
+    animation: zine-turn-back 340ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+
+  @keyframes zine-turn-forward {
+    from {
+      opacity: 0;
+      transform: translateX(1.1rem) scale(0.994);
+    }
+
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes zine-turn-back {
+    from {
+      opacity: 0;
+      transform: translateX(-1.1rem) scale(0.994);
+    }
+
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* ---- Controls ----------------------------------------------------- */
+
+  .zine__controls {
+    display: none;
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--space-4);
+    align-items: center;
+    width: min(100%, 44rem);
+    margin: var(--space-5) auto 0;
+  }
+
+  .zine__reader[data-enhanced] .zine__controls {
+    display: grid;
+  }
+
+  .zine__control {
+    display: inline-flex;
+    gap: var(--space-2);
+    align-items: center;
+    width: fit-content;
+    padding: var(--space-2) 0;
+    color: var(--color-ink-soft);
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    cursor: pointer;
+  }
+
+  .zine__control:hover:not(:disabled) {
+    color: var(--color-ink);
+    border-bottom-color: var(--color-accent);
+  }
+
+  .zine__control:disabled {
+    cursor: default;
+    opacity: 0.3;
+  }
+
+  .zine__control--previous {
+    justify-self: start;
+  }
+
+  .zine__control--next {
+    justify-self: end;
+  }
+
+  .zine__counter {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+    margin: 0;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+  }
+
+  .zine__counter-rule {
+    width: 2rem;
+    height: 1px;
+    background: var(--color-rule);
+  }
+
+  .zine__hint {
+    display: none;
+    margin: var(--space-4) 0 0;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .zine__reader[data-enhanced] .zine__hint {
+    display: block;
+  }
+
+  .zine__hint--touch {
+    display: none;
+  }
+
+  /* ---- Narrow screens: one page at a time --------------------------- */
+
+  @media (max-width: 48rem) {
+    .zine {
+      --zine-height: min(72svh, 40rem);
+      --zine-inline: var(--space-3);
+    }
+
+    /* A spread does not fit a phone, so the fold is dropped and the two
+       pages are stacked — the same reading order, one page deep. */
+    .zine__spread {
+      width: 100%;
+      aspect-ratio: auto;
+      flex-direction: column;
+      gap: var(--space-3);
+      background: none;
+      box-shadow: none;
+    }
+
+    .zine__spread--spread::after {
+      display: none;
+    }
+
+    .zine__page {
+      box-shadow: 0 0.75rem 2rem rgba(23, 25, 21, 0.16);
+    }
+
+    .zine__page img {
+      height: auto;
+    }
+
+    .zine__reader[data-enhanced] .zine__stage {
+      min-height: 0;
+      max-height: 78svh;
+      overflow-y: auto;
+      overscroll-behavior-y: contain;
+    }
+
+    .zine__hint--pointer {
+      display: none;
+    }
+
+    .zine__hint--touch {
+      display: inline;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .zine__spread.is-turning-forward,
+    .zine__spread.is-turning-back {
+      animation: none;
+    }
+  }
+}

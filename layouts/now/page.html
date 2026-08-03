@@ -12,31 +12,31 @@
     <div class="now-ledger">
       {{ with .Params.focus }}
         <section>
-          <h2>Focus</h2>
+          <h2>{{ i18n "nowFocus" }}</h2>
           <p>{{ . }}</p>
         </section>
       {{ end }}
       {{ with .Params.making }}
         <section>
-          <h2>Making</h2>
+          <h2>{{ i18n "nowMaking" }}</h2>
           <ul>{{ range . }}<li>{{ . }}</li>{{ end }}</ul>
         </section>
       {{ end }}
       {{ with .Params.practicing }}
         <section>
-          <h2>Practicing</h2>
+          <h2>{{ i18n "nowPracticing" }}</h2>
           <ul>{{ range . }}<li>{{ . }}</li>{{ end }}</ul>
         </section>
       {{ end }}
       {{ with .Params.listening }}
         <section>
-          <h2>Listening</h2>
+          <h2>{{ i18n "nowListening" }}</h2>
           <ul>{{ range . }}<li>{{ . }}</li>{{ end }}</ul>
         </section>
       {{ end }}
       {{ with .Params.reading }}
         <section>
-          <h2>Reading</h2>
+          <h2>{{ i18n "nowReading" }}</h2>
           <ul>{{ range . }}<li>{{ . }}</li>{{ end }}</ul>
         </section>
       {{ end }}

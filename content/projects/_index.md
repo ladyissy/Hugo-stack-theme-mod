@@ -1,7 +1,6 @@
 ---
-title: Projects
-description: Music, performances, experiments, and longer creative inquiries.
+title: 作品
+description: 正在进行和已经告一段落的创作。
 ---
 
-Selected works and works in progress.
-
+有些还在做，有些停在了某个阶段。

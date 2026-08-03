@@ -1,7 +1,6 @@
 ---
-title: Field Notes
-description: Practice logs, listening fragments, travel diaries, and notes from the creative process.
+title: 现场记录
+description: 演出、练习、旅途中的观察，以及创作过程里的片段。
 ---
 
-Notes kept close to the moment they were made.
-
+大部分是当时随手记下的，没有整理成完整的文章。

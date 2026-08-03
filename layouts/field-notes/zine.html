@@ -1,0 +1,25 @@
+{{/* Zine mode. The artwork is already a finished publication, so the page
+     gives it a room to be read in and nothing else: no site chrome, no
+     titles, no captions layered over pages that already carry their own. */}}
+
+{{ define "head" }}
+  {{- with resources.Get "js/zine-viewer.js" -}}
+    {{- $script := . | minify | fingerprint -}}
+    <script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}" defer></script>
+  {{- end -}}
+{{ end }}
+
+{{ define "site-header" }}<!-- zine mode: the reader replaces the site chrome -->{{ end }}
+{{ define "site-footer" }}<!-- zine mode: see the exit control in the reader -->{{ end }}
+
+{{ define "main" }}
+  <div class="zine">
+    {{/* The only text the reader adds. It names the publication for
+         assistive technology without printing a second title on screen. */}}
+    <h1 class="visually-hidden">
+      {{ .Title }}{{ with .Params.subtitle }} — {{ . }}{{ end }}
+    </h1>
+
+    {{ partial "zine/viewer.html" . }}
+  </div>
+{{ end }}

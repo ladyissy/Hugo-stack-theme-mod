@@ -1,19 +1,4 @@
+{{/* Default mode for a field note. A note opts out with `layout: zine`. */}}
 {{ define "main" }}
-  <article class="page-shell note-page">
-    <header class="page-header">
-      <p class="eyebrow">
-        {{ with .Params.note_type }}{{ . | humanize }}{{ else }}Field note{{ end }}
-      </p>
-      <h1>{{ .Title }}</h1>
-      {{ with .Params.summary }}
-        <p class="page-deck">{{ . }}</p>
-      {{ end }}
-      {{ partial "content/meta.html" . }}
-    </header>
-
-    <div class="prose">
-      {{ .Content }}
-    </div>
-  </article>
+  {{ partial "field-notes/article.html" . }}
 {{ end }}
-

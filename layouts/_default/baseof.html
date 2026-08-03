@@ -8,7 +8,7 @@
     {{ block "head" . }}{{ end }}
   </head>
   <body class="site kind-{{ .Kind }}{{ with .Section }} section-{{ . | urlize }}{{ end }}">
-    <a class="skip-link" href="#main-content">Skip to content</a>
+    <a class="skip-link" href="#main-content">{{ i18n "skipToContent" }}</a>
     {{ block "site-header" . }}{{ partial "site/header.html" . }}{{ end }}
 
     <main id="main-content">

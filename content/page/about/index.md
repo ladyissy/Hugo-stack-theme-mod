@@ -3,7 +3,8 @@ title: About
 description: Software Engineer at fintech, loves Rilakkuma
 date: '2022-10-30'
 menu:
-    main: 
+    main:
+        name: 关于
         weight: -90
         params:
             icon: user

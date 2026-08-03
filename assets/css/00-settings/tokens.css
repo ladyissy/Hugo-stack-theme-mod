@@ -9,11 +9,21 @@
     --color-accent: #9b432f;
     --color-moss: #626b55;
 
-    --font-serif: "Iowan Old Style", "Palatino Linotype", "Yu Mincho",
-      "Hiragino Mincho ProN", "Noto Serif CJK JP", Georgia, serif;
-    --font-sans: "Helvetica Neue", "Hiragino Sans", "Yu Gothic",
-      "Noto Sans CJK JP", Arial, sans-serif;
-    --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    /* Latin faces come first so Latin text keeps its own typeface; the CJK
+       face that follows is what every Han character resolves to.
+       That CJK face MUST be a Simplified Chinese one. Japanese faces
+       (Hiragino Mincho ProN, Yu Mincho, Noto Serif CJK JP) have no glyph for
+       PRC-simplified forms — 乐 现 场 记 录 — so with those listed first a
+       word like 音乐 gets 音 from the Japanese face and 乐 from whatever the
+       browser falls back to, ~9% of an em apart in ascent. Keep SC ahead of
+       JP here or that misalignment comes straight back. */
+    --font-serif: "Iowan Old Style", "Palatino Linotype", Georgia, "Songti SC",
+      "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong,
+      SimSun, serif;
+    --font-sans: "Helvetica Neue", Arial, "PingFang SC", "Noto Sans SC",
+      "Source Han Sans SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", "PingFang SC",
+      "Noto Sans SC", monospace;
 
     --step--1: clamp(0.78rem, 0.74rem + 0.15vw, 0.86rem);
     --step-0: clamp(1rem, 0.95rem + 0.2vw, 1.12rem);

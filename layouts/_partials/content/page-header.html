@@ -1,6 +1,6 @@
 <header class="page-header">
   <p class="eyebrow">
-    {{ with .Section }}{{ . | humanize }}{{ else }}Studio document{{ end }}
+    {{ with .Section }}{{ . | humanize }}{{ else }}{{ i18n "eyebrowDocument" }}{{ end }}
   </p>
   <h1>{{ .Title }}</h1>
   {{ with .Params.summary }}

@@ -1,0 +1,52 @@
+{{- /*
+  One printed page of a zine. The artwork is a finished editorial page, so
+  nothing is drawn on top of it and nothing is written beneath it — its own
+  ratio is preserved and it is left alone.
+
+  @param {page}   page      The zine page, for its bundled resources.
+  @param {map}    plate     One entry from sections[].plates.
+  @param {int}    number    1-based page number, for the reader's counter.
+  @param {string} side      "verso" (left) or "recto" (right).
+  @param {bool}   priority  Load eagerly — used for the opening spread.
+*/ -}}
+
+{{- $page := .page -}}
+{{- $plate := .plate -}}
+{{- $number := .number -}}
+{{- $side := .side | default "recto" -}}
+{{- $priority := .priority | default false -}}
+{{- $res := $page.Resources.GetMatch (printf "%s.*" $plate.id) -}}
+
+<div
+  class="zine__page zine__page--{{ $side }}"
+  data-zine-page="{{ $number }}"
+  {{- with $res }}{{ if eq .ResourceType "image" }} style="--page-ratio: {{ .Width }} / {{ .Height }}"{{ end }}{{ end -}}
+>
+  {{- if and $res (eq $res.ResourceType "image") -}}
+    {{- $srcset := slice -}}
+    {{- range (slice 700 1000 1400) -}}
+      {{- if gt $res.Width . -}}
+        {{- $r := $res.Resize (printf "%dx webp q86" .) -}}
+        {{- $srcset = $srcset | append (printf "%s %dw" $r.RelPermalink .) -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $srcset = $srcset | append (printf "%s %dw" $res.RelPermalink $res.Width) -}}
+    <img
+      src="{{ $res.RelPermalink }}"
+      srcset="{{ delimit $srcset ", " }}"
+      sizes="(max-width: 48rem) 92vw, 46vw"
+      width="{{ $res.Width }}"
+      height="{{ $res.Height }}"
+      alt="{{ with $plate.alt }}{{ . }}{{ else }}{{ i18n "plate" }} {{ $number }}{{ end }}"
+      loading="{{ if $priority }}eager{{ else }}lazy{{ end }}"
+      {{- if $priority }} fetchpriority="high"{{ end }}
+      decoding="async"
+      draggable="false"
+    >
+  {{- else -}}
+    <div class="zine__pending">
+      <span>{{ printf "%02d" $number }}</span>
+      <span>{{ i18n "platePending" }}</span>
+    </div>
+  {{- end -}}
+</div>

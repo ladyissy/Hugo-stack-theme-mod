@@ -4,8 +4,12 @@ languageNavigation:
 translationUnavailable:
   other: This page is not available in the selected language; opening its home page.
 
+skipToContent:
+  other: Skip to content
+
+# —— Cover ——
 coverRunningHead:
-  other: Studio Archive
+  other: Live Sessions Archive
 
 coverEdition:
   other: Edition
@@ -14,58 +18,189 @@ coverPlate:
   other: Cover
 
 coverNoteMasthead:
-  other: A studio is a room, not an institution. Everything here was made inside one.
+  other: Recordings, practice notes and work in progress. Most of it is unfinished.
 
 coverNoteSpine:
-  other: Read slowly. Nothing on these pages is in a hurry.
+  other: Ordered by date. The most recent entries come first.
 
 coverOverleaf:
   other: Continues overleaf
 
 coverStatement:
-  other: Statement
+  other: About
+
+coverStatementNote:
+  other: Added to and revised from time to time.
 
 coverContents:
   other: Contents
 
 coverContentsNote:
-  other: Folios are decorative. The book has no fixed length.
-
-coverStatementNote:
-  other: Written in the present tense and revised whenever it stops being true.
+  other: Numbering is for ordering only. The archive keeps growing.
 
 coverIndex:
-  other: Subject Index
+  other: Index
 
 coverIndexPending:
-  other: The index is still being set.
+  other: The index has not been built yet.
 
 coverColophon:
   other: Colophon
 
-coverSetIn:
-  other: Set in
+coverColophonType:
+  other: Type
 
-coverSetInValue:
-  other: House serif, mono annotations
+coverColophonTypeValue:
+  other: Serif text, mono annotations
 
-coverPaper:
-  other: Stock
+coverColophonImages:
+  other: Images
 
-coverPaperValue:
-  other: Uncoated warm white, screen
+coverColophonImagesValue:
+  other: 35mm film and digital
 
-coverBinding:
-  other: Binding
-
-coverBindingValue:
-  other: Single fold, unbound
+coverColophonUpdated:
+  other: Updated
 
 coverImprint:
-  other: Printed in a browser
+  other: Personal archive
 
 coverAlsoIn:
-  other: Also set in
+  other: Also in
 
 coverEnd:
   other: End of front matter
+
+# —— Pages and indexes ——
+eyebrowIndex:
+  other: Index
+
+eyebrowFiledUnder:
+  other: Filed under
+
+eyebrowDocument:
+  other: Document
+
+eyebrowFieldNote:
+  other: Field note
+
+eyebrowFieldNotes:
+  other: Field notes
+
+eyebrowSelectedWork:
+  other: Selected work
+
+eyebrowProject:
+  other: Project
+
+emptyIndex:
+  other: Nothing has been filed here yet.
+
+projectDetails:
+  other: Project details
+
+projectStatus:
+  other: Status
+
+projectPeriod:
+  other: Period
+
+projectMedium:
+  other: Medium
+
+nowFocus:
+  other: Focus
+
+nowMaking:
+  other: Making
+
+nowPracticing:
+  other: Practicing
+
+nowListening:
+  other: Listening
+
+nowReading:
+  other: Reading
+
+notFoundTitle:
+  other: This page is gone.
+
+notFoundBody:
+  other: It may have moved or been removed.
+
+returnHome:
+  other: Back to home
+
+# —— Plates ——
+plate:
+  other: Plate
+
+platePending:
+  other: Image pending
+
+siteTagline:
+  other: Personal archive
+
+metaDate:
+  other: Date
+
+metaPlace:
+  other: Place
+
+taxonomyMediums:
+  other: Mediums
+
+taxonomyTopics:
+  other: Topics
+
+taxonomySeries:
+  other: Series
+
+pageNotFound:
+  other: Page not found
+
+dateLayout:
+  other: 2 January 2006
+
+metaKeywords:
+  other: Keywords
+
+notePrevious:
+  other: Previous
+
+noteNext:
+  other: Next
+
+zineLabel:
+  other: Zine
+
+zineOpen:
+  other: Read
+
+noteReadLabel:
+  other: Read
+
+zineReader:
+  other: Zine reader
+
+zineClose:
+  other: Close
+
+zinePrevious:
+  other: Previous
+
+zineNext:
+  other: Next
+
+zinePagination:
+  other: Turn pages
+
+zineHintDesktop:
+  other: Arrow keys, or click either side
+
+zineHintMobile:
+  other: Swipe to turn
+
+zineStatusTemplate:
+  other: Page {range} of {total}

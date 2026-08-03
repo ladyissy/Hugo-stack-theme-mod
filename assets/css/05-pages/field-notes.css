@@ -1,0 +1,496 @@
+@layer pages {
+  /* ------------------------------------------------------------------ */
+  /* Field Notes — article mode.                                         */
+  /*                                                                     */
+  /* Set as a piece in a publication, not as a web article: a folio line */
+  /* above the title, section numbers hanging in the margin, quotes that */
+  /* break the measure, and a colophon at the foot. Same tokens, grid    */
+  /* and rules as the rest of the archive.                               */
+  /* ------------------------------------------------------------------ */
+
+  .note {
+    --note-margin: 3.75rem;
+
+    width: min(100%, var(--site-max));
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    padding-top: clamp(4rem, 9vw, 8rem);
+    padding-bottom: var(--space-8);
+  }
+
+  /* ---- Masthead ---------------------------------------------------- */
+
+  .note__masthead {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(1rem, 2.2vw, 2.5rem);
+    padding-bottom: var(--space-7);
+    border-bottom: var(--hairline);
+  }
+
+  /* The folio line: section on the left, running number on the right,
+     ruled off like the head of a printed page. */
+  .note__runhead {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: var(--space-4);
+    justify-content: space-between;
+    margin: 0 0 var(--space-6);
+    padding-bottom: var(--space-2);
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .note__number {
+    color: var(--color-accent);
+  }
+
+  .note__title {
+    grid-column: 2 / span 9;
+    max-width: 20ch;
+    font-size: var(--step-3);
+    line-height: 1.14;
+    letter-spacing: -0.02em;
+  }
+
+  .note__subtitle {
+    grid-column: 2 / span 8;
+    margin-top: var(--space-4);
+    color: var(--color-ink-soft);
+    font-family: var(--font-serif);
+    font-size: var(--step-1);
+    letter-spacing: 0.03em;
+  }
+
+  /* Standfirst — the one line that tells you why the piece exists. */
+  .note__deck {
+    grid-column: 2 / span 7;
+    max-width: 42ch;
+    margin-top: var(--space-5);
+    color: var(--color-ink-soft);
+    font-family: var(--font-serif);
+    font-size: var(--step-1);
+    font-style: italic;
+    line-height: 1.55;
+  }
+
+  .note__meta {
+    grid-column: 2 / span 9;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-7);
+    margin: var(--space-6) 0 0;
+  }
+
+  .note__meta dt {
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .note__meta dd {
+    margin: var(--space-2) 0 0;
+    color: var(--color-ink-soft);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    line-height: 1.7;
+  }
+
+  .note__meta dd span {
+    display: block;
+  }
+
+  .note__meta-keywords dd {
+    max-width: 32rem;
+  }
+
+  /* ---- Body -------------------------------------------------------- */
+
+  .note__body {
+    max-width: var(--reading-max);
+    margin-top: var(--space-8);
+    margin-left: calc((100% - var(--reading-max)) * 0.26);
+    counter-reset: note-section;
+    font-family: var(--font-serif);
+    font-size: var(--step-0);
+    line-height: 1.9;
+  }
+
+  /* Paragraphs are separated by space, not by a first-line indent — these
+     notes are written a sentence to a paragraph, and indenting every one of
+     them reads as noise. The gap has to be wider than the line gap above,
+     or consecutive paragraphs merge into a single block of text.
+
+     Both rules are element-agnostic and equally specific, so the sibling
+     gap wins on source order. Setting `margin: 0` on `p` instead would
+     out-specify this and collapse the rhythm. */
+  .note__body > * {
+    margin: 0;
+  }
+
+  .note__body > * + * {
+    margin-top: 2.1em;
+  }
+
+  .note__body p {
+    hanging-punctuation: first last;
+  }
+
+  /* Opening paragraph, set a step up as a standfirst. */
+  .note__body > p:first-of-type {
+    color: var(--color-ink);
+    font-size: var(--step-1);
+    line-height: 1.7;
+  }
+
+  /* Section headings carry a hanging number in the margin — the device
+     that most separates a publication from a blog. */
+  .note__body h2 {
+    display: grid;
+    grid-template-columns: var(--note-margin) minmax(0, 1fr);
+    align-items: baseline;
+    margin-top: var(--space-8);
+    margin-left: calc(var(--note-margin) * -1);
+    padding-top: var(--space-4);
+    font-size: var(--step-2);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    counter-increment: note-section;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .note__body h2::before {
+    content: counter(note-section, decimal-leading-zero);
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+  }
+
+  .note__body h3 {
+    margin-top: var(--space-6);
+    font-size: var(--step-1);
+  }
+
+  /* Pull quote: breaks the measure and drops the document-style rule. */
+  .note__body blockquote {
+    margin: var(--space-7) 0 var(--space-7) calc(var(--note-margin) * -1);
+    padding: var(--space-4) 0;
+    color: var(--color-ink);
+    font-size: var(--step-2);
+    font-style: italic;
+    line-height: 1.4;
+    text-indent: 0;
+    border-top: 1px solid var(--color-accent);
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .note__body blockquote p {
+    text-indent: 0;
+  }
+
+  .note__body ul,
+  .note__body ol {
+    padding-left: 1.4em;
+  }
+
+  .note__body li + li {
+    margin-top: 0.5em;
+  }
+
+  .note__body hr {
+    width: 4rem;
+    margin: var(--space-7) 0;
+    border: 0;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .note__body a {
+    text-underline-offset: 0.2em;
+  }
+
+  .note__body code {
+    font-family: var(--font-mono);
+    font-size: 0.84em;
+  }
+
+  .note__body pre {
+    padding: var(--space-4);
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-indent: 0;
+    background: var(--color-paper-deep);
+  }
+
+  /* Images break out of the measure into the margin, like a plate. */
+  .note__body .prose-figure {
+    margin: var(--space-7) 0 var(--space-7) calc(var(--note-margin) * -1);
+  }
+
+  .note__body .prose-figure img {
+    width: 100%;
+    height: auto;
+  }
+
+  .note__body .prose-figure figcaption {
+    margin-top: var(--space-3);
+    padding-top: var(--space-2);
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.06em;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  /* ---- Colophon ---------------------------------------------------- */
+
+  .note__colophon {
+    max-width: var(--reading-max);
+    margin-top: var(--space-8);
+    margin-left: calc((100% - var(--reading-max)) * 0.26);
+  }
+
+  .note__end {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+    margin: 0;
+    padding-top: var(--space-5);
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-top: var(--hairline);
+  }
+
+  .note__continue {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5);
+    margin-top: var(--space-7);
+  }
+
+  .note__continue-link {
+    display: grid;
+    gap: var(--space-2);
+    padding-top: var(--space-3);
+    text-decoration: none;
+    border-top: 1px solid var(--color-rule);
+    transition: border-color 200ms ease;
+  }
+
+  .note__continue-link--next {
+    text-align: right;
+  }
+
+  .note__continue-link:only-child {
+    grid-column: 1;
+  }
+
+  .note__continue-label {
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .note__continue-title {
+    font-family: var(--font-serif);
+    font-size: var(--step-0);
+    line-height: 1.35;
+  }
+
+  .note__continue-link:hover {
+    border-top-color: var(--color-accent);
+  }
+
+  .note__continue-link:hover .note__continue-title {
+    color: var(--color-accent);
+  }
+
+  .note__back {
+    margin-top: var(--space-6);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Field Notes index — a contents page, not a feed.                    */
+  /* ------------------------------------------------------------------ */
+
+  .notes-index__list {
+    margin: var(--space-8) 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: var(--hairline);
+  }
+
+  .notes-entry {
+    border-bottom: var(--hairline);
+  }
+
+  .notes-entry__link {
+    display: grid;
+    grid-template-columns: 4.5rem minmax(0, 1fr) minmax(0, 14rem);
+    column-gap: clamp(1rem, 2.2vw, 2.5rem);
+    align-items: start;
+    padding-block: var(--space-5);
+    text-decoration: none;
+    transition: padding-inline-start 220ms ease;
+  }
+
+  .notes-entry__number {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    line-height: 2.4;
+  }
+
+  .notes-entry__title {
+    max-width: 34ch;
+    font-family: var(--font-serif);
+    font-size: var(--step-2);
+    line-height: 1.22;
+    letter-spacing: -0.01em;
+  }
+
+  .notes-entry__subtitle {
+    margin-top: var(--space-2);
+    color: var(--color-ink-soft);
+    font-family: var(--font-serif);
+    font-size: var(--step-0);
+    font-style: italic;
+  }
+
+  .notes-entry__summary {
+    max-width: 46ch;
+    margin-top: var(--space-3);
+    color: var(--color-ink-soft);
+    font-size: 0.94rem;
+    line-height: 1.7;
+  }
+
+  .notes-entry__aside {
+    display: grid;
+    gap: var(--space-2);
+    justify-items: end;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.12em;
+    text-align: right;
+  }
+
+  /* A zine entry is flagged, because it opens into a different thing.
+     An article is the norm, so its marker stays quiet. */
+  .notes-entry__mode {
+    padding: 0.15rem 0.5rem;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    border: 1px solid var(--color-rule);
+  }
+
+  .notes-entry--zine .notes-entry__mode {
+    color: var(--color-paper);
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .notes-entry__keywords {
+    max-width: 14rem;
+    color: var(--color-muted);
+    line-height: 1.8;
+  }
+
+  .notes-entry__link:hover {
+    padding-inline-start: var(--space-3);
+  }
+
+  .notes-entry__link:hover .notes-entry__title {
+    color: var(--color-accent);
+  }
+
+  .notes-entry__link:focus-visible {
+    outline: 1px solid var(--color-accent);
+    outline-offset: 0.35rem;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Single column                                                       */
+  /* ------------------------------------------------------------------ */
+
+  @media (max-width: 48rem) {
+    .note {
+      --note-margin: 0rem;
+    }
+
+    .note__masthead {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .note__runhead,
+    .note__title,
+    .note__subtitle,
+    .note__deck,
+    .note__meta {
+      grid-column: 1;
+      max-width: none;
+    }
+
+    .note__body,
+    .note__colophon {
+      margin-left: 0;
+    }
+
+    /* The hanging number moves above its heading. */
+    .note__body h2 {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2);
+    }
+
+    .note__body blockquote,
+    .note__body .prose-figure {
+      margin-left: 0;
+    }
+
+    .notes-entry__link {
+      grid-template-columns: 3rem minmax(0, 1fr);
+      row-gap: var(--space-3);
+    }
+
+    .notes-entry__aside {
+      grid-column: 2;
+      justify-items: start;
+      text-align: left;
+    }
+
+    .note__continue {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .note__continue-link--next {
+      text-align: left;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .notes-entry__link,
+    .note__continue-link {
+      transition: none;
+    }
+
+    .notes-entry__link:hover {
+      padding-inline-start: 0;
+    }
+  }
+}

@@ -5,6 +5,8 @@
 <title>
   {{- if .IsHome -}}
     {{ site.Title }}
+  {{- else if eq .Kind "404" -}}
+    {{ i18n "pageNotFound" }} — {{ site.Title }}
   {{- else -}}
     {{ .Title }} — {{ site.Title }}
   {{- end -}}
@@ -23,7 +25,8 @@
   <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ site.Title }}">
 {{ end }}
 
-<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+{{- $isFolio := eq (.Params.presentation | default "") "folio" -}}
+<meta property="og:type" content="{{ if and .IsPage (not $isFolio) }}article{{ else }}website{{ end }}">
 <meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}">
 <meta property="og:description" content="{{ $description | plainify }}">
 <meta property="og:url" content="{{ .Permalink }}">

@@ -45,7 +45,11 @@
 
         <span class="numeral" aria-hidden="true">01</span>
 
-        <h1 class="masthead" id="masthead" style="--masthead-chars: {{ $longest }}">
+        <h1
+          class="masthead"
+          id="masthead"
+          style="--masthead-chars: {{ $longest }}; --masthead-lines: {{ len $words }}"
+        >
           {{- range $i, $word := $words }}
             {{- /* The reference mark rides on the last word so it cannot wrap
                    onto a line of its own. */ -}}
@@ -138,6 +142,14 @@
         <div class="subject-index">
           <h2 class="subject-index__title" id="index-title">{{ i18n "coverIndex" }}</h2>
 
+          {{/* Translated headings for the taxonomies; anything not listed
+               falls back to its humanised plural. */}}
+          {{- $taxonomyLabels := dict
+            "mediums" (i18n "taxonomyMediums")
+            "topics" (i18n "taxonomyTopics")
+            "series" (i18n "taxonomySeries")
+          -}}
+
           {{- $printed := false }}
           <dl class="subject-index__body">
             {{- range $plural, $taxonomy := site.Taxonomies }}
@@ -145,10 +157,11 @@
                 {{- with .Pages }}
                   {{- $printed = true }}
                   <div class="subject-index__set">
-                    <dt>{{ $plural | humanize }}</dt>
+                    <dt>{{ index $taxonomyLabels $plural | default ($plural | humanize) }}</dt>
                     <dd>
                       {{- range . }}
-                        <a href="{{ .RelPermalink }}">{{ .LinkTitle | humanize }}</a><span
+                        {{/* No humanize: term names keep the casing they were filed under. */}}
+                        <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a><span
                           class="subject-index__count"
                           aria-hidden="true"
                           >{{ len .Pages }}</span
@@ -171,16 +184,16 @@
 
           <dl class="colophon__body">
             <div>
-              <dt>{{ i18n "coverSetIn" }}</dt>
-              <dd>{{ i18n "coverSetInValue" }}</dd>
+              <dt>{{ i18n "coverColophonType" }}</dt>
+              <dd>{{ i18n "coverColophonTypeValue" }}</dd>
             </div>
             <div>
-              <dt>{{ i18n "coverPaper" }}</dt>
-              <dd>{{ i18n "coverPaperValue" }}</dd>
+              <dt>{{ i18n "coverColophonImages" }}</dt>
+              <dd>{{ i18n "coverColophonImagesValue" }}</dd>
             </div>
             <div>
-              <dt>{{ i18n "coverBinding" }}</dt>
-              <dd>{{ i18n "coverBindingValue" }}</dd>
+              <dt>{{ i18n "coverColophonUpdated" }}</dt>
+              <dd>{{ site.Lastmod.Format "2006.01" }}</dd>
             </div>
           </dl>
 

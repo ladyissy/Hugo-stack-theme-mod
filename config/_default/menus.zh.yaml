@@ -4,7 +4,7 @@ main:
     pageRef: /projects
     weight: 10
   - identifier: field-notes
-    name: 随记
+    name: 现场记录
     pageRef: /field-notes
     weight: 20
   - identifier: now

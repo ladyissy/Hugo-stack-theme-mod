@@ -1,10 +1,14 @@
 ---
-title: Creative Studio
-description: A quiet record of music, performance, photographs, and works in progress.
+title: Harper's Live Sessions
+description: Music, live shows, photographs, and ideas that have not settled yet.
 ---
 
-An evolving studio archive by Yang Cai — music, photographs, and small unfinished things kept in the open.
+A record of what is happening now:\
+music, live shows, photographs, and ideas that have not settled yet.
 
-The work here moves slowly. A phrase is played until the room answers it. A photograph waits until the light stops performing. Nothing appears because it is finished; it appears because it has become honest.
+Harper's Live Sessions is a personal archive that keeps growing.
 
-This is not a showcase. It is a place to leave evidence: practice logs, half-formed pieces, and the shape of an idea before it knows what it is.
+It holds show notes, practice sessions, working process, and experiments that are still open.
+
+Some of this is not filed because it was finished,\
+but because keeping the record is how it found its shape.

@@ -1,8 +1,8 @@
 <header class="site-header">
   <div class="site-header__inner">
     <a class="site-mark" href="{{ site.Home.RelPermalink }}" aria-label="{{ site.Title }}, home">
-      <span class="site-mark__name">{{ site.Params.identity.name | default site.Title }}</span>
-      <span class="site-mark__label">{{ site.Params.identity.label | default "Studio" }}</span>
+      <span class="site-mark__name">{{ site.Params.identity.label | default site.Title }}</span>
+      <span class="site-mark__label">{{ i18n "siteTagline" }}</span>
     </a>
 
     <div class="site-header__navigation">

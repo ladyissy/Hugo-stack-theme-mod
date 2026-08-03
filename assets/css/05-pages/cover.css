@@ -226,10 +226,11 @@
   }
 
   /* Vertical text set along the fold, the way a title runs down a spine.
-     It sits below the masthead, in the quiet half of the sheet. */
+     Anchored to the foot rather than a percentage, so it stays clear of the
+     masthead however many lines the title takes. */
   .spine {
     position: absolute;
-    top: 62%;
+    bottom: calc(var(--foot) + 3rem);
     left: var(--fold-pos);
     z-index: 1;
     margin: 0;
@@ -327,7 +328,10 @@
     font-size: min(
       var(--masthead-ceiling, 13.5vw),
       13rem,
-      calc((100vw - 2 * var(--trim-inline)) / (var(--masthead-chars, 8) * 0.78))
+      calc((100vw - 2 * var(--trim-inline)) / (var(--masthead-chars, 8) * 0.78)),
+      /* …and the size at which every stacked word still fits its rows, so a
+         three-word title does not run into the lede below it. */
+        calc(44svh / (var(--masthead-lines, 2) * 0.86))
     );
     font-weight: 400;
     line-height: 0.78;
@@ -398,6 +402,15 @@
     hanging-punctuation: first last;
   }
 
+  /* Chinese needs no first-line indent on a standalone deck, and wraps on
+     any character — so let it use the whole column and balance the rag. */
+  :lang(zh) .cover-lede {
+    grid-column: 2 / 6;
+    max-width: none;
+    text-indent: 0;
+    text-wrap: balance;
+  }
+
   /* Row 7, columns 2–8: left empty on purpose. */
 
   .overleaf {
@@ -463,6 +476,21 @@
       line-height: inherit;
       initial-letter: 3 3;
     }
+  }
+
+  /* Chinese takes a first-line indent on every paragraph instead of a drop
+     cap — the native convention, and it avoids an oversized CJK initial. */
+  :lang(zh) .statement p:first-of-type::first-letter {
+    float: none;
+    margin: 0;
+    color: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    initial-letter: normal;
+  }
+
+  :lang(zh) .statement p {
+    text-indent: 2em;
   }
 
   /* Rows 7–8, columns 2–7: left empty on purpose. */

@@ -1,7 +1,7 @@
 {{ define "main" }}
   <div class="index-shell notes-index">
     <header class="index-header">
-      <p class="eyebrow">Studio journal</p>
+      <p class="eyebrow">{{ i18n "eyebrowFieldNotes" }}</p>
       <h1>{{ .Title }}</h1>
       {{ with .Description }}
         <p class="index-intro">{{ . }}</p>
@@ -11,7 +11,51 @@
       {{ end }}
     </header>
 
-    {{ partial "content/entry-list.html" (dict "pages" .Pages "context" . "variant" "notes") }}
+    {{- $notes := .Pages -}}
+    {{- $total := len $notes -}}
+
+    {{ if $notes }}
+      {{/* Numbered oldest-first so a note keeps its number as the archive
+           grows, but listed newest-first. */}}
+      <ol class="notes-index__list">
+        {{ range $index, $note := $notes }}
+          {{- $isZine := eq ($note.Params.layout | default "") "zine" -}}
+          <li class="notes-entry{{ if $isZine }} notes-entry--zine{{ end }}">
+            <a class="notes-entry__link" href="{{ $note.RelPermalink }}">
+              <span class="notes-entry__number">
+                NO.&nbsp;{{ printf "%03d" (sub $total $index) }}
+              </span>
+
+              <span class="notes-entry__main">
+                <span class="notes-entry__title">{{ $note.Title }}</span>
+                {{ with $note.Params.subtitle }}
+                  <span class="notes-entry__subtitle">{{ . }}</span>
+                {{ end }}
+                {{ with $note.Params.summary }}
+                  <span class="notes-entry__summary">{{ . }}</span>
+                {{ end }}
+              </span>
+
+              <span class="notes-entry__aside">
+                <span class="notes-entry__mode">
+                  {{ if $isZine }}{{ i18n "zineLabel" }}{{ else }}{{ i18n "noteReadLabel" }}{{ end }}
+                </span>
+                {{ if not $note.Date.IsZero }}
+                  <time datetime="{{ $note.Date.Format "2006-01-02" }}">
+                    {{- with $note.Params.date_display }}{{ . }}
+                    {{- else }}{{ $note.Date.Format "2006.01" }}{{ end -}}
+                  </time>
+                {{ end }}
+                {{ with $note.Params.tags }}
+                  <span class="notes-entry__keywords">{{ delimit (first 3 .) " · " }}</span>
+                {{ end }}
+              </span>
+            </a>
+          </li>
+        {{ end }}
+      </ol>
+    {{ else }}
+      <p class="quiet-state">{{ i18n "emptyIndex" }}</p>
+    {{ end }}
   </div>
 {{ end }}
-

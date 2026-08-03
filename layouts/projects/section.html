@@ -1,7 +1,7 @@
 {{ define "main" }}
   <div class="index-shell projects-index">
     <header class="index-header">
-      <p class="eyebrow">Selected work</p>
+      <p class="eyebrow">{{ i18n "eyebrowSelectedWork" }}</p>
       <h1>{{ .Title }}</h1>
       {{ with .Description }}
         <p class="index-intro">{{ . }}</p>

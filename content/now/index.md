@@ -1,19 +1,18 @@
 ---
-title: Now
+title: 此刻
 date: 2026-07-31
 draft: true
-summary: A small snapshot of what is receiving attention in the studio now.
-focus: Making room for slower, more attentive work.
+summary: 最近在做什么、在练什么、在听什么。
+focus: 把注意力放回现场，少做计划，多做记录。
 making:
-  - Bedroom Cosmos live-session sketches
+  - Fuji Rock 2026 的照片和现场笔记整理
 practicing:
-  - Time, touch, and space in jazz improvisation
+  - 即兴中的时值与留白
 listening:
-  - Recordings that preserve room tone and human scale
+  - 保留了房间声音的现场录音
 reading: []
 ---
 
-This page is a present-tense studio note rather than a résumé or progress report.
+这一页记录的是当下的状态，不是履历，也不是进度汇报。
 
-Right now I am returning to small forms: one room, one instrument, one camera, one page. The aim is to notice what becomes audible when the work is given more space.
-
+内容会随时被覆盖掉。
