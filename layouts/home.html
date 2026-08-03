@@ -1,0 +1,211 @@
+{{/* The cover carries its own furniture; the running chrome is suppressed.
+     Both defines need a non-empty body or Go declines to override the block. */}}
+{{ define "site-header" }}<!-- no masthead bar: the sheet is the masthead -->{{ end }}
+{{ define "site-footer" }}<!-- no footer: see the colophon on the last spread -->{{ end }}
+
+{{ define "main" }}
+  {{- $label := site.Params.identity.label | default "Creative Studio" -}}
+  {{- $words := split $label " " -}}
+
+  {{/* The masthead is set as large as the longest word allows, so a studio
+       with a longer name still gets a full-measure display line instead of
+       type running off the trim. */}}
+  {{- $longest := 1 -}}
+  {{- range $words -}}
+    {{- $count := strings.RuneCount . -}}
+    {{- if gt $count $longest }}{{ $longest = $count }}{{ end -}}
+  {{- end -}}
+
+  {{/* Contents come from an explicit running order, never from the menus. */}}
+  {{- $entries := slice -}}
+  {{- range site.Params.cover.contents -}}
+    {{- with site.GetPage . -}}
+      {{- $entries = $entries | append . -}}
+    {{- end -}}
+  {{- end -}}
+
+  <article class="publication">
+    {{/* ---------------------------------------------------------------- */}}
+    {{/* SPREAD I — COVER                                                  */}}
+    {{/* ---------------------------------------------------------------- */}}
+    <section class="spread spread--cover" aria-labelledby="masthead">
+      {{ partial "cover/frame.html" (dict "verso" "i" "recto" "ii") }}
+
+      <div class="sheet sheet--cover">
+        <p class="runhead runhead--verso">{{ i18n "coverRunningHead" }}</p>
+        <p class="runhead runhead--recto">
+          {{ i18n "coverEdition" }}&nbsp;01
+          <span aria-hidden="true">&nbsp;/&nbsp;</span>
+          {{ now.Year }}
+          <span aria-hidden="true">&nbsp;/&nbsp;</span>
+          {{ i18n "coverPlate" }}
+        </p>
+
+        <p class="spine" aria-hidden="true">{{ site.Params.identity.name | default site.Title }}</p>
+
+        <span class="numeral" aria-hidden="true">01</span>
+
+        <h1 class="masthead" id="masthead" style="--masthead-chars: {{ $longest }}">
+          {{- range $i, $word := $words }}
+            {{- /* The reference mark rides on the last word so it cannot wrap
+                   onto a line of its own. */ -}}
+            <span class="masthead__word" data-word="{{ $word }}"
+              >{{ $word }}{{ if eq (add $i 1) (len $words) }}<sup class="masthead__ref" aria-hidden="true">1</sup>{{ end }}</span
+            >
+          {{- end }}
+        </h1>
+
+        <p class="cover-lede">{{ site.Home.Description | default site.Params.description }}</p>
+
+        <aside class="annotation annotation--cover">
+          <span class="annotation__mark" aria-hidden="true">1</span>
+          <p>{{ i18n "coverNoteMasthead" }}</p>
+        </aside>
+
+        <p class="margin-note margin-note--cover">{{ i18n "coverNoteSpine" }}</p>
+
+        <p class="overleaf" aria-hidden="true">
+          {{ i18n "coverOverleaf" }}<span class="overleaf__rule"></span>
+        </p>
+      </div>
+    </section>
+
+    {{/* ---------------------------------------------------------------- */}}
+    {{/* SPREAD II — STATEMENT / CONTENTS                                  */}}
+    {{/* ---------------------------------------------------------------- */}}
+    <section class="spread spread--ruled" aria-labelledby="contents-title">
+      {{ partial "cover/frame.html" (dict "verso" "iii" "recto" "iv") }}
+
+      <div class="sheet sheet--two">
+        <p class="runhead runhead--verso">{{ i18n "coverStatement" }}</p>
+        <p class="runhead runhead--recto">{{ i18n "coverContents" }}</p>
+
+        <div class="statement">
+          <h2 class="visually-hidden">{{ i18n "coverStatement" }}</h2>
+          {{ .Content }}
+        </div>
+
+        <p class="margin-note margin-note--statement">{{ i18n "coverStatementNote" }}</p>
+
+        <div class="contents">
+          <h2 class="contents__title" id="contents-title">{{ i18n "coverContents" }}</h2>
+
+          {{- $folio := 2 -}}
+          <ol class="contents__list">
+            {{- range $index, $entry := $entries }}
+              {{- $folio = add $folio 4 }}
+              <li class="contents__group">
+                <a class="contents__row contents__row--major" href="{{ $entry.RelPermalink }}">
+                  <span class="contents__num" aria-hidden="true">{{ printf "%02d" (add $index 1) }}</span>
+                  <span class="contents__name">{{ $entry.LinkTitle }}</span>
+                  <span class="contents__leader" aria-hidden="true"></span>
+                  <span class="contents__folio">{{ printf "%03d" $folio }}</span>
+                </a>
+
+                {{- with first 2 $entry.RegularPages }}
+                  <ul class="contents__sub">
+                    {{- range . }}
+                      {{- $folio = add $folio 2 }}
+                      <li>
+                        <a class="contents__row" href="{{ .RelPermalink }}">
+                          <span class="contents__name">{{ .LinkTitle }}</span>
+                          <span class="contents__leader" aria-hidden="true"></span>
+                          <span class="contents__folio">{{ printf "%03d" $folio }}</span>
+                        </a>
+                      </li>
+                    {{- end }}
+                  </ul>
+                {{- end }}
+              </li>
+            {{- end }}
+          </ol>
+
+          <p class="annotation annotation--contents">{{ i18n "coverContentsNote" }}</p>
+        </div>
+      </div>
+    </section>
+
+    {{/* ---------------------------------------------------------------- */}}
+    {{/* SPREAD III — INDEX / COLOPHON                                     */}}
+    {{/* ---------------------------------------------------------------- */}}
+    <section class="spread spread--close" aria-labelledby="index-title">
+      {{ partial "cover/frame.html" (dict "verso" "v" "recto" "vi") }}
+
+      <div class="sheet sheet--three">
+        <p class="runhead runhead--verso">{{ i18n "coverIndex" }}</p>
+        <p class="runhead runhead--recto">{{ i18n "coverColophon" }}</p>
+
+        <div class="subject-index">
+          <h2 class="subject-index__title" id="index-title">{{ i18n "coverIndex" }}</h2>
+
+          {{- $printed := false }}
+          <dl class="subject-index__body">
+            {{- range $plural, $taxonomy := site.Taxonomies }}
+              {{- with site.GetPage $plural }}
+                {{- with .Pages }}
+                  {{- $printed = true }}
+                  <div class="subject-index__set">
+                    <dt>{{ $plural | humanize }}</dt>
+                    <dd>
+                      {{- range . }}
+                        <a href="{{ .RelPermalink }}">{{ .LinkTitle | humanize }}</a><span
+                          class="subject-index__count"
+                          aria-hidden="true"
+                          >{{ len .Pages }}</span
+                        >
+                      {{- end }}
+                    </dd>
+                  </div>
+                {{- end }}
+              {{- end }}
+            {{- end }}
+          </dl>
+
+          {{- if not $printed }}
+            <p class="annotation annotation--index">{{ i18n "coverIndexPending" }}</p>
+          {{- end }}
+        </div>
+
+        <div class="colophon">
+          <h2 class="visually-hidden">{{ i18n "coverColophon" }}</h2>
+
+          <dl class="colophon__body">
+            <div>
+              <dt>{{ i18n "coverSetIn" }}</dt>
+              <dd>{{ i18n "coverSetInValue" }}</dd>
+            </div>
+            <div>
+              <dt>{{ i18n "coverPaper" }}</dt>
+              <dd>{{ i18n "coverPaperValue" }}</dd>
+            </div>
+            <div>
+              <dt>{{ i18n "coverBinding" }}</dt>
+              <dd>{{ i18n "coverBindingValue" }}</dd>
+            </div>
+          </dl>
+
+          <p class="colophon__imprint">
+            {{ site.Params.identity.name | default site.Title }} &middot;
+            {{ i18n "coverImprint" }} &middot; {{ now.Year }}
+          </p>
+
+          {{- with .Translations }}
+            <p class="colophon__languages">
+              <span>{{ i18n "coverAlsoIn" }}</span>
+              {{- range . }}
+                <a href="{{ .RelPermalink }}" hreflang="{{ .Language.LanguageCode }}" lang="{{ .Language.LanguageCode }}" rel="alternate">
+                  {{- .Language.LanguageName -}}
+                </a>
+              {{- end }}
+            </p>
+          {{- end }}
+
+          <p class="colophon__end">
+            <span class="end-mark" aria-hidden="true"></span>
+            <span>{{ i18n "coverEnd" }}</span>
+          </p>
+        </div>
+      </div>
+    </section>
+  </article>
+{{ end }}

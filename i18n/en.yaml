@@ -1,0 +1,71 @@
+languageNavigation:
+  other: Language
+
+translationUnavailable:
+  other: This page is not available in the selected language; opening its home page.
+
+coverRunningHead:
+  other: Studio Archive
+
+coverEdition:
+  other: Edition
+
+coverPlate:
+  other: Cover
+
+coverNoteMasthead:
+  other: A studio is a room, not an institution. Everything here was made inside one.
+
+coverNoteSpine:
+  other: Read slowly. Nothing on these pages is in a hurry.
+
+coverOverleaf:
+  other: Continues overleaf
+
+coverStatement:
+  other: Statement
+
+coverContents:
+  other: Contents
+
+coverContentsNote:
+  other: Folios are decorative. The book has no fixed length.
+
+coverStatementNote:
+  other: Written in the present tense and revised whenever it stops being true.
+
+coverIndex:
+  other: Subject Index
+
+coverIndexPending:
+  other: The index is still being set.
+
+coverColophon:
+  other: Colophon
+
+coverSetIn:
+  other: Set in
+
+coverSetInValue:
+  other: House serif, mono annotations
+
+coverPaper:
+  other: Stock
+
+coverPaperValue:
+  other: Uncoated warm white, screen
+
+coverBinding:
+  other: Binding
+
+coverBindingValue:
+  other: Single fold, unbound
+
+coverImprint:
+  other: Printed in a browser
+
+coverAlsoIn:
+  other: Also set in
+
+coverEnd:
+  other: End of front matter

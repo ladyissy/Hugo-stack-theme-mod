@@ -1,0 +1,20 @@
+{{- /*
+  Printed-sheet furniture for one spread: trim marks, registration target,
+  the fold rule between verso and recto, and the two folio numbers.
+  Purely decorative — hidden from assistive technology.
+
+  @param {string} verso  Folio printed in the lower-left corner.
+  @param {string} recto  Folio printed in the lower-right corner.
+*/ -}}
+<div class="frame" aria-hidden="true">
+  <span class="frame__crop frame__crop--tl"></span>
+  <span class="frame__crop frame__crop--tr"></span>
+  <span class="frame__crop frame__crop--bl"></span>
+  <span class="frame__crop frame__crop--br"></span>
+
+  <span class="frame__registration"></span>
+  <span class="frame__fold"></span>
+
+  <span class="folio folio--verso">{{ .verso }}</span>
+  <span class="folio folio--recto">{{ .recto }}</span>
+</div>

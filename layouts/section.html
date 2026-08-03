@@ -1,0 +1,17 @@
+{{ define "main" }}
+  <div class="index-shell">
+    <header class="index-header">
+      <p class="eyebrow">Index</p>
+      <h1>{{ .Title }}</h1>
+      {{ with .Description }}
+        <p class="index-intro">{{ . }}</p>
+      {{ end }}
+      {{ with .Content }}
+        <div class="index-copy prose">{{ . }}</div>
+      {{ end }}
+    </header>
+
+    {{ partial "content/entry-list.html" (dict "pages" .Pages "context" .) }}
+  </div>
+{{ end }}
+

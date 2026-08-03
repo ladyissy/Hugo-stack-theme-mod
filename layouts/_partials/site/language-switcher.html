@@ -1,0 +1,46 @@
+{{- $page := . -}}
+{{- $languageHomes := site.Home.AllTranslations -}}
+
+{{- if gt (len $languageHomes) 1 -}}
+  <nav class="language-switcher" aria-label="{{ i18n "languageNavigation" }}">
+    <ul>
+      {{- range $index, $home := $languageHomes -}}
+        {{- if $index -}}
+          <li class="language-switcher__separator" aria-hidden="true">|</li>
+        {{- end -}}
+
+        {{- $lang := $home.Language.Lang -}}
+        <li>
+          {{- if eq $page.Language.Lang $lang -}}
+            <span lang="{{ $home.Language.LanguageCode }}" aria-current="page">
+              {{- $home.Language.LanguageName -}}
+            </span>
+          {{- else -}}
+            {{- $matches := where $page.AllTranslations "Language.Lang" $lang -}}
+            {{- if gt (len $matches) 0 -}}
+              {{- $translation := index $matches 0 -}}
+              <a
+                href="{{ $translation.RelPermalink }}"
+                hreflang="{{ $translation.Language.LanguageCode }}"
+                lang="{{ $translation.Language.LanguageCode }}"
+                rel="alternate"
+              >{{ $translation.Language.LanguageName }}</a>
+            {{- else -}}
+              <a
+                href="{{ $home.RelPermalink }}"
+                hreflang="{{ $home.Language.LanguageCode }}"
+                lang="{{ $home.Language.LanguageCode }}"
+                title="{{ i18n "translationUnavailable" }}"
+                data-language-fallback
+              >
+                {{- $home.Language.LanguageName -}}
+                <span class="visually-hidden"> — {{ i18n "translationUnavailable" }}</span>
+              </a>
+            {{- end -}}
+          {{- end -}}
+        </li>
+      {{- end -}}
+    </ul>
+  </nav>
+{{- end -}}
+

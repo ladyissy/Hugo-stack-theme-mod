@@ -1,0 +1,13 @@
+{{- $hasDate := not .Date.IsZero -}}
+{{- $hasMediums := .Params.mediums -}}
+{{- if or $hasDate $hasMediums -}}
+  <div class="page-meta">
+    {{ if $hasDate }}
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan 2006" }}</time>
+    {{ end }}
+    {{ with $hasMediums }}
+      <span>{{ delimit (apply . "humanize" ".") " · " }}</span>
+    {{ end }}
+  </div>
+{{- end -}}
+

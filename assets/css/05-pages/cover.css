@@ -1,0 +1,846 @@
+@layer pages {
+  /* ------------------------------------------------------------------ */
+  /* The publication: a set of stacked spreads, each one a printed sheet */
+  /* ------------------------------------------------------------------ */
+
+  .publication {
+    /* Where the fold falls. Deliberately off-centre: a 5:7 spread. */
+    --fold-pos: 41.6%;
+
+    --trim-block: clamp(1.75rem, 4vh, 3.25rem);
+    --trim-inline: clamp(1.25rem, 5vw, 5rem);
+    --foot: clamp(3.25rem, 7vh, 5rem);
+
+    --crop-len: 0.9rem;
+    --crop-gap: 0.45rem;
+
+    --ink-second: rgba(155, 67, 47, 0.32);
+    --grid-line: rgba(23, 25, 21, 0.055);
+
+    --annotation-size: 0.7rem;
+    --annotation-track: 0.1em;
+
+    position: relative;
+    isolation: isolate;
+  }
+
+  /* Paper tooth. Sits above the sheet, below nothing that matters. */
+  .publication::after {
+    content: "";
+    position: fixed;
+    z-index: 2;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.045;
+    pointer-events: none;
+  }
+
+  .spread {
+    position: relative;
+    padding: var(--trim-block) var(--trim-inline) var(--foot);
+    overflow: clip;
+    scroll-snap-align: start;
+  }
+
+  .spread--cover {
+    min-height: 100svh;
+  }
+
+  .spread--ruled,
+  .spread--close {
+    min-height: 100svh;
+    border-top: 1px solid var(--grid-line);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Sheet furniture: trim marks, registration target, fold, folios      */
+  /* ------------------------------------------------------------------ */
+
+  .frame {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .frame__crop {
+    position: absolute;
+    width: var(--crop-len);
+    height: var(--crop-len);
+  }
+
+  .frame__crop--tl {
+    top: calc(var(--trim-block) - var(--crop-gap) - var(--crop-len));
+    left: calc(var(--trim-inline) - var(--crop-gap) - var(--crop-len));
+    border-top: 1px solid var(--color-rule);
+    border-left: 1px solid var(--color-rule);
+  }
+
+  .frame__crop--tr {
+    top: calc(var(--trim-block) - var(--crop-gap) - var(--crop-len));
+    right: calc(var(--trim-inline) - var(--crop-gap) - var(--crop-len));
+    border-top: 1px solid var(--color-rule);
+    border-right: 1px solid var(--color-rule);
+  }
+
+  .frame__crop--bl {
+    bottom: calc(var(--trim-block) - var(--crop-gap) - var(--crop-len));
+    left: calc(var(--trim-inline) - var(--crop-gap) - var(--crop-len));
+    border-bottom: 1px solid var(--color-rule);
+    border-left: 1px solid var(--color-rule);
+  }
+
+  .frame__crop--br {
+    bottom: calc(var(--trim-block) - var(--crop-gap) - var(--crop-len));
+    right: calc(var(--trim-inline) - var(--crop-gap) - var(--crop-len));
+    border-bottom: 1px solid var(--color-rule);
+    border-right: 1px solid var(--color-rule);
+  }
+
+  /* Registration target, straddling the fold. */
+  .frame__registration {
+    position: absolute;
+    top: calc(var(--trim-block) - 1.35rem);
+    left: var(--fold-pos);
+    width: 0.7rem;
+    height: 0.7rem;
+    border: 1px solid var(--ink-second);
+    border-radius: 50%;
+    background-image: linear-gradient(
+        to right,
+        transparent calc(50% - 0.5px),
+        var(--ink-second) calc(50% - 0.5px) calc(50% + 0.5px),
+        transparent calc(50% + 0.5px)
+      ),
+      linear-gradient(
+        to bottom,
+        transparent calc(50% - 0.5px),
+        var(--ink-second) calc(50% - 0.5px) calc(50% + 0.5px),
+        transparent calc(50% + 0.5px)
+      );
+    background-size: 100% 160%, 160% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    translate: -50% 0;
+  }
+
+  .frame__fold {
+    position: absolute;
+    top: var(--trim-block);
+    bottom: var(--foot);
+    left: var(--fold-pos);
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--color-rule) 12%,
+      var(--color-rule) 88%,
+      transparent
+    );
+  }
+
+  .folio {
+    position: absolute;
+    bottom: calc(var(--foot) - 2.6rem);
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .folio--verso {
+    left: var(--trim-inline);
+  }
+
+  .folio--recto {
+    right: var(--trim-inline);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* The grid. Twelve columns, eight rows, most of them left empty.      */
+  /* ------------------------------------------------------------------ */
+
+  .sheet {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: auto repeat(6, minmax(2rem, 1fr)) auto;
+    column-gap: clamp(0.5rem, 1.4vw, 1.6rem);
+    row-gap: clamp(0.75rem, 1.6vh, 1.5rem);
+    min-height: calc(100svh - var(--trim-block) - var(--foot));
+  }
+
+  /* Column grid, printed faintly as if the guides were never removed. */
+  .sheet--cover::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      to right,
+      var(--grid-line) 0 1px,
+      transparent 1px calc(100% / 12)
+    );
+    pointer-events: none;
+  }
+
+  /* Baseline rules on the reading spread. */
+  .sheet--two::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      var(--grid-line) 0 1px,
+      transparent 1px 2.25rem
+    );
+    pointer-events: none;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Running heads, spine, marginalia, annotations                       */
+  /* ------------------------------------------------------------------ */
+
+  .runhead {
+    grid-row: 1;
+    align-self: start;
+    margin: 0;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: var(--annotation-size);
+    letter-spacing: 0.22em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .runhead--verso {
+    grid-column: 1 / 7;
+  }
+
+  .runhead--recto {
+    grid-column: 7 / 13;
+    text-align: right;
+  }
+
+  /* Vertical text set along the fold, the way a title runs down a spine.
+     It sits below the masthead, in the quiet half of the sheet. */
+  .spine {
+    position: absolute;
+    top: 62%;
+    left: var(--fold-pos);
+    z-index: 1;
+    margin: 0;
+    padding-inline-end: 0.7rem;
+    color: var(--color-ink-soft);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    translate: -100% 0;
+  }
+
+  /* Marginalia live outside the text block, so they are taken out of the
+     grid entirely — a long note must never stretch a row and push the
+     sheet past the height of one page. Top and bottom are both pinned,
+     which gives the vertical line a measure to wrap against. */
+  .margin-note {
+    position: absolute;
+    z-index: 1;
+    left: var(--trim-inline);
+    margin: 0;
+    color: var(--color-muted);
+    font-family: var(--font-serif);
+    font-size: 0.82rem;
+    font-style: italic;
+    letter-spacing: 0.01em;
+    line-height: 1.5;
+    writing-mode: vertical-rl;
+  }
+
+  .margin-note--cover {
+    top: 44%;
+    bottom: var(--foot);
+  }
+
+  .margin-note--statement {
+    top: 26%;
+    bottom: var(--foot);
+  }
+
+  .annotation {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-family: var(--font-mono);
+    font-size: var(--annotation-size);
+    letter-spacing: var(--annotation-track);
+    line-height: 1.65;
+    text-transform: uppercase;
+  }
+
+  .annotation--cover {
+    grid-area: 6 / 9 / 8 / 13;
+    align-self: start;
+    max-width: 24em;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--color-accent);
+  }
+
+  .annotation--cover p {
+    margin: 0;
+  }
+
+  .annotation__mark {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: var(--color-accent);
+    font-size: 0.62rem;
+  }
+
+  .annotation--contents,
+  .annotation--index {
+    max-width: 26em;
+    margin-top: var(--space-5);
+    color: var(--color-muted);
+    text-transform: none;
+    letter-spacing: 0.04em;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* SPREAD I — masthead                                                 */
+  /* ------------------------------------------------------------------ */
+
+  .masthead {
+    grid-area: 3 / 2 / 6 / 13;
+    align-self: center;
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    color: var(--color-ink);
+    font-family: var(--font-serif);
+    /* Whichever is smaller: the display ceiling, or the size at which the
+       longest word still clears the trim. 0.78em covers the widest uppercase
+       advance in the serif stack (Georgia), so nothing runs off on Windows. */
+    font-size: min(
+      var(--masthead-ceiling, 13.5vw),
+      13rem,
+      calc((100vw - 2 * var(--trim-inline)) / (var(--masthead-chars, 8) * 0.78))
+    );
+    font-weight: 400;
+    line-height: 0.78;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    text-wrap: nowrap;
+  }
+
+  .masthead__word {
+    display: block;
+    position: relative;
+  }
+
+  /* The second word steps into the gutter. The composition never settles. */
+  .masthead__word + .masthead__word {
+    margin-inline-start: 0.86em;
+  }
+
+  /* Second colour plate, printed a hair out of register. */
+  .masthead__word::before {
+    content: attr(data-word);
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    color: var(--ink-second);
+    translate: 0.014em -0.009em;
+  }
+
+  /* Absolute, so the mark keeps its place at the end of the word without
+     taking part in line breaking. */
+  .masthead__ref {
+    position: absolute;
+    top: 0.05em;
+    margin-inline-start: 0.07em;
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.1em;
+    letter-spacing: 0;
+  }
+
+  /* Oversized folio numeral, outlined, running off the trim. */
+  .numeral {
+    grid-area: 2 / 8 / 6 / 13;
+    z-index: 0;
+    justify-self: end;
+    align-self: start;
+    margin-inline-end: -0.14em;
+    color: transparent;
+    font-family: var(--font-serif);
+    font-size: clamp(8rem, 32vw, 26rem);
+    line-height: 0.7;
+    letter-spacing: -0.04em;
+    -webkit-text-stroke: 1px var(--color-rule);
+  }
+
+  /* Held on the verso so the fold stays legible below the masthead. */
+  .cover-lede {
+    grid-area: 6 / 2 / 8 / 5;
+    align-self: start;
+    max-width: 28ch;
+    margin: 0;
+    padding-top: 0.85rem;
+    color: var(--color-ink-soft);
+    font-family: var(--font-serif);
+    font-size: var(--step-1);
+    line-height: 1.32;
+    text-indent: 2.5em;
+    hanging-punctuation: first last;
+  }
+
+  /* Row 7, columns 2–8: left empty on purpose. */
+
+  .overleaf {
+    grid-area: 8 / 8 / 9 / 13;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.9rem;
+    align-self: end;
+    margin: 0;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: var(--annotation-size);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .overleaf__rule {
+    width: clamp(2rem, 6vw, 5rem);
+    height: 1px;
+    background: var(--color-accent);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* SPREAD II — statement / contents                                    */
+  /* ------------------------------------------------------------------ */
+
+  .statement {
+    grid-area: 2 / 2 / 7 / 7;
+    align-self: center;
+    max-width: 46ch;
+  }
+
+  .statement p {
+    margin: 0 0 1.2rem;
+    font-family: var(--font-serif);
+    font-size: clamp(1rem, 0.93rem + 0.34vw, 1.22rem);
+    line-height: 1.55;
+    hanging-punctuation: first last;
+  }
+
+  .statement p:last-child {
+    margin-bottom: 0;
+  }
+
+  .statement p + p {
+    text-indent: 1.6em;
+  }
+
+  .statement p:first-of-type::first-letter {
+    float: left;
+    margin: 0.06em 0.09em 0 0;
+    color: var(--color-accent);
+    font-size: 3.9em;
+    line-height: 0.76;
+  }
+
+  @supports (initial-letter: 3) {
+    .statement p:first-of-type::first-letter {
+      float: none;
+      margin: 0 0.09em 0 0;
+      font-size: inherit;
+      line-height: inherit;
+      initial-letter: 3 3;
+    }
+  }
+
+  /* Rows 7–8, columns 2–7: left empty on purpose. */
+
+  .contents {
+    grid-area: 2 / 8 / 9 / 13;
+    align-self: start;
+  }
+
+  .contents__title {
+    margin: 0 0 var(--space-5);
+    font-family: var(--font-serif);
+    font-size: var(--step-2);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .contents__list,
+  .contents__sub {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .contents__group {
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .contents__row {
+    display: grid;
+    grid-template-columns: minmax(0, auto) 1fr auto;
+    align-items: baseline;
+    gap: 0 0.7rem;
+    padding-block: 0.7rem;
+    color: inherit;
+    text-decoration: none;
+    transition: color 200ms ease, padding-inline-start 200ms ease;
+  }
+
+  .contents__row--major {
+    grid-template-columns: 2.4rem minmax(0, auto) 1fr auto;
+  }
+
+  .contents__num {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+  }
+
+  .contents__name {
+    font-family: var(--font-serif);
+    font-size: var(--step-1);
+    line-height: 1.15;
+  }
+
+  .contents__leader {
+    align-self: center;
+    height: 0;
+    border-bottom: 1px dotted var(--color-rule);
+  }
+
+  .contents__folio {
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+  }
+
+  .contents__sub {
+    padding-inline-start: 2.4rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .contents__sub .contents__row {
+    padding-block: 0.35rem;
+  }
+
+  .contents__sub .contents__name {
+    color: var(--color-ink-soft);
+    font-size: var(--step-0);
+    font-style: italic;
+  }
+
+  .contents__row:hover {
+    color: var(--color-accent);
+    padding-inline-start: 0.5rem;
+  }
+
+  .contents__row:hover .contents__leader {
+    border-bottom-color: var(--color-accent);
+  }
+
+  .contents__row:focus-visible {
+    outline: 1px solid var(--color-accent);
+    outline-offset: 0.35rem;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* SPREAD III — subject index / colophon                               */
+  /* ------------------------------------------------------------------ */
+
+  .subject-index {
+    display: contents;
+  }
+
+  .subject-index__title {
+    grid-area: 2 / 1 / 9 / 3;
+    justify-self: start;
+    align-self: start;
+    margin: 0;
+    color: var(--color-ink);
+    font-family: var(--font-serif);
+    font-size: clamp(2.75rem, 8vw, 7rem);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+  }
+
+  .subject-index__body {
+    grid-area: 3 / 3 / 7 / 8;
+    align-self: start;
+    margin: 0;
+  }
+
+  .subject-index__set + .subject-index__set {
+    margin-top: var(--space-5);
+  }
+
+  .subject-index__set dt {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.4rem;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: var(--annotation-size);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .subject-index__set dd {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: var(--step-0);
+    line-height: 1.9;
+  }
+
+  .subject-index__set dd a {
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .subject-index__set dd a:hover {
+    border-bottom-color: var(--color-accent);
+  }
+
+  .subject-index__count {
+    margin: 0 1.1rem 0 0.25rem;
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    vertical-align: super;
+  }
+
+  .annotation--index {
+    grid-area: 3 / 3 / 5 / 8;
+    align-self: start;
+  }
+
+  /* Rows 2–4, columns 8–13: left empty on purpose. */
+
+  .colophon {
+    grid-area: 5 / 9 / 9 / 13;
+    align-self: end;
+  }
+
+  .colophon__body {
+    margin: 0 0 var(--space-5);
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--color-accent);
+  }
+
+  .colophon__body > div {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr;
+    gap: 0.7rem;
+    padding-block: 0.3rem;
+  }
+
+  .colophon__body dt {
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    line-height: 1.9;
+    text-transform: uppercase;
+  }
+
+  .colophon__body dd {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-family: var(--font-serif);
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  .colophon__imprint,
+  .colophon__languages,
+  .colophon__end {
+    margin: 0 0 0.6rem;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: var(--annotation-size);
+    letter-spacing: 0.1em;
+    line-height: 1.7;
+  }
+
+  .colophon__languages a {
+    margin-inline-start: 0.7rem;
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-accent);
+  }
+
+  .colophon__end {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-top: var(--space-4);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+  }
+
+  .end-mark {
+    width: 0.5rem;
+    height: 0.5rem;
+    background: var(--color-ink);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Page-turn behaviour                                                 */
+  /* ------------------------------------------------------------------ */
+
+  @media (min-width: 48rem) and (min-height: 44rem) {
+    :root:has(.publication) {
+      scroll-snap-type: y proximity;
+    }
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Single-column sheet                                                 */
+  /* ------------------------------------------------------------------ */
+
+  @media (max-width: 60rem) {
+    .masthead {
+      grid-area: 3 / 1 / 6 / 13;
+    }
+
+    .cover-lede {
+      grid-area: 6 / 2 / 7 / 11;
+    }
+
+    .annotation--cover {
+      grid-area: 7 / 6 / 9 / 13;
+    }
+
+    .statement {
+      grid-area: 2 / 2 / 7 / 8;
+    }
+
+    .contents {
+      grid-area: 2 / 8 / 9 / 13;
+    }
+  }
+
+  @media (max-width: 48rem) {
+    .publication {
+      --trim-inline: clamp(1.1rem, 4vw, 2rem);
+    }
+
+    .sheet {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: none;
+      row-gap: var(--space-5);
+      min-height: 0;
+    }
+
+    .sheet--cover {
+      min-height: calc(100svh - var(--trim-block) - var(--foot));
+    }
+
+    .runhead,
+    .masthead,
+    .numeral,
+    .cover-lede,
+    .annotation--cover,
+    .margin-note,
+    .overleaf,
+    .statement,
+    .contents,
+    .subject-index__title,
+    .subject-index__body,
+    .annotation--index,
+    .colophon {
+      grid-area: auto;
+      grid-column: 1;
+    }
+
+    .runhead--recto {
+      text-align: left;
+    }
+
+    /* Vertical setting collapses; the marginalia rejoin the column. */
+    .margin-note,
+    .subject-index__title {
+      writing-mode: horizontal-tb;
+      max-width: none;
+    }
+
+    .margin-note {
+      position: static;
+      inset: auto;
+      padding-top: 0.8rem;
+      border-top: 1px solid var(--color-rule);
+    }
+
+    .spine,
+    .frame__fold,
+    .sheet--cover::before {
+      display: none;
+    }
+
+    .masthead {
+      --masthead-ceiling: 17vw;
+    }
+
+    .masthead__word + .masthead__word {
+      margin-inline-start: 0.5em;
+    }
+
+    .numeral {
+      justify-self: end;
+      margin-block: -1.5rem;
+      font-size: clamp(5rem, 26vw, 9rem);
+    }
+
+    .cover-lede {
+      max-width: none;
+      text-indent: 0;
+    }
+
+    .overleaf {
+      justify-content: flex-start;
+      flex-direction: row-reverse;
+    }
+
+    .contents__sub {
+      padding-inline-start: 1.2rem;
+    }
+
+    .colophon__body > div {
+      grid-template-columns: 5.5rem 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root:has(.publication) {
+      scroll-snap-type: none;
+    }
+
+    .contents__row {
+      transition: none;
+    }
+
+    .contents__row:hover {
+      padding-inline-start: 0;
+    }
+  }
+}

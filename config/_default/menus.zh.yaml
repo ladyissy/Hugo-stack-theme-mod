@@ -1,0 +1,14 @@
+main:
+  - identifier: projects
+    name: 作品
+    pageRef: /projects
+    weight: 10
+  - identifier: field-notes
+    name: 随记
+    pageRef: /field-notes
+    weight: 20
+  - identifier: now
+    name: 此刻
+    pageRef: /now
+    weight: 30
+

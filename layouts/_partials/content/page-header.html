@@ -1,0 +1,13 @@
+<header class="page-header">
+  <p class="eyebrow">
+    {{ with .Section }}{{ . | humanize }}{{ else }}Studio document{{ end }}
+  </p>
+  <h1>{{ .Title }}</h1>
+  {{ with .Params.summary }}
+    <p class="page-deck">{{ . }}</p>
+  {{ else }}
+    {{ with .Description }}<p class="page-deck">{{ . }}</p>{{ end }}
+  {{ end }}
+  {{ partial "content/meta.html" . }}
+</header>
+

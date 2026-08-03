@@ -1,0 +1,71 @@
+languageNavigation:
+  other: 语言
+
+translationUnavailable:
+  other: 此页暂无对应译文，将前往所选语言的首页。
+
+coverRunningHead:
+  other: 工作室档案
+
+coverEdition:
+  other: 版次
+
+coverPlate:
+  other: 封面
+
+coverNoteMasthead:
+  other: 工作室是一个房间，不是一座机构。这里的一切都在房间里完成。
+
+coverNoteSpine:
+  other: 请慢读。这些页面上没有一件事着急。
+
+coverOverleaf:
+  other: 接下页
+
+coverStatement:
+  other: 自述
+
+coverContents:
+  other: 目录
+
+coverContentsNote:
+  other: 页码只是装饰。这本册子没有固定的厚度。
+
+coverStatementNote:
+  other: 以现在时写成，一旦不再属实便重写。
+
+coverIndex:
+  other: 主题索引
+
+coverIndexPending:
+  other: 索引仍在编排中。
+
+coverColophon:
+  other: 版权页
+
+coverSetIn:
+  other: 字体
+
+coverSetInValue:
+  other: 正文衬线，注记等宽
+
+coverPaper:
+  other: 纸张
+
+coverPaperValue:
+  other: 暖白胶版，屏幕
+
+coverBinding:
+  other: 装订
+
+coverBindingValue:
+  other: 单折，未装订
+
+coverImprint:
+  other: 于浏览器印制
+
+coverAlsoIn:
+  other: 另有版本
+
+coverEnd:
+  other: 前页部分结束

@@ -1,0 +1,19 @@
+goldmark:
+  parser:
+    attribute:
+      block: true
+      title: true
+  renderer:
+    unsafe: false
+
+highlight:
+  codeFences: true
+  guessSyntax: false
+  lineNos: false
+  noClasses: false
+
+tableOfContents:
+  startLevel: 2
+  endLevel: 4
+  ordered: false
+

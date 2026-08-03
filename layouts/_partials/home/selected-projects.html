@@ -1,0 +1,36 @@
+{{- $projects := where site.RegularPages "Section" "projects" -}}
+{{- $featured := where $projects "Params.featured" true -}}
+{{- $projects = cond (gt (len $featured) 0) $featured $projects -}}
+{{- $projects = sort $projects "Params.featured_order" "asc" -}}
+{{- $limit := site.Params.home.projectsLimit | default 3 -}}
+
+<section class="home-section home-projects" aria-labelledby="home-projects-title">
+  <div class="home-section__heading">
+    <p class="section-number">02</p>
+    <h2 id="home-projects-title">Projects</h2>
+    {{ with site.GetPage "/projects" }}
+      <a class="text-link" href="{{ .RelPermalink }}">View all</a>
+    {{ end }}
+  </div>
+
+  {{ if $projects }}
+    <ol class="project-grid">
+      {{ range $index, $project := first $limit $projects }}
+        <li>
+          <a class="project-preview" href="{{ $project.RelPermalink }}">
+            <span class="project-preview__number">{{ printf "%02d" (add $index 1) }}</span>
+            <span class="project-preview__title">{{ $project.Title }}</span>
+            {{ with $project.Params.summary }}
+              <span class="project-preview__summary">{{ . }}</span>
+            {{ end }}
+            {{ with $project.Params.mediums }}
+              <span class="project-preview__medium">{{ delimit (apply . "humanize" ".") " · " }}</span>
+            {{ end }}
+          </a>
+        </li>
+      {{ end }}
+    </ol>
+  {{ else }}
+    <p class="quiet-state">Project documents are being prepared in the studio.</p>
+  {{ end }}
+</section>

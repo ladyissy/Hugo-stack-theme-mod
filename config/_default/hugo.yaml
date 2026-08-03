@@ -1,0 +1,53 @@
+baseURL: https://ladyissy.vercel.app/
+title: Yang Cai — Creative Studio
+languageCode: zh-CN
+defaultContentLanguage: zh
+defaultContentLanguageInSubdir: false
+hasCJKLanguage: true
+timeZone: Asia/Shanghai
+
+languages:
+  zh:
+    languageCode: zh-CN
+    languageName: 中文
+    languageDirection: ltr
+    hasCJKLanguage: true
+    weight: 1
+  en:
+    languageCode: en
+    languageName: English
+    languageDirection: ltr
+    hasCJKLanguage: false
+    weight: 2
+
+enableRobotsTXT: true
+enableGitInfo: false
+
+pagination:
+  pagerSize: 12
+
+permalinks:
+  page:
+    page: /:slug/
+    post: /:year/:slug/
+
+taxonomies:
+  medium: mediums
+  topic: topics
+  series: series
+
+outputs:
+  home:
+    - HTML
+    - RSS
+  section:
+    - HTML
+    - RSS
+  taxonomy:
+    - HTML
+  term:
+    - HTML
+
+services:
+  rss:
+    limit: 30

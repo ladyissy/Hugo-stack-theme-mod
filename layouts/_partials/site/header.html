@@ -1,0 +1,33 @@
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-mark" href="{{ site.Home.RelPermalink }}" aria-label="{{ site.Title }}, home">
+      <span class="site-mark__name">{{ site.Params.identity.name | default site.Title }}</span>
+      <span class="site-mark__label">{{ site.Params.identity.label | default "Studio" }}</span>
+    </a>
+
+    <div class="site-header__navigation">
+      {{- $menuEntries := slice -}}
+      {{- range $entry := site.Menus.main -}}
+        {{- with $entry.Page -}}
+          {{- $menuEntries = $menuEntries | append $entry -}}
+        {{- end -}}
+      {{- end -}}
+
+      {{ with $menuEntries }}
+        <nav class="site-nav" aria-label="Primary">
+          <ul>
+            {{ range $entry := . }}
+              <li>
+                <a href="{{ $entry.Page.RelPermalink }}"{{ if $.IsMenuCurrent $entry.Menu $entry }} aria-current="page"{{ end }}>
+                  {{ $entry.Name }}
+                </a>
+              </li>
+            {{ end }}
+          </ul>
+        </nav>
+      {{ end }}
+
+      {{ partial "site/language-switcher.html" . }}
+    </div>
+  </div>
+</header>

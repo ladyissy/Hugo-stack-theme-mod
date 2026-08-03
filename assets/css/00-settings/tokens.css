@@ -1,0 +1,40 @@
+@layer settings {
+  :root {
+    --color-paper: #f1eee7;
+    --color-paper-deep: #e5dfd3;
+    --color-ink: #171915;
+    --color-ink-soft: #4f514b;
+    --color-muted: #727268;
+    --color-rule: rgba(23, 25, 21, 0.2);
+    --color-accent: #9b432f;
+    --color-moss: #626b55;
+
+    --font-serif: "Iowan Old Style", "Palatino Linotype", "Yu Mincho",
+      "Hiragino Mincho ProN", "Noto Serif CJK JP", Georgia, serif;
+    --font-sans: "Helvetica Neue", "Hiragino Sans", "Yu Gothic",
+      "Noto Sans CJK JP", Arial, sans-serif;
+    --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+    --step--1: clamp(0.78rem, 0.74rem + 0.15vw, 0.86rem);
+    --step-0: clamp(1rem, 0.95rem + 0.2vw, 1.12rem);
+    --step-1: clamp(1.25rem, 1.08rem + 0.75vw, 1.65rem);
+    --step-2: clamp(1.7rem, 1.32rem + 1.7vw, 2.65rem);
+    --step-3: clamp(2.3rem, 1.58rem + 3.1vw, 4.25rem);
+    --step-4: clamp(3.2rem, 1.8rem + 6vw, 7.5rem);
+
+    --space-1: 0.35rem;
+    --space-2: 0.7rem;
+    --space-3: 1rem;
+    --space-4: 1.5rem;
+    --space-5: 2.25rem;
+    --space-6: 3.5rem;
+    --space-7: 5.5rem;
+    --space-8: 8.5rem;
+
+    --gutter: clamp(1.25rem, 4vw, 4.5rem);
+    --site-max: 92rem;
+    --reading-max: 43rem;
+    --hairline: 1px solid var(--color-rule);
+  }
+}
+

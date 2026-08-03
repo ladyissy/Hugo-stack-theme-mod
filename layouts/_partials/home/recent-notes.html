@@ -1,0 +1,18 @@
+{{- $notes := where site.RegularPages "Section" "field-notes" -}}
+{{- $limit := site.Params.home.fieldNotesLimit | default 4 -}}
+
+<section class="home-section home-notes" aria-labelledby="home-notes-title">
+  <div class="home-section__heading">
+    <p class="section-number">03</p>
+    <h2 id="home-notes-title">Field Notes</h2>
+    {{ with site.GetPage "/field-notes" }}
+      <a class="text-link" href="{{ .RelPermalink }}">Read the notes</a>
+    {{ end }}
+  </div>
+
+  {{ if $notes }}
+    {{ partial "content/entry-list.html" (dict "pages" (first $limit $notes) "context" . "variant" "compact") }}
+  {{ else }}
+    <p class="quiet-state">The first field notes are still in draft.</p>
+  {{ end }}
+</section>

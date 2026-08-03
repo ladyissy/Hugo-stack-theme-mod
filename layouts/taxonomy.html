@@ -1,0 +1,11 @@
+{{ define "main" }}
+  <div class="index-shell">
+    <header class="index-header">
+      <p class="eyebrow">Index</p>
+      <h1>{{ .Title }}</h1>
+    </header>
+
+    {{ partial "content/entry-list.html" (dict "pages" .Pages "context" .) }}
+  </div>
+{{ end }}
+

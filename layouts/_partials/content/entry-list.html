@@ -1,0 +1,31 @@
+{{- $pages := .pages -}}
+{{- $variant := .variant | default "default" -}}
+
+{{ if $pages }}
+  <ol class="entry-list entry-list--{{ $variant }}">
+    {{ range $index, $page := $pages }}
+      <li class="entry-list__item">
+        <a href="{{ $page.RelPermalink }}">
+          <span class="entry-list__count">{{ printf "%02d" (add $index 1) }}</span>
+          <span class="entry-list__main">
+            <span class="entry-list__title">{{ $page.Title }}</span>
+            {{ with $page.Params.summary }}
+              <span class="entry-list__summary">{{ . }}</span>
+            {{ end }}
+          </span>
+          <span class="entry-list__aside">
+            {{ if not $page.Date.IsZero }}
+              <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format "2006.01.02" }}</time>
+            {{ end }}
+            {{ with $page.Params.mediums }}
+              <span>{{ delimit (apply . "humanize" ".") " · " }}</span>
+            {{ end }}
+          </span>
+        </a>
+      </li>
+    {{ end }}
+  </ol>
+{{ else }}
+  <p class="quiet-state">Nothing has been placed in this index yet.</p>
+{{ end }}
+

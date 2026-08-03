@@ -1,0 +1,40 @@
+@layer elements {
+  html {
+    min-width: 20rem;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100vh;
+    color: var(--color-ink);
+    background-color: var(--color-paper);
+    background-image: linear-gradient(
+      110deg,
+      rgba(255, 255, 255, 0.2),
+      transparent 32%,
+      rgba(92, 76, 49, 0.025) 78%,
+      transparent
+    );
+    font-family: var(--font-sans);
+    font-size: var(--step-0);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  main {
+    min-height: 70vh;
+  }
+
+  a {
+    color: inherit;
+    text-decoration-color: var(--color-accent);
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.22em;
+  }
+
+  ::selection {
+    color: var(--color-paper);
+    background: var(--color-accent);
+  }
+}
+

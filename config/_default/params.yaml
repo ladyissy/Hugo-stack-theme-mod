@@ -1,0 +1,25 @@
+description: Music, performance, field notes, photographs, and works in progress.
+
+identity:
+  name: Yang Cai
+  label: Creative Studio
+
+home:
+  projectsLimit: 3
+  fieldNotesLimit: 4
+
+archive:
+  sections:
+    - projects
+    - field-notes
+
+# The table of contents printed on the cover spread. Order is the running
+# order of the publication, not a navigation hierarchy.
+cover:
+  contents:
+    - /projects
+    - /field-notes
+    - /now
+
+social: []
+

@@ -1,0 +1,37 @@
+{{ define "main" }}
+  <article class="page-shell project-page">
+    <header class="page-header">
+      <p class="eyebrow">Project</p>
+      <h1>{{ .Title }}</h1>
+      {{ with .Params.summary }}
+        <p class="page-deck">{{ . }}</p>
+      {{ end }}
+
+      <dl class="project-facts" aria-label="Project details">
+        {{ with .Params.status }}
+          <div>
+            <dt>Status</dt>
+            <dd>{{ . | humanize }}</dd>
+          </div>
+        {{ end }}
+        {{ with .Params.period }}
+          <div>
+            <dt>Period</dt>
+            <dd>{{ . }}</dd>
+          </div>
+        {{ end }}
+        {{ with .Params.mediums }}
+          <div>
+            <dt>Medium</dt>
+            <dd>{{ delimit (apply . "humanize" ".") " · " }}</dd>
+          </div>
+        {{ end }}
+      </dl>
+    </header>
+
+    <div class="prose">
+      {{ .Content }}
+    </div>
+  </article>
+{{ end }}
+

@@ -1,0 +1,12 @@
+{{- $resource := .Page.Resources.GetMatch .Destination -}}
+<figure class="prose-figure">
+  {{- with $resource -}}
+    <img src="{{ .RelPermalink }}" alt="{{ $.Text }}" loading="lazy" decoding="async">
+  {{- else -}}
+    <img src="{{ .Destination | safeURL }}" alt="{{ .Text }}" loading="lazy" decoding="async">
+  {{- end -}}
+  {{- with .Title -}}
+    <figcaption>{{ . }}</figcaption>
+  {{- end -}}
+</figure>
+

@@ -1,0 +1,4 @@
+baseURL: https://ladyissy.vercel.app/
+buildDrafts: false
+buildFuture: false
+enableRobotsTXT: true

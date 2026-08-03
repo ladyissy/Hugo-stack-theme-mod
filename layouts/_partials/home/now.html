@@ -1,0 +1,19 @@
+{{- with site.GetPage "/now" -}}
+  <section class="home-section home-now" aria-labelledby="home-now-title">
+    <div class="home-section__heading">
+      <p class="section-number">01</p>
+      <h2 id="home-now-title">Now</h2>
+    </div>
+
+    <div class="home-now__body">
+      {{ with .Params.focus }}
+        <p class="home-now__focus">{{ . }}</p>
+      {{ end }}
+      {{ with .Summary }}
+        <p>{{ . }}</p>
+      {{ end }}
+      <a class="text-link" href="{{ .RelPermalink }}">A note from the present</a>
+    </div>
+  </section>
+{{- end -}}
+
