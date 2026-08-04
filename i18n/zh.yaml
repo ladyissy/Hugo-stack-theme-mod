@@ -108,6 +108,12 @@ projectPeriod:
 projectMedium:
   other: 媒介
 
+statementKicker:
+  other: 编辑说明
+
+statementImprint:
+  other: 出版信息
+
 nowFocus:
   other: 当前重点
 
@@ -204,3 +210,9 @@ zineHintMobile:
 
 zineStatusTemplate:
   other: 第 {range} 页，共 {total} 页
+
+metaReading:
+  other: 阅读
+
+readingMinutes:
+  other: 分钟

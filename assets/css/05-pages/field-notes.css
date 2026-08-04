@@ -1,216 +1,335 @@
 @layer pages {
   /* ------------------------------------------------------------------ */
-  /* Field Notes — article mode.                                         */
+  /* Field Notes — article mode: one composed publication page.          */
   /*                                                                     */
-  /* Set as a piece in a publication, not as a web article: a folio line */
-  /* above the title, section numbers hanging in the margin, quotes that */
-  /* break the measure, and a colophon at the foot. Same tokens, grid    */
-  /* and rules as the rest of the archive.                               */
+  /* A compact masthead spanning the sheet, then the whole piece set in  */
+  /* two flowing columns with a rule between them. Sections run on       */
+  /* inside the columns instead of stacking down the page, so a note     */
+  /* reads as a laid-out page rather than a scroll of markdown.          */
+  /*                                                                     */
+  /* Density is the point: modest leading, indented paragraphs with      */
+  /* small gaps, section marks that cost a line rather than a screen.    */
+  /*                                                                     */
+  /* The mono face carries Latin and numerals only. Chinese labels use   */
+  /* the serif — mono digits beside Han characters differ in weight and  */
+  /* vertical centre, which is what reads as characters floating.        */
+  /*                                                                     */
+  /* Zine mode is a separate system (zine.css) and is untouched.         */
   /* ------------------------------------------------------------------ */
 
   .note {
-    --note-margin: 3.75rem;
+    --note-sheet: 76rem;
 
-    width: min(100%, var(--site-max));
+    width: min(100%, var(--note-sheet));
     margin-inline: auto;
     padding-inline: var(--gutter);
-    padding-top: clamp(4rem, 9vw, 8rem);
-    padding-bottom: var(--space-8);
+    padding-bottom: var(--space-6);
   }
 
-  /* ---- Masthead ---------------------------------------------------- */
+  /* ---- Masthead: compact, spanning the sheet ------------------------ */
 
   .note__masthead {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: clamp(1rem, 2.2vw, 2.5rem);
-    padding-bottom: var(--space-7);
-    border-bottom: var(--hairline);
+    align-items: end;
+    padding-top: clamp(1.5rem, 2.8vw, 2.5rem);
+    padding-bottom: var(--space-3);
   }
 
-  /* The folio line: section on the left, running number on the right,
-     ruled off like the head of a printed page. */
-  .note__runhead {
-    grid-column: 1 / -1;
-    display: flex;
-    gap: var(--space-4);
-    justify-content: space-between;
-    margin: 0 0 var(--space-6);
-    padding-bottom: var(--space-2);
-    color: var(--color-muted);
+  .note__folio {
+    grid-column: 1 / span 3;
+    grid-row: 1;
+    display: grid;
+    place-items: center;
+    width: 5rem;
+    height: 2.4rem;
+    margin: 0;
+    color: var(--color-ink-soft);
     font-family: var(--font-mono);
     font-size: 0.62rem;
     letter-spacing: 0.22em;
-    text-transform: uppercase;
-    border-bottom: 1px solid var(--color-rule);
+    border: 1px solid var(--color-rule);
+    border-radius: 50%;
   }
 
-  .note__number {
-    color: var(--color-accent);
+  .note__folio span {
+    transform: translateX(0.11em);
+  }
+
+  .note__byline {
+    grid-column: 8 / -1;
+    grid-row: 1;
+    align-self: center;
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.26em;
+    text-align: right;
+  }
+
+  /* Chinese label: serif, tracked. Never mono. */
+  .note__kicker {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin: clamp(1.1rem, 2.2vw, 1.9rem) 0 0;
+    color: var(--color-muted);
+    font-family: var(--font-serif);
+    font-size: 0.8rem;
+    letter-spacing: 0.36em;
+  }
+
+  .note__kicker span {
+    color: var(--color-muted);
   }
 
   .note__title {
-    grid-column: 2 / span 9;
-    max-width: 20ch;
-    font-size: var(--step-3);
-    line-height: 1.14;
-    letter-spacing: -0.02em;
+    grid-column: 1 / span 9;
+    grid-row: 3;
+    max-width: 22ch;
+    margin: var(--space-3) 0 0;
+    font-family: var(--font-serif);
+    font-size: clamp(1.9rem, 3.8vw, 3.35rem);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  .note__intro {
+    grid-column: 1 / span 7;
+    grid-row: 4;
+    margin-top: var(--space-4);
   }
 
   .note__subtitle {
-    grid-column: 2 / span 8;
-    margin-top: var(--space-4);
+    margin: 0 0 var(--space-2);
     color: var(--color-ink-soft);
     font-family: var(--font-serif);
-    font-size: var(--step-1);
-    letter-spacing: 0.03em;
+    font-size: var(--step-0);
+    font-style: italic;
   }
 
-  /* Standfirst — the one line that tells you why the piece exists. */
+  /* The deck is the one place the type opens up, to set the piece going. */
   .note__deck {
-    grid-column: 2 / span 7;
-    max-width: 42ch;
-    margin-top: var(--space-5);
+    max-width: 46ch;
+    margin: 0;
     color: var(--color-ink-soft);
     font-family: var(--font-serif);
-    font-size: var(--step-1);
-    font-style: italic;
-    line-height: 1.55;
+    font-size: 1.06rem;
+    line-height: 1.75;
   }
 
   .note__meta {
-    grid-column: 2 / span 9;
+    grid-column: 9 / -1;
+    grid-row: 4;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-3) var(--space-7);
-    margin: var(--space-6) 0 0;
+    gap: var(--space-2) var(--space-4);
+    justify-content: flex-end;
+    margin: var(--space-4) 0 0;
+    text-align: right;
   }
 
   .note__meta dt {
     color: var(--color-muted);
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
+    font-family: var(--font-serif);
+    font-size: 0.74rem;
     letter-spacing: 0.2em;
-    text-transform: uppercase;
   }
 
   .note__meta dd {
-    margin: var(--space-2) 0 0;
+    margin: var(--space-1) 0 0;
     color: var(--color-ink-soft);
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-family: var(--font-serif);
+    font-size: 0.84rem;
     letter-spacing: 0.04em;
-    line-height: 1.7;
   }
 
-  .note__meta dd span {
-    display: block;
-  }
-
-  .note__meta-keywords dd {
-    max-width: 32rem;
-  }
-
-  /* ---- Body -------------------------------------------------------- */
+  /* ---- Body: two flowing columns ------------------------------------ */
 
   .note__body {
-    max-width: var(--reading-max);
-    margin-top: var(--space-8);
-    margin-left: calc((100% - var(--reading-max)) * 0.26);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-ink);
+    columns: 2;
+    column-gap: clamp(2.25rem, 3.6vw, 4rem);
+    column-rule: 1px solid var(--color-rule);
     counter-reset: note-section;
     font-family: var(--font-serif);
-    font-size: var(--step-0);
-    line-height: 1.9;
+    font-size: 0.97rem;
+    /* Tight enough to hold together as a column of text; loose enough for
+       Han characters, which need more room than Latin lowercase. */
+    line-height: 1.72;
+    text-align: justify;
+    orphans: 2;
+    widows: 2;
   }
 
-  /* Paragraphs are separated by space, not by a first-line indent — these
-     notes are written a sentence to a paragraph, and indenting every one of
-     them reads as noise. The gap has to be wider than the line gap above,
-     or consecutive paragraphs merge into a single block of text.
-
-     Both rules are element-agnostic and equally specific, so the sibling
-     gap wins on source order. Setting `margin: 0` on `p` instead would
-     out-specify this and collapse the rhythm. */
   .note__body > * {
     margin: 0;
   }
 
-  .note__body > * + * {
-    margin-top: 2.1em;
+  /* Book-set paragraphs: the indent marks the new paragraph, so the gap
+     between them stays minimal and the column reads as a block of text. */
+  .note__body > p {
+    margin-top: 0.32em;
+    text-indent: 2em;
   }
 
-  .note__body p {
-    hanging-punctuation: first last;
+  .note__body > p:first-child,
+  .note__body > h2 + p,
+  .note__body > h3 + p,
+  .note__body > blockquote + p,
+  .note__body > figure + p,
+  .note__body > .prose-figure + p,
+  .note__body > hr + p {
+    text-indent: 0;
   }
 
-  /* Opening paragraph, set a step up as a standfirst. */
-  .note__body > p:first-of-type {
-    color: var(--color-ink);
-    font-size: var(--step-1);
-    line-height: 1.7;
-  }
+  /* ---- Section marks: one line, not one screen ---------------------- */
 
-  /* Section headings carry a hanging number in the margin — the device
-     that most separates a publication from a blog. */
-  .note__body h2 {
-    display: grid;
-    grid-template-columns: var(--note-margin) minmax(0, 1fr);
-    align-items: baseline;
-    margin-top: var(--space-8);
-    margin-left: calc(var(--note-margin) * -1);
-    padding-top: var(--space-4);
-    font-size: var(--step-2);
-    line-height: 1.25;
-    letter-spacing: -0.01em;
-    counter-increment: note-section;
+  .note__body > h2,
+  .note__body > h3 {
+    margin-top: 1.9em;
+    padding-top: 0.55em;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    text-align: start;
     border-top: 1px solid var(--color-rule);
+    /* Never leave a heading stranded at the foot of a column. */
+    break-after: avoid;
+    break-inside: avoid;
   }
 
-  .note__body h2::before {
+  .note__body > h2 {
+    font-size: 1.06rem;
+    letter-spacing: 0.14em;
+    counter-increment: note-section;
+  }
+
+  .note__body > h2::before {
     content: counter(note-section, decimal-leading-zero);
+    margin-right: var(--space-2);
     color: var(--color-accent);
     font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 400;
+    font-size: 0.58rem;
     letter-spacing: 0.16em;
+    vertical-align: 0.3em;
   }
 
-  .note__body h3 {
-    margin-top: var(--space-6);
-    font-size: var(--step-1);
+  .note__body > h3 {
+    font-size: 0.97rem;
+    letter-spacing: 0.1em;
+    border-top-color: transparent;
   }
 
-  /* Pull quote: breaks the measure and drops the document-style rule. */
-  .note__body blockquote {
-    margin: var(--space-7) 0 var(--space-7) calc(var(--note-margin) * -1);
-    padding: var(--space-4) 0;
+  .note__body > h2:first-child,
+  .note__body > h3:first-child {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .note__body > h2 + *,
+  .note__body > h3 + * {
+    margin-top: 0.7em;
+  }
+
+  /* ---- Devices ------------------------------------------------------ */
+
+  /* A pull quote crosses both columns, the way a magazine breaks its grid. */
+  .note__body > blockquote {
+    margin: 1.6em 0;
+    padding: var(--space-3) 0;
     color: var(--color-ink);
-    font-size: var(--step-2);
-    font-style: italic;
-    line-height: 1.4;
+    column-span: all;
+    font-size: 1.32rem;
+    line-height: 1.5;
+    text-align: center;
     text-indent: 0;
     border-top: 1px solid var(--color-accent);
     border-bottom: 1px solid var(--color-rule);
   }
 
-  .note__body blockquote p {
+  .note__body > blockquote p {
+    margin: 0;
     text-indent: 0;
   }
 
-  .note__body ul,
-  .note__body ol {
-    padding-left: 1.4em;
-  }
-
-  .note__body li + li {
+  .note__body > blockquote p + p {
     margin-top: 0.5em;
   }
 
-  .note__body hr {
-    width: 4rem;
-    margin: var(--space-7) 0;
-    border: 0;
+  /* Figures sit inside a column, sized to it, and are never split. */
+  .note__body > figure,
+  .note__body > .prose-figure {
+    margin: 1.3em 0;
+    break-inside: avoid;
+  }
+
+  .note__body > figure img,
+  .note__body > .prose-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .note__body figcaption {
+    margin-top: var(--space-2);
+    padding-top: var(--space-1);
+    color: var(--color-muted);
+    font-family: var(--font-serif);
+    font-size: 0.78rem;
+    line-height: 1.6;
+    text-align: start;
+    text-indent: 0;
     border-top: 1px solid var(--color-rule);
+  }
+
+  /* An image that carries a section spans the page. */
+  .note__body > .figure--wide {
+    column-span: all;
+    margin: 1.6em 0;
+  }
+
+  /* Side note, from the `aside` shortcode. */
+  .note__body > aside {
+    margin: 1.3em 0;
+    padding: var(--space-3) 0;
+    color: var(--color-ink-soft);
+    font-family: var(--font-serif);
+    font-size: 0.86rem;
+    line-height: 1.7;
+    text-align: start;
+    text-indent: 0;
+    break-inside: avoid;
+    border-top: 1px solid var(--color-rule);
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .note__body > aside p {
+    margin: 0;
+    text-indent: 0;
+  }
+
+  .note__body > ul,
+  .note__body > ol {
+    margin-top: 0.7em;
+    padding-left: 1.5em;
+    text-indent: 0;
+  }
+
+  .note__body li + li {
+    margin-top: 0.25em;
+  }
+
+  .note__body > hr {
+    width: 2.5rem;
+    height: 1px;
+    margin: 1.6em 0;
+    background: var(--color-rule);
+    border: 0;
   }
 
   .note__body a {
@@ -219,74 +338,89 @@
 
   .note__body code {
     font-family: var(--font-mono);
-    font-size: 0.84em;
+    font-size: 0.86em;
   }
 
-  .note__body pre {
-    padding: var(--space-4);
+  .note__body > pre {
+    margin: 1.3em 0;
+    padding: var(--space-3);
     overflow-x: auto;
     font-family: var(--font-mono);
-    font-size: var(--step--1);
+    font-size: 0.78rem;
+    text-align: start;
     text-indent: 0;
+    break-inside: avoid;
     background: var(--color-paper-deep);
   }
 
-  /* Images break out of the measure into the margin, like a plate. */
-  .note__body .prose-figure {
-    margin: var(--space-7) 0 var(--space-7) calc(var(--note-margin) * -1);
-  }
-
-  .note__body .prose-figure img {
-    width: 100%;
-    height: auto;
-  }
-
-  .note__body .prose-figure figcaption {
-    margin-top: var(--space-3);
-    padding-top: var(--space-2);
-    color: var(--color-muted);
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
-    letter-spacing: 0.06em;
-    border-top: 1px solid var(--color-rule);
-  }
-
-  /* ---- Colophon ---------------------------------------------------- */
+  /* ---- Colophon ----------------------------------------------------- */
 
   .note__colophon {
-    max-width: var(--reading-max);
-    margin-top: var(--space-8);
-    margin-left: calc((100% - var(--reading-max)) * 0.26);
+    margin-top: var(--space-5);
   }
 
-  .note__end {
+  .note__colophon-line {
     display: flex;
-    gap: var(--space-3);
-    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    justify-content: space-between;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-ink);
+  }
+
+  .note__imprint {
     margin: 0;
-    padding-top: var(--space-5);
-    color: var(--color-muted);
+    color: var(--color-ink-soft);
     font-family: var(--font-mono);
-    font-size: 0.62rem;
+    font-size: 0.6rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    border-top: var(--hairline);
+  }
+
+  .note__imprint span {
+    color: var(--color-muted);
+  }
+
+  .note__keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3em var(--space-3);
+    max-width: 34rem;
+    margin: 0;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.56rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .note__keywords span {
+    white-space: nowrap;
+  }
+
+  /* The separator trails the keyword it follows and is held on its line by
+     the nowrap above — as a leading ::before it would wrap down and start
+     the next line with a stray dot. */
+  .note__keywords span:not(:last-child)::after {
+    content: "·";
+    margin-left: var(--space-3);
+    opacity: 0.55;
   }
 
   .note__continue {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-5);
-    margin-top: var(--space-7);
+    gap: clamp(2.25rem, 3.6vw, 4rem);
+    margin-top: var(--space-5);
   }
 
   .note__continue-link {
     display: grid;
     gap: var(--space-2);
-    padding-top: var(--space-3);
+    align-content: start;
+    padding-top: var(--space-2);
     text-decoration: none;
     border-top: 1px solid var(--color-rule);
-    transition: border-color 200ms ease;
   }
 
   .note__continue-link--next {
@@ -299,20 +433,15 @@
 
   .note__continue-label {
     color: var(--color-muted);
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
+    font-family: var(--font-serif);
+    font-size: 0.74rem;
     letter-spacing: 0.2em;
-    text-transform: uppercase;
   }
 
   .note__continue-title {
     font-family: var(--font-serif);
-    font-size: var(--step-0);
-    line-height: 1.35;
-  }
-
-  .note__continue-link:hover {
-    border-top-color: var(--color-accent);
+    font-size: 0.95rem;
+    line-height: 1.45;
   }
 
   .note__continue-link:hover .note__continue-title {
@@ -320,7 +449,19 @@
   }
 
   .note__back {
-    margin-top: var(--space-6);
+    display: inline-block;
+    margin-top: var(--space-4);
+    color: var(--color-muted);
+    font-family: var(--font-serif);
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .note__back:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
   }
 
   /* ------------------------------------------------------------------ */
@@ -359,9 +500,9 @@
   .notes-entry__title {
     max-width: 34ch;
     font-family: var(--font-serif);
-    font-size: var(--step-2);
-    line-height: 1.22;
-    letter-spacing: -0.01em;
+    font-size: var(--step-1);
+    line-height: 1.5;
+    letter-spacing: 0.01em;
   }
 
   .notes-entry__subtitle {
@@ -377,7 +518,7 @@
     margin-top: var(--space-3);
     color: var(--color-ink-soft);
     font-size: 0.94rem;
-    line-height: 1.7;
+    line-height: 1.8;
   }
 
   .notes-entry__aside {
@@ -386,8 +527,8 @@
     justify-items: end;
     color: var(--color-muted);
     font-family: var(--font-mono);
-    font-size: 0.64rem;
-    letter-spacing: 0.12em;
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
     text-align: right;
   }
 
@@ -409,7 +550,7 @@
   .notes-entry__keywords {
     max-width: 14rem;
     color: var(--color-muted);
-    line-height: 1.8;
+    line-height: 1.9;
   }
 
   .notes-entry__link:hover {
@@ -426,41 +567,96 @@
   }
 
   /* ------------------------------------------------------------------ */
-  /* Single column                                                       */
+  /* Narrow screens                                                      */
   /* ------------------------------------------------------------------ */
 
-  @media (max-width: 48rem) {
+  /* On a wide display a third column keeps the piece closer to a single
+     page. ~26 Han characters a line — narrow, but a normal newspaper
+     measure for Chinese, and it holds. */
+  @media (min-width: 100rem) {
     .note {
-      --note-margin: 0rem;
+      --note-sheet: 90rem;
     }
 
-    .note__masthead {
-      grid-template-columns: minmax(0, 1fr);
+    .note__body {
+      columns: 3;
+    }
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Narrower screens                                                    */
+  /* ------------------------------------------------------------------ */
+
+  /* Two columns need width to stay readable; below this the piece runs as
+     a single column at the same density. */
+  @media (max-width: 64rem) {
+    .note__body {
+      columns: 1;
+      column-rule: 0;
+      max-width: 36em;
+      margin-inline: auto;
     }
 
-    .note__runhead,
-    .note__title,
-    .note__subtitle,
-    .note__deck,
-    .note__meta {
-      grid-column: 1;
+    .note__body > blockquote,
+    .note__body > .figure--wide {
+      column-span: none;
+    }
+
+    .note__title {
+      grid-column: 1 / -1;
       max-width: none;
     }
 
-    .note__body,
-    .note__colophon {
-      margin-left: 0;
+    .note__intro {
+      grid-column: 1 / span 8;
     }
+  }
 
-    /* The hanging number moves above its heading. */
-    .note__body h2 {
+  @media (max-width: 48rem) {
+    .note__masthead {
       grid-template-columns: minmax(0, 1fr);
-      gap: var(--space-2);
+      align-items: start;
     }
 
-    .note__body blockquote,
-    .note__body .prose-figure {
-      margin-left: 0;
+    .note__folio {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .note__byline {
+      grid-column: 1;
+      grid-row: 2;
+      margin-top: var(--space-3);
+      text-align: left;
+    }
+
+    .note__kicker {
+      grid-column: 1;
+      grid-row: 3;
+      margin-top: var(--space-4);
+    }
+
+    .note__title {
+      grid-column: 1;
+      grid-row: 4;
+      font-size: clamp(1.7rem, 7.5vw, 2.4rem);
+    }
+
+    .note__intro {
+      grid-column: 1;
+      grid-row: 5;
+    }
+
+    .note__meta {
+      grid-column: 1;
+      grid-row: 6;
+      justify-content: flex-start;
+      text-align: left;
+    }
+
+    /* Justification opens rivers at a phone measure. */
+    .note__body {
+      text-align: start;
     }
 
     .notes-entry__link {
@@ -476,6 +672,7 @@
 
     .note__continue {
       grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-4);
     }
 
     .note__continue-link--next {
@@ -484,8 +681,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .notes-entry__link,
-    .note__continue-link {
+    .notes-entry__link {
       transition: none;
     }
 

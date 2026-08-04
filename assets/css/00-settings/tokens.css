@@ -1,3 +1,67 @@
+/* --------------------------------------------------------------------- */
+/* Han faces, re-cut to sit with the Latin ones.                          */
+/*                                                                        */
+/* Measured at a common font-size, Han ink runs 1.33x the Latin           */
+/* cap-height — which is why mixed lines read as two publications spliced */
+/* together rather than one. `font-size-adjust` cannot correct this (it   */
+/* moved the advance by 2%), so the Han families are redeclared over a    */
+/* CJK-only unicode-range with size-adjust. Han is scaled; Latin, digits  */
+/* and punctuation outside the range are untouched.                       */
+/*                                                                        */
+/* If none of the local() faces exist, the @font-face simply does not     */
+/* load and the plain families later in each stack take over.             */
+/* --------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Publication Han Serif";
+  src: local("Songti SC"), local("SongtiSC-Regular"), local("STSong"),
+    local("Noto Serif SC"), local("Source Han Serif SC"), local("SimSun");
+  size-adjust: 92%;
+  unicode-range: U+2E80-2EFF, U+3000-303F, U+3040-30FF, U+3400-4DBF,
+    U+4E00-9FFF, U+F900-FAFF, U+FF00-FFEF;
+}
+
+@font-face {
+  font-family: "Publication Han Sans";
+  src: local("PingFang SC"), local("PingFangSC-Regular"), local("Noto Sans SC"),
+    local("Source Han Sans SC"), local("Hiragino Sans GB"),
+    local("Microsoft YaHei");
+  size-adjust: 92%;
+  unicode-range: U+2E80-2EFF, U+3000-303F, U+3040-30FF, U+3400-4DBF,
+    U+4E00-9FFF, U+F900-FAFF, U+FF00-FFEF;
+}
+
+/* --------------------------------------------------------------------- */
+/* Quotes, dashes and ellipses shared by both scripts.                    */
+/*                                                                        */
+/* ’ “ ” live at U+2019/201C/201D — outside the CJK block — so in a       */
+/* Chinese line they were taken from the Latin face: advance 28-47        */
+/* against a hanzi's 92, and descent -44 against +16, i.e. small marks    */
+/* floating well above a line of characters that sit on the baseline.     */
+/* That is the "高低不齐" effect.                                          */
+/*                                                                        */
+/* These faces claim exactly those codepoints for the Han font, and are   */
+/* applied only under :lang(zh) below, so English pages keep their own    */
+/* apostrophes and quotes.                                                */
+/* --------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Publication Han Punct Serif";
+  src: local("Songti SC"), local("SongtiSC-Regular"), local("STSong"),
+    local("Noto Serif SC"), local("Source Han Serif SC"), local("SimSun");
+  size-adjust: 92%;
+  unicode-range: U+2014-2015, U+2018-201F, U+2026, U+2032-2033;
+}
+
+@font-face {
+  font-family: "Publication Han Punct Sans";
+  src: local("PingFang SC"), local("PingFangSC-Regular"), local("Noto Sans SC"),
+    local("Source Han Sans SC"), local("Hiragino Sans GB"),
+    local("Microsoft YaHei");
+  size-adjust: 92%;
+  unicode-range: U+2014-2015, U+2018-201F, U+2026, U+2032-2033;
+}
+
 @layer settings {
   :root {
     --color-paper: #f1eee7;
@@ -17,13 +81,14 @@
        word like 音乐 gets 音 from the Japanese face and 乐 from whatever the
        browser falls back to, ~9% of an em apart in ascent. Keep SC ahead of
        JP here or that misalignment comes straight back. */
-    --font-serif: "Iowan Old Style", "Palatino Linotype", Georgia, "Songti SC",
-      "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong,
-      SimSun, serif;
-    --font-sans: "Helvetica Neue", Arial, "PingFang SC", "Noto Sans SC",
-      "Source Han Sans SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-    --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", "PingFang SC",
-      "Noto Sans SC", monospace;
+    --font-serif: "Iowan Old Style", "Palatino Linotype", Georgia,
+      "Publication Han Serif", "Songti SC", "Noto Serif SC",
+      "Source Han Serif SC", "Source Han Serif CN", STSong, SimSun, serif;
+    --font-sans: "Helvetica Neue", Arial, "Publication Han Sans", "PingFang SC",
+      "Noto Sans SC", "Source Han Sans SC", "Hiragino Sans GB",
+      "Microsoft YaHei", sans-serif;
+    --font-mono: "SFMono-Regular", Consolas, "Liberation Mono",
+      "Publication Han Sans", "PingFang SC", "Noto Sans SC", monospace;
 
     --step--1: clamp(0.78rem, 0.74rem + 0.15vw, 0.86rem);
     --step-0: clamp(1rem, 0.95rem + 0.2vw, 1.12rem);
@@ -45,6 +110,20 @@
     --site-max: 92rem;
     --reading-max: 43rem;
     --hairline: 1px solid var(--color-rule);
+  }
+
+  /* On Chinese pages the shared punctuation is claimed by the Han face, so
+     quotes sit on the same baseline and at the same size as the characters
+     around them. The punct family must precede the Latin ones — matching
+     runs left to right, and Iowan Old Style has these glyphs too. */
+  :root:lang(zh) {
+    --font-serif: "Publication Han Punct Serif", "Iowan Old Style",
+      "Palatino Linotype", Georgia, "Publication Han Serif", "Songti SC",
+      "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong,
+      SimSun, serif;
+    --font-sans: "Publication Han Punct Sans", "Helvetica Neue", Arial,
+      "Publication Han Sans", "PingFang SC", "Noto Sans SC",
+      "Source Han Sans SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   }
 }
 

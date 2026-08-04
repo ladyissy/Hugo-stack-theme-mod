@@ -1,0 +1,51 @@
+{{- /*
+  The statement — the publication's opening page.
+
+  Set as an editorial statement rather than a profile: a running head, a
+  display title, a standfirst, then one column of continuous text and a
+  short imprint at the foot. No portrait, no byline, no dateline, no
+  reading time. `layout: statement` in the front matter selects this.
+
+  Typography rule enforced throughout: the mono face carries Latin and
+  numerals only. Labels that may hold Chinese are set in the serif.
+*/ -}}
+
+{{ define "main" }}
+  {{- $deck := .Params.summary | default .Description -}}
+
+  {{/* A title in the body would be said twice; the masthead carries it. */}}
+  {{- $body := .Content | replaceRE `(?s)\A\s*<h1[^>]*>.*?</h1>` "" -}}
+
+  <article class="statement-page">
+    <header class="statement__masthead">
+      <p class="statement__kicker">
+        {{- .Params.kicker | default (i18n "statementKicker") -}}
+      </p>
+
+      <h1 class="statement__title">{{ .Title }}</h1>
+
+      {{ with $deck }}
+        <p class="statement__deck">{{ . }}</p>
+      {{ end }}
+    </header>
+
+    <div class="statement__body">
+      {{ $body | safeHTML }}
+    </div>
+
+    {{ with .Params.imprint }}
+      <footer class="statement__imprint">
+        <h2 class="visually-hidden">{{ i18n "statementImprint" }}</h2>
+
+        <dl class="statement__ledger">
+          {{ range . }}
+            <div>
+              <dt>{{ .label }}</dt>
+              <dd>{{ .value }}</dd>
+            </div>
+          {{ end }}
+        </dl>
+      </footer>
+    {{ end }}
+  </article>
+{{ end }}

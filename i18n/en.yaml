@@ -108,6 +108,12 @@ projectPeriod:
 projectMedium:
   other: Medium
 
+statementKicker:
+  other: Editorial statement
+
+statementImprint:
+  other: Imprint
+
 nowFocus:
   other: Focus
 
@@ -204,3 +210,9 @@ zineHintMobile:
 
 zineStatusTemplate:
   other: Page {range} of {total}
+
+metaReading:
+  other: Reading
+
+readingMinutes:
+  other: min

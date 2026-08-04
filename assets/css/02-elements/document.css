@@ -19,6 +19,12 @@
     font-size: var(--step-0);
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
+
+    /* Han/Latin spacing the browser does not apply on its own: a quarter-em
+       between 音乐 and Massive, and the slack trimmed out of full-width
+       punctuation so 。and ，stop leaving holes in a line. */
+    text-spacing-trim: normal;
+    text-autospace: normal;
   }
 
   main {
