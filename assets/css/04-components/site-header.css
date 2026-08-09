@@ -20,9 +20,17 @@
     text-decoration: none;
   }
 
+  /* The running masthead. A small, wide cut of the same face the cover is
+     set in — the tie between the two is the point, so it is the display
+     family here rather than the text serif. */
   .site-mark__name {
-    font-family: var(--font-serif);
-    font-size: 1.05rem;
+    font-family: var(--font-display);
+    font-optical-sizing: none;
+    font-size: 0.84rem;
+    font-stretch: var(--display-wide);
+    font-weight: var(--display-bold);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
   }
 
   .site-mark__label {
@@ -47,9 +55,15 @@
     list-style: none;
   }
 
+  /* Navigation is apparatus, not prose — the same voice as the folios and
+     the running heads, so the chrome reads as one register throughout. Han
+     labels fall through the mono to the Song, which is deliberate: mono
+     digits and Han characters do not share a vertical centre. */
   .site-nav a {
-    font-size: var(--step--1);
-    letter-spacing: 0.025em;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     text-decoration: none;
   }
 

@@ -46,7 +46,12 @@
       by {{ site.Params.identity.name | default site.Title }}
     </p>
 
-    <h1 class="note__title">{{ $page.Title }}</h1>
+    {{/* Which script the title is in, not which language the page is in.
+         This archive files Chinese and Latin titles side by side under zh,
+         and the display face wants opposite settings for the two: Archivo
+         at 62% stacks at 0.92 and takes negative tracking, a Song fills its
+         body and needs leading above 1 with the tracking off. */}}
+    <h1 class="note__title{{ if findRE "\\p{Han}" $page.Title 1 }} note__title--han{{ end }}">{{ $page.Title }}</h1>
 
     <p class="note__kicker">
       {{ i18n "eyebrowFieldNotes" }}

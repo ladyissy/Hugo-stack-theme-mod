@@ -321,21 +321,34 @@
     z-index: 1;
     margin: 0;
     color: var(--color-ink);
-    font-family: var(--font-serif);
-    /* Whichever is smaller: the display ceiling, or the size at which the
-       longest word still clears the trim. 0.78em covers the widest uppercase
-       advance in the serif stack (Georgia), so nothing runs off on Windows. */
+    font-family: var(--font-display);
+    font-optical-sizing: none;
+    /* Whichever is smaller: the display ceiling, the size at which the
+       longest word still clears the trim, or the size at which every stacked
+       word still fits its rows so a three-word title does not run into the
+       lede below it.
+
+       --masthead-advance is the per-character advance to budget for, and
+       --masthead-line the leading. Both are set by the template rather than
+       guessed here, because the right value depends on the script the label
+       is actually in: Archivo at 62% sets an uppercase character in about
+       0.64em, a Han character occupies its full body. Reading the label is
+       the only way to know which, and CSS cannot. The old code guessed one
+       number for a serif and rounded the leading up on top of it, which cost
+       the cover about a fifth of the size the sheet allows. */
     font-size: min(
-      var(--masthead-ceiling, 13.5vw),
-      13rem,
-      calc((100vw - 2 * var(--trim-inline)) / (var(--masthead-chars, 8) * 0.78)),
-      /* …and the size at which every stacked word still fits its rows, so a
-         three-word title does not run into the lede below it. */
-        calc(44svh / (var(--masthead-lines, 2) * 0.86))
+      var(--masthead-ceiling, 17vw),
+      17rem,
+      calc(
+        (100vw - 2 * var(--trim-inline)) / (var(--masthead-chars, 8) *
+              var(--masthead-advance, 0.72))
+      ),
+      calc(44svh / (var(--masthead-lines, 2) * var(--masthead-line, 0.8)))
     );
-    font-weight: 400;
-    line-height: 0.78;
-    letter-spacing: -0.05em;
+    font-stretch: var(--display-narrow);
+    font-weight: 900;
+    line-height: var(--masthead-line, 0.8);
+    letter-spacing: var(--masthead-track, -0.012em);
     text-transform: uppercase;
     text-wrap: nowrap;
   }
@@ -380,10 +393,14 @@
     align-self: start;
     margin-inline-end: -0.14em;
     color: transparent;
-    font-family: var(--font-serif);
-    font-size: clamp(8rem, 32vw, 26rem);
+    font-family: var(--font-display);
+    font-optical-sizing: none;
+    font-size: clamp(9rem, 36vw, 30rem);
+    font-stretch: var(--display-narrow);
+    font-weight: 900;
+    font-variant-numeric: lining-nums;
     line-height: 0.7;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.02em;
     -webkit-text-stroke: 1px var(--color-rule);
   }
 
@@ -502,10 +519,12 @@
 
   .contents__title {
     margin: 0 0 var(--space-5);
-    font-family: var(--font-serif);
+    font-family: var(--font-display);
+    font-optical-sizing: none;
     font-size: var(--step-2);
-    font-weight: 400;
-    letter-spacing: 0.02em;
+    font-stretch: var(--display-mid);
+    font-weight: var(--display-heavy);
+    letter-spacing: 0.01em;
     text-transform: uppercase;
   }
 
@@ -604,10 +623,12 @@
     align-self: start;
     margin: 0;
     color: var(--color-ink);
-    font-family: var(--font-serif);
-    font-size: clamp(2.75rem, 8vw, 7rem);
-    font-weight: 400;
-    letter-spacing: 0.02em;
+    font-family: var(--font-display);
+    font-optical-sizing: none;
+    font-size: clamp(3.25rem, 9.5vw, 8.5rem);
+    font-stretch: var(--display-narrow);
+    font-weight: var(--display-heavy);
+    letter-spacing: 0.01em;
     line-height: 1;
     text-transform: uppercase;
     writing-mode: vertical-rl;

@@ -84,17 +84,34 @@
     color: var(--color-muted);
   }
 
+  /* The one display object on the page. Everything below it is reading
+     size, so the title carries the whole hierarchy by itself: condensed,
+     heavy, and set on a measure narrow enough to stack into a block with
+     edges rather than run as a line. */
   .note__title {
     grid-column: 1 / span 9;
     grid-row: 3;
     max-width: 22ch;
     margin: var(--space-3) 0 0;
-    font-family: var(--font-serif);
-    font-size: clamp(1.9rem, 3.8vw, 3.35rem);
-    font-weight: 400;
-    line-height: 1.15;
-    letter-spacing: -0.015em;
+    font-family: var(--font-display);
+    font-optical-sizing: none;
+    font-size: clamp(2.4rem, 5.4vw, 4.9rem);
+    font-stretch: var(--display-narrow);
+    font-weight: var(--display-heavy);
+    line-height: 0.92;
+    letter-spacing: -0.005em;
     text-wrap: balance;
+  }
+
+  /* Han has no narrow cut and no case; weight is the whole gesture, and the
+     characters need room to breathe that Latin tracking would not give.
+     Keyed off the title's own script — see the note in the partial — because
+     under :lang(zh) this would also catch the Latin titles filed beside it. */
+  .note__title--han {
+    max-width: 16ch;
+    font-size: clamp(2.1rem, 4.4vw, 4rem);
+    line-height: 1.18;
+    letter-spacing: 0.02em;
   }
 
   .note__intro {

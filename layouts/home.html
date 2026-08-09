@@ -16,6 +16,18 @@
     {{- if gt $count $longest }}{{ $longest = $count }}{{ end -}}
   {{- end -}}
 
+  {{/* How much room one character of the label needs, and how tightly the
+       lines can stack. A Han character fills its body and wants leading
+       above 1; Archivo at 62% width sets an uppercase character in roughly
+       0.64em and stacks at 0.8. Guessing one number for both — or keying it
+       off the page language — gets it wrong the moment a Latin studio name
+       appears on a Chinese page, which is exactly this publication. So the
+       label itself is read. */}}
+  {{- $han := findRE "\\p{Han}" $label 1 -}}
+  {{- $advance := cond (gt (len $han) 0) "1.04" "0.72" -}}
+  {{- $leading := cond (gt (len $han) 0) "1.02" "0.8" -}}
+  {{- $tracking := cond (gt (len $han) 0) "0" "-0.012em" -}}
+
   {{/* Contents come from an explicit running order, never from the menus. */}}
   {{- $entries := slice -}}
   {{- range site.Params.cover.contents -}}
@@ -48,7 +60,7 @@
         <h1
           class="masthead"
           id="masthead"
-          style="--masthead-chars: {{ $longest }}; --masthead-lines: {{ len $words }}"
+          style="--masthead-chars: {{ $longest }}; --masthead-lines: {{ len $words }}; --masthead-advance: {{ $advance }}; --masthead-line: {{ $leading }}; --masthead-track: {{ $tracking }}"
         >
           {{- range $i, $word := $words }}
             {{- /* The reference mark rides on the last word so it cannot wrap

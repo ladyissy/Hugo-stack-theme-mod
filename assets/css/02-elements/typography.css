@@ -1,41 +1,96 @@
 @layer elements {
+  /* -------------------------------------------------------------------- */
+  /* Headings are display objects.                                         */
+  /*                                                                       */
+  /* Three cuts of one variable face, separated by width and weight rather  */
+  /* than by size alone — which is what keeps a page legible when two of    */
+  /* them land near each other. h1 is set as narrow and as heavy as the     */
+  /* face goes; h3 opens back out to near-normal width because at label     */
+  /* size a 62% cut closes up and stops being readable.                     */
+  /*                                                                       */
+  /* Uppercase is doing the same job here that it does on an exhibition     */
+  /* poster: it removes the ascender/descender rag so a title reads as a    */
+  /* block with edges. It is a no-op on Han, which is why the Chinese cuts  */
+  /* lean on weight instead — Noto Serif SC at 800 is a heavy Song, and     */
+  /* that is the equivalent gesture.                                        */
+  /* -------------------------------------------------------------------- */
+
   h1,
   h2,
   h3 {
-    font-family: var(--font-serif);
-    font-weight: 400;
-    line-height: 1.08;
+    font-family: var(--font-display);
+    font-optical-sizing: none;
     text-wrap: balance;
   }
 
   h1 {
     font-size: var(--step-3);
-    letter-spacing: -0.035em;
+    font-stretch: var(--display-narrow);
+    font-weight: var(--display-heavy);
+    line-height: 0.88;
+    letter-spacing: -0.005em;
+    text-transform: uppercase;
   }
 
   h2 {
     font-size: var(--step-2);
-    letter-spacing: -0.02em;
+    font-stretch: var(--display-mid);
+    font-weight: var(--display-bold);
+    line-height: 0.98;
+    letter-spacing: 0.005em;
+    text-transform: uppercase;
   }
 
   h3 {
     font-size: var(--step-1);
+    font-stretch: var(--display-wide);
+    font-weight: var(--display-medium);
+    line-height: 1.15;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
+
+  /* Han carries none of the above. A Song face has no case to raise, its
+     characters are already on a fixed body, and tracking a heading of them
+     out by a Latin value opens gaps between characters rather than between
+     words. Weight is the whole gesture. */
+  :lang(zh) h1,
+  :lang(zh) h2,
+  :lang(zh) h3 {
+    letter-spacing: 0.02em;
+  }
+
+  :lang(zh) h1 {
+    line-height: 1.1;
+  }
+
+  :lang(zh) h2,
+  :lang(zh) h3 {
+    line-height: 1.3;
+  }
+
+  /* -------------------------------------------------------------------- */
+  /* The apparatus: everything that is a label, a number, or a filing mark. */
+  /* -------------------------------------------------------------------- */
 
   .eyebrow,
   .section-number {
     color: var(--color-muted);
     font-family: var(--font-mono);
     font-size: var(--step--1);
-    letter-spacing: 0.1em;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     line-height: 1.4;
     text-transform: uppercase;
   }
 
   .text-link {
     display: inline-block;
-    font-size: var(--step--1);
-    letter-spacing: 0.035em;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
     text-decoration: none;
     border-bottom: 1px solid currentColor;
   }
@@ -48,4 +103,3 @@
     font-style: italic;
   }
 }
-

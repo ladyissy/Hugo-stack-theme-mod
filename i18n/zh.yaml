@@ -216,3 +216,22 @@ metaReading:
 
 readingMinutes:
   other: 分钟
+
+# --- Plates -------------------------------------------------------------
+plateAbbrev:
+  other: 图版
+
+plateCoverSubject:
+  other: 长笛，室内，红光
+
+plateStatementSubject:
+  other: 手与键，练习中
+
+plateIndexSubject:
+  other: 排练室，失焦
+
+plateNotesSubject:
+  other: 现场，未命名的一晚
+
+plateWorkSubject:
+  other: 卧室里的太空，制作中

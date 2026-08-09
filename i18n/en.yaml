@@ -216,3 +216,22 @@ metaReading:
 
 readingMinutes:
   other: min
+
+# --- Plates -------------------------------------------------------------
+plateAbbrev:
+  other: Pl.
+
+plateCoverSubject:
+  other: Flute, interior, red light
+
+plateStatementSubject:
+  other: Hands and keys, practising
+
+plateIndexSubject:
+  other: Rehearsal room, out of focus
+
+plateNotesSubject:
+  other: Live, an unnamed evening
+
+plateWorkSubject:
+  other: Bedroom Cosmos, in production

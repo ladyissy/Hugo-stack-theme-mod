@@ -15,10 +15,20 @@
       rgba(92, 76, 49, 0.025) 78%,
       transparent
     );
-    font-family: var(--font-sans);
+
+    /* The default voice of the publication is the text serif, not a UI
+       sans. Anything that is a label rather than prose asks for
+       var(--font-sans) or var(--font-mono) explicitly. */
+    font-family: var(--font-serif);
     font-size: var(--step-0);
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
+
+    /* Newsreader carries an optical-size axis. Letting it track the used
+       font-size is the whole reason it is here: a running 1rem gets the
+       sturdier cut, a deck at 1.65rem gets the open one, with no second
+       font file and no rule to maintain. */
+    font-optical-sizing: auto;
 
     /* Han/Latin spacing the browser does not apply on its own: a quarter-em
        between 音乐 and Massive, and the slack trimmed out of full-width
@@ -29,6 +39,24 @@
 
   main {
     min-height: 70vh;
+  }
+
+  /* Old-style figures set a line of English prose the way a book does, and
+     are wrong the moment the line is Chinese: 1997 年 wants figures that
+     stand on the character body, not ones that hang below it. Scoped to
+     English rather than applied on body, because this publication mixes
+     digits into Han lines on nearly every page. */
+  body:lang(en) {
+    font-variant-numeric: oldstyle-nums;
+  }
+
+  /* Figures in the apparatus are read as data — folios, counts, dates — so
+     they line up in a column and keep a common width. */
+  [class*="folio"],
+  [class*="__count"],
+  [class*="__num"],
+  time {
+    font-variant-numeric: lining-nums tabular-nums;
   }
 
   a {

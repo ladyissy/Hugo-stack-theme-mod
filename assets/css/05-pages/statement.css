@@ -49,12 +49,23 @@
     grid-row: 2;
     max-width: 18ch;
     margin: clamp(1.5rem, 3.2vw, 2.75rem) 0 0;
-    font-family: var(--font-serif);
-    font-size: clamp(2.05rem, 5vw, 4.1rem);
-    font-weight: 400;
-    line-height: 1.08;
-    letter-spacing: -0.03em;
+    font-family: var(--font-display);
+    font-optical-sizing: none;
+    font-size: clamp(2.4rem, 5.8vw, 5.2rem);
+    font-stretch: var(--display-narrow);
+    font-weight: var(--display-heavy);
+    line-height: 0.92;
+    letter-spacing: -0.005em;
+    text-transform: uppercase;
     text-wrap: balance;
+  }
+
+  /* This title routinely mixes scripts — 关于 Harper's Live Sessions — so it
+     gets the leading a Han line needs rather than the tight Latin stack. */
+  :lang(zh) .statement__title {
+    font-size: clamp(2rem, 4.6vw, 4.2rem);
+    line-height: 1.2;
+    letter-spacing: 0.01em;
   }
 
   /* The standfirst is the one place the type opens up. */
