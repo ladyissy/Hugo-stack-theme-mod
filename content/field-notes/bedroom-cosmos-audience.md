@@ -4,7 +4,7 @@ cover_words:
   - "AUDIENCE"
   - "MAKER"
 cover_question: "WHY NOT ME?"
-cover_variant: "split"
+cover_variant: "rhythm"
 date: 2026-08-03
 category: "Field Notes"
 tags:

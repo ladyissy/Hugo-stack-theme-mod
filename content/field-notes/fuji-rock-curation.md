@@ -4,7 +4,7 @@ cover_words:
   - "NEW"
   - "VOICES"
 cover_question: "WHO GETS HEARD?"
-cover_variant: "block"
+cover_variant: "split"
 date: 2026-08-03
 category: "Field Notes"
 tags:

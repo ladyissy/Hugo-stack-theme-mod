@@ -4,7 +4,7 @@ cover_words:
   - "JAZZ"
   - "LANGUAGE"
 cover_question: "HOW DO WE HEAR?"
-cover_variant: "stack"
+cover_variant: "rhythm"
 date: 2026-08-03
 category: "Field Notes"
 tags:

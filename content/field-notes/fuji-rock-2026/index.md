@@ -4,7 +4,7 @@ cover_words:
   - "FUJI"
   - "ROCK"
 cover_question: "HOW DID I LISTEN?"
-cover_variant: "block"
+cover_variant: "rhythm"
 subtitle: 苗场现场记录
 layout: zine
 presentation: folio

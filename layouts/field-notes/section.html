@@ -184,7 +184,7 @@
             {{ range $index, $note := (after 1 $notes) }}
               {{- $isZine := eq ($note.Params.layout | default "") "zine" -}}
               {{- $number := printf "%03d" (sub (sub $total 1) $index) -}}
-              <li class="fn-row">
+              <li class="fn-row{{ if $isZine }} fn-row--zine{{ end }}">
                 <a class="fn-row__link" href="{{ $note.RelPermalink }}">
                   <span class="fn-row__number">NO.&nbsp;{{ $number }}</span>
 

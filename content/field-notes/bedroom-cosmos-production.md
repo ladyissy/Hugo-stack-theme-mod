@@ -4,7 +4,7 @@ cover_words:
   - "WRITTEN"
   - "DONE"
 cover_question: "WHAT GETS LOST?"
-cover_variant: "stack"
+cover_variant: "split"
 # Read by the section index for the latest-entry block. Deliberately not
 # `summary`, which the note template would render as a visible deck.
 description: "从准备清单到现场遗漏：写下来的事情，基本都完成了。"
