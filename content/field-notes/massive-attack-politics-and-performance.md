@@ -8,7 +8,6 @@ tags:
   - music-and-politics
   - live-performance
   - artistic-expression
-draft: true
 ---
 
 # Massive Attack, Politics, and the Question of Music

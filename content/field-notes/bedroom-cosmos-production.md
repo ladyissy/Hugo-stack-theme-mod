@@ -8,7 +8,6 @@ tags:
   - checklist
   - bedroom-cosmos
   - field-notes
-draft: true
 ---
 
 # Everything Written Gets Done：一场小型现场活动的制作复盘

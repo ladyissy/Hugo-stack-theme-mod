@@ -7,7 +7,6 @@ tags:
   - practice
   - improvisation
   - listening
-draft: true
 ---
 
 # How High the Moon：开始听见爵士语言

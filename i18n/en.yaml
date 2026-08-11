@@ -44,6 +44,9 @@ coverIndex:
 coverIndexPending:
   other: The index has not been built yet.
 
+coverAuthorNote:
+  other: About the author
+
 coverColophon:
   other: Colophon
 

@@ -1,7 +1,6 @@
 ---
 title: 此刻
 date: 2026-07-31
-draft: true
 summary: 最近在做什么、在练什么、在听什么。
 focus: 把注意力放回现场，少做计划，多做记录。
 making:

@@ -8,7 +8,6 @@ tags:
   - performance
   - bedroom-cosmos
   - creative-process
-draft: true
 ---
 
 # 从观众到创造者：我生产了自己曾经羡慕的小众现场

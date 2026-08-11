@@ -1,7 +1,6 @@
 ---
 title: "Jazz Practice No. 01: Leaving Air"
 date: 2026-07-31
-draft: true
 summary: A short practice note about time, restraint, and letting a phrase finish before answering it.
 note_type: practice
 mediums:

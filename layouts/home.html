@@ -191,6 +191,17 @@
           {{- end }}
         </div>
 
+        {{/* The author note, set the way a novel carries it in the back
+             matter: a short bio at the head of the recto, the imprint
+             below it. The copy lives in content/about.md, which renders
+             no page of its own. */}}
+        {{- with site.GetPage "/about" }}
+          <aside class="author-note">
+            <h2 class="author-note__title">{{ i18n "coverAuthorNote" }}</h2>
+            <div class="author-note__body">{{ .Content }}</div>
+          </aside>
+        {{- end }}
+
         <div class="colophon">
           <h2 class="visually-hidden">{{ i18n "coverColophon" }}</h2>
 

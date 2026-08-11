@@ -8,7 +8,6 @@ tags:
   - music-festival
   - emerging-artists
   - live-sessions
-draft: true
 ---
 
 # Fuji Rock, Curation, and the Art of Finding New Voices

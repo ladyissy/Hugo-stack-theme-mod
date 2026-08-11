@@ -684,7 +684,56 @@
     align-self: start;
   }
 
-  /* Rows 2–4, columns 8–13: left empty on purpose. */
+  /* The author note takes the head of the recto, directly above the
+     imprint — where a novel sets it in the back matter. Short enough that
+     it reads as a note, not a second statement. */
+  .author-note {
+    grid-area: 2 / 9 / 5 / 13;
+    align-self: start;
+  }
+
+  .author-note__title {
+    margin: 0 0 0.9rem;
+    padding-bottom: 0.4rem;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: var(--annotation-size);
+    font-weight: inherit;
+    letter-spacing: 0.2em;
+    line-height: 1.6;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .author-note__body p {
+    margin: 0 0 0.8rem;
+    color: var(--color-ink-soft);
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  /* The opening line names the author, so it keeps the full ink. */
+  .author-note__body p:first-child {
+    color: var(--color-ink);
+  }
+
+  .author-note__body p:last-child {
+    margin-bottom: 0;
+  }
+
+  .author-note__body .author-note__close {
+    margin: var(--space-4) 0 0;
+    padding-top: 0.7rem;
+    color: var(--color-muted);
+    font-style: italic;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  /* No true italic in the CJK faces; a synthesised slant is worse than none. */
+  :lang(zh) .author-note__body .author-note__close {
+    font-style: normal;
+  }
 
   .colophon {
     grid-area: 5 / 9 / 9 / 13;
@@ -817,6 +866,7 @@
     .subject-index__title,
     .subject-index__body,
     .annotation--index,
+    .author-note,
     .colophon {
       grid-area: auto;
       grid-column: 1;

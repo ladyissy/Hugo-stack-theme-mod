@@ -1,7 +1,6 @@
 ---
 title: Bedroom Cosmos
 date: 2026-07-31
-draft: true
 summary: A live-session study for a room, an instrument, and the changing air around a melody.
 status: in-progress
 mediums:

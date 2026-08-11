@@ -11,8 +11,4 @@ main:
     name: 此刻
     pageRef: /now
     weight: 30
-  - identifier: about
-    name: 关于
-    pageRef: /page/about
-    weight: 40
 

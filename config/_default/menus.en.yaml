@@ -11,8 +11,4 @@ main:
     name: Now
     pageRef: /now
     weight: 30
-  - identifier: about
-    name: About
-    pageRef: /page/about
-    weight: 40
 
