@@ -1,61 +1,235 @@
+{{/* ---------------------------------------------------------------------
+  FIELD NOTES — section index.
+
+  A section cover rather than a feed: the name of the department set as a
+  display object, one photograph carrying the visual centre, and the most
+  recent note pulled out as a full-width entry you cannot miss. The rest of
+  the archive runs below on the existing .notes-entry rows.
+
+  Styles live in a page-scoped sheet loaded from the head block below —
+  105 KB of it is the two @font-face families this page needs and no other
+  page does, which is exactly why it is not in the concatenated
+  site stylesheet.
+--------------------------------------------------------------------- */}}
+
+{{ define "head" }}
+  {{- $css := resources.Get "css/05-pages/field-notes-index.css" | minify | fingerprint -}}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+
+  {{/* Discovered inside that sheet, so the masthead would otherwise start
+       a round trip late. The Han slices are not preloaded, for the reason
+       given in site/head.html. */}}
+  <link rel="preload" href="/fonts/plex-sans-condensed-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+{{ end }}
+
 {{ define "main" }}
-  <div class="index-shell notes-index">
-    <header class="index-header">
-      <p class="eyebrow">{{ i18n "eyebrowFieldNotes" }}</p>
-      <h1>{{ .Title }}</h1>
-      {{ with .Description }}
-        <p class="index-intro">{{ . }}</p>
+  {{- $notes := .Pages -}}
+  {{- $total := len $notes -}}
+
+  {{/* The department name is set on two lines. Chinese has no spaces to
+       break on, so it splits down the middle — 现场 / 记录 — while a Latin
+       name splits on its words. Both come from .Title; neither is typed
+       into the template. */}}
+  {{- $title := .Title -}}
+  {{- $words := split $title " " -}}
+  {{- $lineOne := "" -}}
+  {{- $lineTwo := $title -}}
+  {{- if gt (len $words) 1 -}}
+    {{- $mid := div (add (len $words) 1) 2 -}}
+    {{- $lineOne = delimit (first $mid $words) " " -}}
+    {{- $lineTwo = delimit (after $mid $words) " " -}}
+  {{- else -}}
+    {{- $half := div (strings.RuneCount $title) 2 -}}
+    {{- if gt $half 0 -}}
+      {{- $lineOne = strings.Substr $title 0 $half -}}
+      {{- $lineTwo = strings.Substr $title $half -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $titleIsHan := gt (len (findRE "\\p{Han}" $title 1)) 0 -}}
+
+  <div class="fn-index">
+    <div class="fn-index__inner">
+      {{/* ------------------------------------------------------------ */}}
+      {{/* 1 — Section lede                                             */}}
+      {{/* ------------------------------------------------------------ */}}
+      <section class="fn-lede">
+        <div class="fn-lede__text">
+          <p class="fn-lede__eyebrow">
+            <span class="fn-lede__eyebrow-latin">{{ i18n "notesEyebrow" }}</span>
+            {{/* The Latin label already says it on an English page. */}}
+            {{- if ne (lower $title) (lower (i18n "notesEyebrow")) }}
+              <span class="fn-lede__eyebrow-sep" aria-hidden="true">/</span>
+              <span class="fn-lede__eyebrow-han">{{ $title }}</span>
+            {{- end }}
+          </p>
+
+          <h1 class="fn-lede__title{{ if not $titleIsHan }} fn-lede__title--latin{{ end }}">
+            {{- with $lineOne }}<span>{{ . }}</span>{{ end }}
+            <span>{{ $lineTwo }}</span>
+          </h1>
+
+          <hr class="fn-lede__rule">
+
+          {{ with .Description }}
+            <p class="fn-lede__desc">{{ . }}</p>
+          {{ end }}
+
+          {{ with .Content }}
+            <div class="fn-lede__aside">{{ . }}</div>
+          {{ end }}
+        </div>
+
+        {{/* ---- Editorial image plate ------------------------------- */}}
+        {{- with resources.Get "photos/fuji.jpg" -}}
+          {{/* Anchored top: the source is a 1463x2075 frame and filling to
+               548x650 drops 340px. Taken off the bottom that is the empty
+               foreground grass; taken off the top it would be the sky and
+               the ridge, which are half the picture. */}}
+          {{- $w1 := .Fill "548x650 top webp q82" -}}
+          {{- $w15 := .Fill "822x975 top webp q80" -}}
+          {{- $w2 := .Fill "1096x1300 top webp q78" -}}
+          <figure class="fn-plate">
+            <img
+              class="fn-plate__img"
+              src="{{ $w1.RelPermalink }}"
+              srcset="{{ $w1.RelPermalink }} 548w, {{ $w15.RelPermalink }} 822w, {{ $w2.RelPermalink }} 1096w"
+              sizes="(max-width: 47.9375rem) 100vw, (max-width: 74.9375rem) 44vw, 548px"
+              width="548"
+              height="650"
+              alt="{{ i18n "notesPlateAlt" }}"
+              decoding="async"
+              fetchpriority="high"
+            >
+            <p class="fn-plate__vertical">{{ i18n "notesPlateWhen" }}</p>
+            <figcaption class="fn-plate__caption">{{ i18n "notesPlateArchive" }}</figcaption>
+          </figure>
+        {{- end -}}
+      </section>
+
+      {{/* ------------------------------------------------------------ */}}
+      {{/* 2 — Latest entry                                             */}}
+      {{/* ------------------------------------------------------------ */}}
+      {{- with (index (first 1 $notes) 0) -}}
+        {{/* Titles in this archive are filed as "Latin half：Han half".
+             Split on the separator so the two halves can be set in the two
+             faces they want; a title with no separator just sets whole. */}}
+        {{- $lead := "" -}}
+        {{- $rest := .Title -}}
+        {{- range $sep := slice "：" ": " -}}
+          {{- if and (eq $lead "") (in $rest $sep) -}}
+            {{- $parts := split $rest $sep -}}
+            {{- $lead = index $parts 0 -}}
+            {{- $rest = delimit (after 1 $parts) $sep -}}
+          {{- end -}}
+        {{- end -}}
+        {{- $leadIsHan := gt (len (findRE "\\p{Han}" $lead 1)) 0 -}}
+        {{- $summary := .Params.summary | default .Description -}}
+
+        <section class="fn-latest">
+          <p class="fn-latest__label">{{ i18n "notesLatest" }}</p>
+
+          {{/* Apparatus: Latin and figures, in both languages, the same
+               rule the folios and running heads follow. */}}
+          <p class="fn-latest__meta">
+            NO.&nbsp;{{ printf "%03d" $total }}
+            <span aria-hidden="true">·</span>
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>
+            <span aria-hidden="true">·</span>
+            {{ .ReadingTime }}&nbsp;MIN
+          </p>
+
+          <h2 class="fn-latest__title">
+            {{- with $lead }}
+              <span class="fn-latest__lead{{ if $leadIsHan }} fn-latest__lead--han{{ end }}">{{ . }}{{ if $rest }}:{{ end }}</span>
+            {{- end }}
+            <span class="fn-latest__han">{{ $rest }}</span>
+          </h2>
+
+          {{ with $summary }}
+            <p class="fn-latest__summary">{{ . }}</p>
+          {{ end }}
+
+          {{/* The block is the click target, via the pseudo-element on this
+               link. Keeping it as the page's only control here means no
+               nested interactive elements and one stop in the tab order,
+               on something that is visibly a button. */}}
+          <a
+            class="fn-latest__cta"
+            href="{{ .RelPermalink }}"
+            aria-label="{{ i18n "notesReadCta" }} — {{ .Title }}"
+          >
+            <span>{{ i18n "notesReadCta" }}</span>
+            <span class="fn-latest__arrow" aria-hidden="true">→</span>
+          </a>
+        </section>
+      {{- end -}}
+
+      {{/* ------------------------------------------------------------ */}}
+      {{/* 3 — The rest of the archive                                  */}}
+      {{/* ------------------------------------------------------------ */}}
+      {{ if gt $total 1 }}
+        <section class="fn-archive">
+          <h2 class="fn-archive__heading">
+            {{ i18n "notesAllEntries" }}
+            <span class="fn-archive__count">{{ printf "%03d" (sub $total 1) }}</span>
+          </h2>
+
+          {{/* Numbered oldest-first so a note keeps its number as the
+               archive grows, but listed newest-first. The featured note
+               above is NO. $total, so this list starts one below it. */}}
+          {{/* One <a> per row and nothing interactive inside it: the read
+               label and the arrow are plain spans, so the row is a single
+               tab stop and a single target. */}}
+          <ol class="fn-rows">
+            {{ range $index, $note := (after 1 $notes) }}
+              {{- $isZine := eq ($note.Params.layout | default "") "zine" -}}
+              {{- $number := printf "%03d" (sub (sub $total 1) $index) -}}
+              <li class="fn-row">
+                <a class="fn-row__link" href="{{ $note.RelPermalink }}">
+                  <span class="fn-row__number">NO.&nbsp;{{ $number }}</span>
+
+                  <span class="fn-row__cover">
+                    {{ partial "field-notes/typographic-cover.html" (dict "page" $note "number" $number) }}
+                  </span>
+
+                  <span class="fn-row__body">
+                    {{/* No splitting: the stack puts the Latin face first
+                         and the Han face behind it, so a mixed title takes
+                         each script from the family it belongs to without
+                         the string being touched. */}}
+                    <span class="fn-row__title">{{ $note.Title }}</span>
+
+                    <span class="fn-row__meta">
+                      {{ if not $note.Date.IsZero }}
+                        <time datetime="{{ $note.Date.Format "2006-01-02" }}">
+                          {{- with $note.Params.date_display }}{{ . }}
+                          {{- else }}{{ $note.Date.Format "2006.01" }}{{ end -}}
+                        </time>
+                      {{ end }}
+                      {{/* Notes filed under the taxonomies rather than
+                           loose tags still get a keyword line. */}}
+                      {{- $terms := $note.Params.tags | default $note.Params.topics | default $note.Params.mediums -}}
+                      {{ with $terms }}
+                        <span class="fn-row__tags">{{ delimit (first 3 .) " · " }}</span>
+                      {{ end }}
+                    </span>
+                  </span>
+
+                  <span class="fn-row__read field-note-read-label">
+                    {{- if $isZine }}{{ i18n "zineLabel" }}{{ else }}{{ i18n "noteReadLabel" }}{{ end -}}
+                  </span>
+
+                  <span class="fn-row__arrow" aria-hidden="true">→</span>
+                </a>
+              </li>
+            {{ end }}
+          </ol>
+        </section>
       {{ end }}
-      {{ with .Content }}
-        <div class="index-copy prose">{{ . }}</div>
+
+      {{ if eq $total 0 }}
+        <p class="quiet-state">{{ i18n "emptyIndex" }}</p>
       {{ end }}
-    </header>
-
-    {{- $notes := .Pages -}}
-    {{- $total := len $notes -}}
-
-    {{ if $notes }}
-      {{/* Numbered oldest-first so a note keeps its number as the archive
-           grows, but listed newest-first. */}}
-      <ol class="notes-index__list">
-        {{ range $index, $note := $notes }}
-          {{- $isZine := eq ($note.Params.layout | default "") "zine" -}}
-          <li class="notes-entry{{ if $isZine }} notes-entry--zine{{ end }}">
-            <a class="notes-entry__link" href="{{ $note.RelPermalink }}">
-              <span class="notes-entry__number">
-                NO.&nbsp;{{ printf "%03d" (sub $total $index) }}
-              </span>
-
-              <span class="notes-entry__main">
-                <span class="notes-entry__title">{{ $note.Title }}</span>
-                {{ with $note.Params.subtitle }}
-                  <span class="notes-entry__subtitle">{{ . }}</span>
-                {{ end }}
-                {{ with $note.Params.summary }}
-                  <span class="notes-entry__summary">{{ . }}</span>
-                {{ end }}
-              </span>
-
-              <span class="notes-entry__aside">
-                <span class="notes-entry__mode">
-                  {{ if $isZine }}{{ i18n "zineLabel" }}{{ else }}{{ i18n "noteReadLabel" }}{{ end }}
-                </span>
-                {{ if not $note.Date.IsZero }}
-                  <time datetime="{{ $note.Date.Format "2006-01-02" }}">
-                    {{- with $note.Params.date_display }}{{ . }}
-                    {{- else }}{{ $note.Date.Format "2006.01" }}{{ end -}}
-                  </time>
-                {{ end }}
-                {{ with $note.Params.tags }}
-                  <span class="notes-entry__keywords">{{ delimit (first 3 .) " · " }}</span>
-                {{ end }}
-              </span>
-            </a>
-          </li>
-        {{ end }}
-      </ol>
-    {{ else }}
-      <p class="quiet-state">{{ i18n "emptyIndex" }}</p>
-    {{ end }}
+    </div>
   </div>
 {{ end }}

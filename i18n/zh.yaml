@@ -84,6 +84,32 @@ eyebrowFiledUnder:
 eyebrowDocument:
   other: 文档
 
+# —— 现场记录栏目首页 ——
+# 档案标注是拉丁文与数字，两种语言共用，与页眉、页码同一套体例。
+notesEyebrow:
+  other: Field Notes
+
+notesLatest:
+  other: Latest entry
+
+notesAllEntries:
+  other: 全部记录
+
+notesReadCta:
+  other: 阅读记录
+
+notesCoverLabel:
+  other: FIELD NOTE
+
+notesPlateArchive:
+  other: FUJI ROCK / NAEBA / 2026
+
+notesPlateWhen:
+  other: JULY 2026 · NAEBA, NIIGATA
+
+notesPlateAlt:
+  other: 苗场的山脊与云层下，Fuji Rock 森林舞台前的草坡上散坐着观众。
+
 eyebrowFieldNote:
   other: 现场记录
 

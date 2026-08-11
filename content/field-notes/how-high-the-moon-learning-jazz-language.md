@@ -1,5 +1,10 @@
 ---
 title: "How High the Moon：开始听见爵士语言"
+cover_words:
+  - "JAZZ"
+  - "LANGUAGE"
+cover_question: "HOW DO WE HEAR?"
+cover_variant: "stack"
 date: 2026-08-03
 category: "Field Notes"
 tags:

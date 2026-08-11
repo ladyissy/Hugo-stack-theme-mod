@@ -1,5 +1,10 @@
 ---
 title: "Massive Attack, Politics, and the Question of Music"
+cover_words:
+  - "MUSIC"
+  - "POLITICS"
+cover_question: "WHO SPEAKS?"
+cover_variant: "split"
 date: 2026-08-03
 category: "Field Notes"
 tags:

@@ -1,5 +1,10 @@
 ---
 title: "Fuji Rock, Curation, and the Art of Finding New Voices"
+cover_words:
+  - "NEW"
+  - "VOICES"
+cover_question: "WHO GETS HEARD?"
+cover_variant: "block"
 date: 2026-08-03
 category: "Field Notes"
 tags:

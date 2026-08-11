@@ -1,0 +1,108 @@
+{{/* ---------------------------------------------------------------------
+  Typographic cover — a title card set from type, not a photograph.
+
+  Every note gets one, so the archive reads as a run of issues rather than
+  a list with some pictures missing. Nothing is fetched or generated at
+  build time: the whole thing is inline SVG plus the page's own palette,
+  so it is deterministic, editable from front matter, and weighs nothing.
+
+  Called with:
+    page    the note
+    number  its archive number, already zero-padded (e.g. "004")
+
+  Front matter it reads:
+    cover_words     one or two short core words. The whole design.
+    cover_question  an optional second line, set small.
+    cover_variant   split | stack | block. Omitted is fine — see below.
+
+  Decorative by design: the row prints the real title immediately beside
+  it, so the SVG is hidden from assistive tech rather than repeating it.
+--------------------------------------------------------------------- */}}
+
+{{- $page := .page -}}
+{{- $number := .number -}}
+
+{{- $words := $page.Params.cover_words -}}
+{{- $question := $page.Params.cover_question -}}
+
+{{/* No cover words is a valid state — a note written before the fields
+     existed, or one where nothing short says it. It gets the branded
+     fallback rather than an empty frame or a broken image. */}}
+{{- $isFallback := not $words -}}
+{{- if $isFallback -}}
+  {{- $words = slice "FIELD" "NOTE" -}}
+  {{- if not $question }}{{ $question = printf "NO. %s" $number }}{{ end -}}
+{{- end -}}
+{{- $words = first 2 $words -}}
+
+{{/* Variant, when unset, comes from a hash of the note's own URL: stable
+     across builds and unaffected by anything being filed before it, which
+     is what ordinal position would not survive. */}}
+{{- $variant := $page.Params.cover_variant -}}
+{{- if not $variant -}}
+  {{- $variant = index (slice "split" "stack" "block") (mod (hash.FNV32a $page.RelPermalink) 3) -}}
+{{- end -}}
+{{- if $isFallback }}{{ $variant = "stack" }}{{ end -}}
+
+{{/* One size for both words, taken from the longer of the two, so a pair
+     reads as a single object and can never run past the measure. 0.56em
+     is a measured average advance for the condensed uppercase; the cap
+     stops two- and three-letter words from swallowing the card. */}}
+{{- $longest := 1 -}}
+{{- range $words -}}
+  {{- $n := strings.RuneCount . -}}
+  {{- if gt $n $longest }}{{ $longest = $n }}{{ end -}}
+{{- end -}}
+{{- $size := math.Min 96 (div 268.0 (mul 0.56 $longest)) -}}
+{{- $lead := mul $size 0.78 -}}
+
+<svg
+  class="fn-cover__svg fn-cover__svg--{{ $variant }}"
+  viewBox="0 0 320 400"
+  preserveAspectRatio="xMidYMid slice"
+  role="presentation"
+  aria-hidden="true"
+  focusable="false"
+>
+  <rect class="fn-cover__paper" width="320" height="400"></rect>
+
+  {{- if eq $variant "block" -}}
+    {{/* The first word reversed out of a solid panel — the screen-printed
+         end of the family. Panel depth follows the type it holds. */}}
+    {{- $panel := add 96 $lead -}}
+    <rect class="fn-cover__panel" width="320" height="{{ $panel }}"></rect>
+    <text class="fn-cover__word fn-cover__word--reversed" x="26" y="{{ add 62 (mul $size 0.7) }}" font-size="{{ $size }}">{{ index $words 0 }}</text>
+    {{- with (index $words 1) }}
+      <text class="fn-cover__word" x="26" y="{{ add $panel (add 34 (mul $size 0.7)) }}" font-size="{{ $size }}">{{ . }}</text>
+    {{- end }}
+    <line class="fn-cover__rule" x1="26" y1="326" x2="294" y2="326"></line>
+
+  {{- else if eq $variant "stack" -}}
+    {{/* Both words tight at the head, everything else pushed to the foot.
+         The void between them is the composition. */}}
+    <text class="fn-cover__meta" x="26" y="46">{{ i18n "notesCoverLabel" }}&#160;{{ $number }}</text>
+    <text class="fn-cover__word" x="26" y="{{ add 118 (mul $size 0.7) }}" font-size="{{ $size }}">{{ index $words 0 }}</text>
+    {{- with (index $words 1) }}
+      <text class="fn-cover__word fn-cover__word--accent" x="26" y="{{ add 118 (add $lead (mul $size 0.7)) }}" font-size="{{ $size }}">{{ . }}</text>
+    {{- end }}
+    <line class="fn-cover__rule" x1="26" y1="{{ add 150 (add $lead (mul $size 0.7)) }}" x2="294" y2="{{ add 150 (add $lead (mul $size 0.7)) }}"></line>
+
+  {{- else -}}
+    {{/* split — a rule driven between the two words, which is the default
+         reading of the pair: one term set against the other. */}}
+    {{- $y1 := add 128 (mul $size 0.7) -}}
+    {{- $ry := add $y1 24 -}}
+    <text class="fn-cover__meta" x="26" y="46">{{ i18n "notesCoverLabel" }}&#160;{{ $number }}</text>
+    <text class="fn-cover__word" x="26" y="{{ $y1 }}" font-size="{{ $size }}">{{ index $words 0 }}</text>
+    <line class="fn-cover__rule" x1="26" y1="{{ $ry }}" x2="294" y2="{{ $ry }}"></line>
+    {{- with (index $words 1) }}
+      <text class="fn-cover__word fn-cover__word--accent" x="26" y="{{ add $ry (add 26 (mul $size 0.7)) }}" font-size="{{ $size }}">{{ . }}</text>
+    {{- end }}
+  {{- end -}}
+
+  {{/* The question is a detail at full size and simply disappears into
+       texture at thumbnail size, which is the intended hierarchy. */}}
+  {{- with $question }}
+    <text class="fn-cover__question" x="26" y="368">{{ . }}</text>
+  {{- end }}
+</svg>

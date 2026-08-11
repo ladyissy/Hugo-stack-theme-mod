@@ -1,5 +1,13 @@
 ---
 title: "Everything Written Gets Done：一场小型现场活动的制作复盘"
+cover_words:
+  - "WRITTEN"
+  - "DONE"
+cover_question: "WHAT GETS LOST?"
+cover_variant: "stack"
+# Read by the section index for the latest-entry block. Deliberately not
+# `summary`, which the note template would render as a visible deck.
+description: "从准备清单到现场遗漏：写下来的事情，基本都完成了。"
 date: 2026-08-03
 category: "Field Notes"
 tags:

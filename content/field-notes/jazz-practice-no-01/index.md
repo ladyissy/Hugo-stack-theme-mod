@@ -1,5 +1,10 @@
 ---
 title: "Jazz Practice No. 01: Leaving Air"
+cover_words:
+  - "LEAVING"
+  - "AIR"
+cover_question: "WHEN TO ANSWER?"
+cover_variant: "split"
 date: 2026-07-31
 summary: A short practice note about time, restraint, and letting a phrase finish before answering it.
 note_type: practice

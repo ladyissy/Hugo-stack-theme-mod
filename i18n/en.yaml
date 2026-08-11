@@ -84,6 +84,33 @@ eyebrowFiledUnder:
 eyebrowDocument:
   other: Document
 
+# —— Field Notes section index ——
+# The archive annotations are Latin and figures, shared by both languages,
+# the same register as the running heads and folios.
+notesEyebrow:
+  other: Field Notes
+
+notesLatest:
+  other: Latest entry
+
+notesAllEntries:
+  other: All entries
+
+notesReadCta:
+  other: Read entry
+
+notesCoverLabel:
+  other: FIELD NOTE
+
+notesPlateArchive:
+  other: FUJI ROCK / NAEBA / 2026
+
+notesPlateWhen:
+  other: JULY 2026 · NAEBA, NIIGATA
+
+notesPlateAlt:
+  other: The crowd spread across the grass below the Fuji Rock forest stage, under the Naeba ridge and cloud.
+
 eyebrowFieldNote:
   other: Field note
 

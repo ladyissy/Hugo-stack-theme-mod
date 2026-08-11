@@ -1,5 +1,10 @@
 ---
 title: Fuji Rock 2026
+cover_words:
+  - "FUJI"
+  - "ROCK"
+cover_question: "HOW DID I LISTEN?"
+cover_variant: "block"
 subtitle: 苗场现场记录
 layout: zine
 presentation: folio
