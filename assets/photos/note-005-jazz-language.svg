@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="210" height="122" viewBox="0 0 210 122" role="img" aria-labelledby="t d">
+  <title id="t">Jazz Language</title><desc id="d">Field Note 005 — learning to hear jazz language through How High the Moon.</desc>
+  <style>.d{font-family:'IBM Plex Sans Condensed','Arial Narrow',sans-serif;font-weight:700}.m{font-family:'IBM Plex Mono',monospace}</style>
+  <rect width="210" height="122" fill="#1C1E1A"/>
+  <circle cx="34" cy="33" r="23" fill="#B74D35"/>
+  <path d="M18 122V67M29 122V52M40 122V72M51 122V58" stroke="#F1EDE6" stroke-width="3"/>
+  <path d="M18 86h33M18 99h33" stroke="#B74D35" stroke-width="1"/>
+  <text x="70" y="38" class="d" font-size="32" fill="#F1EDE6">JAZZ</text>
+  <text x="70" y="64" class="d" font-size="18" letter-spacing="-.4" fill="#B74D35">LANGUAGE</text>
+  <path d="M70 77h117" stroke="#B74D35" stroke-width="2"/>
+  <text x="70" y="92" class="m" font-size="6.7" letter-spacing="1" fill="#F1EDE6">HOW DO WE HEAR?</text>
+</svg>

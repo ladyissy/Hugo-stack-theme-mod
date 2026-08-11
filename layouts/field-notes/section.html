@@ -188,8 +188,28 @@
                 <a class="fn-row__link" href="{{ $note.RelPermalink }}">
                   <span class="fn-row__number">NO.&nbsp;{{ $number }}</span>
 
+                  {{/* A hand-made cover filed as assets/photos/note-NNN-*.svg
+                       wins. Inlined rather than served through <img>, because
+                       an <img> document cannot reach this page's @font-face
+                       rules and the lettering would drop to a system fallback.
+
+                       Inlining means the file's ids land in this document, so
+                       they are namespaced per row — four copies of id="t"
+                       would otherwise be invalid and break every reference.
+                       Marked decorative for the same reason as before: the
+                       row prints the real title immediately beside it. */}}
                   <span class="fn-row__cover">
-                    {{ partial "field-notes/typographic-cover.html" (dict "page" $note "number" $number) }}
+                    {{- with resources.GetMatch (printf "photos/note-%s-*.svg" $number) -}}
+                      {{- $svg := .Content -}}
+                      {{- $svg = replaceRE `\sid="([^"]+)"` (printf ` id="c%s-${1}"` $number) $svg -}}
+                      {{- $svg = replaceRE `url\(#([^)]+)\)` (printf `url(#c%s-${1})` $number) $svg -}}
+                      {{- $svg = replaceRE `\saria-labelledby="[^"]*"` "" $svg -}}
+                      {{- $svg = replaceRE `\srole="img"` ` role="presentation" aria-hidden="true" focusable="false"` $svg -}}
+                      {{- $svg = replaceRE `<svg ` `<svg class="fn-cover__svg" ` $svg -}}
+                      {{- $svg | safeHTML -}}
+                    {{- else -}}
+                      {{ partial "field-notes/typographic-cover.html" (dict "page" $note "number" $number) }}
+                    {{- end -}}
                   </span>
 
                   <span class="fn-row__body">

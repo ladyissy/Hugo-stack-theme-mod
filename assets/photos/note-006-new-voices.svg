@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="210" height="122" viewBox="0 0 210 122" role="img" aria-labelledby="t d">
+  <title id="t">New Voices</title><desc id="d">Field Note 006 — Fuji Rock, curation, and finding new voices.</desc>
+  <style>.d{font-family:'IBM Plex Sans Condensed','Arial Narrow',sans-serif;font-weight:700}.m{font-family:'IBM Plex Mono',monospace}</style>
+  <rect width="210" height="122" fill="#B74D35"/>
+  <circle cx="168" cy="27" r="21" fill="#F1EDE6"/>
+  <path d="M0 122V91L74 54l52 24 84-46v90Z" fill="#1C1E1A"/>
+  <path d="M126 78 168 27M74 54l94-27" stroke="#F1EDE6" stroke-width="1.2" opacity=".75"/>
+  <text x="13" y="35" class="d" font-size="31" fill="#1C1E1A">NEW</text>
+  <text x="13" y="63" class="d" font-size="27" fill="#F1EDE6">VOICES</text>
+  <rect x="13" y="72" width="49" height="2" fill="#F1EDE6"/>
+  <text x="13" y="84" class="m" font-size="6.5" letter-spacing="1" fill="#F1EDE6">WHO GETS HEARD?</text>
+</svg>

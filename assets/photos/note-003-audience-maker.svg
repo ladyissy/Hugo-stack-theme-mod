@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="210" height="122" viewBox="0 0 210 122" role="img" aria-labelledby="t d">
+  <title id="t">Audience to Maker</title><desc id="d">Field Note 003 — moving from watching small live events to creating one.</desc>
+  <style>.d{font-family:'IBM Plex Sans Condensed','Arial Narrow',sans-serif;font-weight:700}.m{font-family:'IBM Plex Mono',monospace}</style>
+  <rect width="210" height="122" fill="#E5DDD1"/>
+  <g fill="#1C1E1A"><circle cx="19" cy="29" r="5"/><circle cx="34" cy="29" r="5"/><circle cx="49" cy="29" r="5"/><circle cx="19" cy="45" r="5"/><circle cx="34" cy="45" r="5"/><circle cx="49" cy="45" r="5"/><circle cx="19" cy="61" r="5"/><circle cx="34" cy="61" r="5"/><circle cx="49" cy="61" r="5"/></g>
+  <path d="M62 17v88" stroke="#B74D35" stroke-width="2"/>
+  <path d="M43 83C67 83 68 63 84 63" fill="none" stroke="#B74D35" stroke-width="2"/>
+  <circle cx="87" cy="63" r="7" fill="#B74D35"/>
+  <path d="M76 49h22v28H76" fill="none" stroke="#1C1E1A" stroke-width="1.5"/>
+  <text x="105" y="39" class="d" font-size="15" fill="#1C1E1A">AUDIENCE</text>
+  <text x="105" y="66" class="d" font-size="23" fill="#B74D35">MAKER</text>
+  <path d="M105 77h88" stroke="#1C1E1A" stroke-width="1.5"/>
+  <text x="105" y="92" class="m" font-size="6.5" letter-spacing="1" fill="#1C1E1A">WHY NOT ME?</text>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="210" height="122" viewBox="0 0 210 122" role="img" aria-labelledby="t d">
+  <title id="t">Music and Politics</title><desc id="d">Field Note 004 — Massive Attack, politics, and the question of music.</desc>
+  <style>.d{font-family:'IBM Plex Sans Condensed','Arial Narrow',sans-serif;font-weight:700}.m{font-family:'IBM Plex Mono',monospace}</style>
+  <rect width="210" height="122" fill="#F1EDE6"/>
+  <rect x="139" width="71" height="122" fill="#1C1E1A"/>
+  <text x="10" y="41" class="d" font-size="38" fill="#B74D35">MUSIC</text>
+  <text x="10" y="78" class="d" font-size="34" letter-spacing="-1" fill="#B74D35">POLITICS</text>
+  <text x="10" y="98" class="m" font-size="7" letter-spacing="1" fill="#1C1E1A">WHO SPEAKS?</text>
+  <path d="M10 104h104" stroke="#B74D35" stroke-width="2"/>
+  <circle cx="151" cy="122" r="14" fill="#F1EDE6"/><circle cx="175" cy="122" r="14" fill="#F1EDE6"/><circle cx="199" cy="122" r="14" fill="#F1EDE6"/>
+</svg>
