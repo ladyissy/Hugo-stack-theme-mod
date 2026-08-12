@@ -1,0 +1,46 @@
+{{/* ---------------------------------------------------------------------
+  Running header — editorial variant.
+
+  The two-line lockup: the studio name set in Roboto Mono over a standfirst,
+  with the menu and the language switcher on the right and no rules
+  anywhere. Used by the pages set in the Field Notes system, called from
+  their `site-header` block, so the shared site/header.html and every page
+  that uses it are untouched.
+
+  The entries, their URLs and the current-page state all come from Hugo —
+  nothing about the navigation is written into this file.
+--------------------------------------------------------------------- */}}
+
+<header class="site-header site-header--editorial">
+  <div class="site-header__inner">
+    <a class="site-mark" href="{{ site.Home.RelPermalink }}" aria-label="{{ site.Title }}">
+      <span class="site-mark__name">{{ site.Params.identity.label | default site.Title }}</span>
+      <span class="site-mark__label">{{ i18n "notesTagline" }}</span>
+    </a>
+
+    <div class="site-header__navigation">
+      {{/* Same filter the shared partial uses: an entry whose target does
+           not resolve is dropped rather than printed as a dead link. */}}
+      {{- $entries := slice -}}
+      {{- range $entry := site.Menus.main -}}
+        {{- with $entry.Page }}{{ $entries = $entries | append $entry }}{{ end -}}
+      {{- end -}}
+
+      {{ with $entries }}
+        <nav class="site-nav" aria-label="Primary">
+          <ul>
+            {{ range $entry := . }}
+              <li>
+                <a href="{{ $entry.Page.RelPermalink }}"{{ if $.IsMenuCurrent $entry.Menu $entry }} aria-current="page"{{ end }}>
+                  {{ $entry.Name }}
+                </a>
+              </li>
+            {{ end }}
+          </ul>
+        </nav>
+      {{ end }}
+
+      {{ partial "site/language-switcher.html" . }}
+    </div>
+  </div>
+</header>

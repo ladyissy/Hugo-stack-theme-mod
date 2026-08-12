@@ -1,0 +1,147 @@
+@layer components {
+  /* --------------------------------------------------------------------- *\
+     RUNNING HEADER — editorial variant.
+
+     Paired with _partials/site/header-editorial.html and shared by every
+     page set in the Field Notes system, so those pages cannot drift apart
+     from each other the way they did when this lived in one page's sheet.
+
+     Self-contained on purpose: the palette and the two families are
+     declared on the element rather than read from whichever page tokens
+     happen to be in scope, so dropping the partial into a new template is
+     all it takes. The faces themselves come from
+     00-settings/fonts-editorial.css, which those templates load.
+
+     Nothing here can reach the default header: every selector is qualified
+     by .site-header--editorial, a class the shared partial never emits.
+  \* --------------------------------------------------------------------- */
+
+  .site-header--editorial {
+    --eh-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --eh-text: "Helvetica Neue", Helvetica, Arial, "Publication Han Sans",
+      "PingFang SC", "Hiragino Sans GB", sans-serif;
+    --eh-ink: #1c1e1a;
+    --eh-muted: #77736d;
+    --eh-brick: #b74d35;
+    --eh-rule: #c9c3ba;
+    --eh-edge: clamp(1.375rem, 4.5vw, 4rem);
+
+    /* No hairline under the bar. */
+    border-bottom: 0;
+  }
+
+  .site-header--editorial .site-header__inner {
+    align-items: flex-start;
+    width: min(100%, 90rem);
+    padding-inline: var(--eh-edge);
+    padding-block: clamp(1.75rem, 3.4vw, 2.75rem);
+    min-height: 0;
+  }
+
+  /* A two-line lockup, not a name with a label beside it. */
+  .site-header--editorial .site-mark {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  /* Roboto Mono sets a wide apostrophe, and at this size HARPER'S opens up
+     into HARPER' S. The negative tracking is what closes it. */
+  .site-header--editorial .site-mark__name {
+    font-family: var(--eh-mono);
+    font-optical-sizing: auto;
+    font-size: clamp(1.375rem, 1.15rem + 0.7vw, 1.5rem);
+    font-stretch: normal;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    color: var(--eh-ink);
+  }
+
+  .site-header--editorial .site-mark__label {
+    font-family: var(--eh-mono);
+    font-size: 0.875rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--eh-muted);
+  }
+
+  .site-header--editorial .site-header__navigation {
+    align-items: center;
+    padding-top: 0.4rem;
+    gap: clamp(1rem, 2.4vw, 2rem);
+  }
+
+  .site-header--editorial .site-nav ul {
+    gap: clamp(1.25rem, 3vw, 2.75rem);
+  }
+
+  .site-header--editorial .site-nav a {
+    font-family: var(--eh-text);
+    font-size: 0.9375rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--eh-ink);
+  }
+
+  /* Where you are standing, said in colour and weight rather than a rule. */
+  .site-header--editorial .site-nav a[aria-current="page"] {
+    padding-bottom: 0;
+    color: var(--eh-brick);
+    font-weight: 500;
+    border-bottom: 0;
+  }
+
+  .site-header--editorial .site-nav a:hover {
+    color: var(--eh-brick);
+  }
+
+  /* One divider in the bar, between the menu and the languages. It sits on
+     the switcher, which is a single line inside a centred row, so it reads
+     as a short stroke rather than a full-height rule. Nothing between 中文
+     and English — that pipe is decorative and the gap does its job. */
+  .site-header--editorial .language-switcher {
+    padding-left: clamp(1.5rem, 3.2vw, 2.75rem);
+    font-family: var(--eh-text);
+    font-size: 0.9375rem;
+    border-left: 1px solid var(--eh-rule);
+  }
+
+  .site-header--editorial .language-switcher__separator {
+    display: none;
+  }
+
+  .site-header--editorial .language-switcher ul {
+    gap: var(--space-3);
+  }
+
+  .site-header--editorial .language-switcher a {
+    color: var(--eh-muted);
+  }
+
+  .site-header--editorial .language-switcher [aria-current="page"] {
+    color: var(--eh-ink);
+  }
+
+  /* Above the shared partial's own 42rem breakpoint, where it stacks the
+     bar and starts scrolling the nav. That behaviour is left alone. */
+  @media (max-width: 42rem) {
+    .site-header--editorial .site-header__inner {
+      gap: var(--space-4);
+    }
+
+    /* The shared partial hides the label at this width; here it is half
+       the mark, so it stays. */
+    .site-header--editorial .site-mark__label {
+      display: block;
+      font-size: 0.8125rem;
+    }
+
+    .site-header--editorial .site-header__navigation {
+      padding-top: 0;
+    }
+  }
+}

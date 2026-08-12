@@ -87,6 +87,12 @@ eyebrowDocument:
 # —— Field Notes section index ——
 # The archive annotations are Latin and figures, shared by both languages,
 # the same register as the running heads and folios.
+notesTagline:
+  other: Music · live scenes · notes in progress
+
+notesPlaces:
+  other: SHANGHAI · SEATTLE
+
 notesEyebrow:
   other: Field Notes
 
@@ -94,7 +100,7 @@ notesLatest:
   other: Latest entry
 
 notesAllEntries:
-  other: All entries
+  other: ALL NOTES
 
 notesReadCta:
   other: Read entry

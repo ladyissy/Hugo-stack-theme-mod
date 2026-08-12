@@ -86,6 +86,12 @@ eyebrowDocument:
 
 # —— 现场记录栏目首页 ——
 # 档案标注是拉丁文与数字，两种语言共用，与页眉、页码同一套体例。
+notesTagline:
+  other: Music · live scenes · notes in progress
+
+notesPlaces:
+  other: SHANGHAI · SEATTLE
+
 notesEyebrow:
   other: Field Notes
 
@@ -93,7 +99,7 @@ notesLatest:
   other: Latest entry
 
 notesAllEntries:
-  other: 全部记录
+  other: ALL NOTES
 
 notesReadCta:
   other: 阅读记录
