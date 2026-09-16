@@ -15,8 +15,8 @@
   (resources.Get "css/05-pages/field-notes.css")
   (resources.Get "css/05-pages/statement.css")
   (resources.Get "css/05-pages/zine.css")
+  (resources.Get "css/05-pages/musician.css")
   (resources.Get "css/06-utilities/accessibility.css")
 -}}
 {{- $styles := $sources | resources.Concat "css/studio.css" | minify | fingerprint -}}
 <link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}">
-

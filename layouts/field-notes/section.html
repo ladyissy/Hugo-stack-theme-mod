@@ -43,18 +43,24 @@
       {{ end }}
     </header>
 
-    <section class="fn-archive">
-      <h2 class="fn-archive__label">{{ i18n "notesAllEntries" }}</h2>
+    {{ range slice (dict "id" "live" "label" "artistLive") (dict "id" "writing" "label" "artistWriting") (dict "id" "other" "label" "notesAllEntries") }}
+    {{ $groupNotes := where $notes "Params.home_group" .id }}
+    {{ if eq .id "other" }}{{ $groupNotes = where $notes "Params.home_group" "not in" (slice "live" "writing") }}{{ end }}
+    {{ if or $groupNotes (ne .id "other") }}
+    <section class="fn-archive" id="{{ .id }}">
+      <h2 class="fn-archive__label">{{ i18n .label }}</h2>
 
-      {{ if $notes }}
+      {{ if $groupNotes }}
         {{/* Numbered oldest-first so a note keeps its number as the archive
              grows, but listed newest-first — the order .Pages already
              gives. The whole row is the link; nothing is nested inside it. */}}
         <ol class="fn-list">
-          {{ range $index, $note := $notes }}
+          {{ range $index, $note := $groupNotes }}
+            {{ $number := 0 }}
+            {{ range $i, $entry := $notes }}{{ if eq $entry.RelPermalink $note.RelPermalink }}{{ $number = sub $total $i }}{{ end }}{{ end }}
             <li class="fn-list__item">
               <a class="fn-list__link" href="{{ $note.RelPermalink }}">
-                <span class="fn-list__num">{{ printf "%03d" (sub $total $index) }}</span>
+                <span class="fn-list__num">{{ printf "%03d" $number }}</span>
                 <span class="fn-list__title">{{ $note.Title }}</span>
                 {{ if not $note.Date.IsZero }}
                   <time class="fn-list__date" datetime="{{ $note.Date.Format "2006-01-02" }}">
@@ -71,13 +77,15 @@
         <p class="fn-empty">{{ i18n "emptyIndex" }}</p>
       {{ end }}
     </section>
+    {{ end }}
+    {{ end }}
   </div>
 {{ end }}
 
 {{ define "site-footer" }}
   <footer class="fn-footer">
     <div class="fn-footer__inner">
-      <p>{{ site.Params.identity.label | default site.Title }} / {{ i18n "notesEyebrow" }}</p>
+      <p>{{ i18n "artistRelationship" }}</p>
       <p>{{ i18n "notesPlaces" }}</p>
     </div>
   </footer>

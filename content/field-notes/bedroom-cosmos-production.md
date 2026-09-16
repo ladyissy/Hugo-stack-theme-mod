@@ -1,4 +1,5 @@
 ---
+home_group: live
 title: "Everything Written Gets Done：一场小型现场活动的制作复盘"
 cover_words:
   - "WRITTEN"

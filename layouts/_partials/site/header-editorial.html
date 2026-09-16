@@ -23,7 +23,9 @@
            not resolve is dropped rather than printed as a dead link. */}}
       {{- $entries := slice -}}
       {{- range $entry := site.Menus.main -}}
-        {{- with $entry.Page }}{{ $entries = $entries | append $entry }}{{ end -}}
+        {{- if or site.Params.features.showWorks (not (in (slice "projects" "works" "music" "releases") $entry.Identifier)) -}}
+          {{- with $entry.Page }}{{ $entries = $entries | append $entry }}{{ end -}}
+        {{- end -}}
       {{- end -}}
 
       {{ with $entries }}
@@ -31,7 +33,7 @@
           <ul>
             {{ range $entry := . }}
               <li>
-                <a href="{{ $entry.Page.RelPermalink }}"{{ if $.IsMenuCurrent $entry.Menu $entry }} aria-current="page"{{ end }}>
+                <a href="{{ $entry.Page.RelPermalink }}{{ with $entry.Params.fragment }}#{{ . }}{{ end }}"{{ if and (not $entry.Params.fragment) ($.IsMenuCurrent $entry.Menu $entry) }} aria-current="page"{{ end }}>
                   {{ $entry.Name }}
                 </a>
               </li>

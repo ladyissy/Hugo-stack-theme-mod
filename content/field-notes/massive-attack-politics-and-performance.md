@@ -1,4 +1,5 @@
 ---
+home_group: writing
 title: "Massive Attack, Politics, and the Question of Music"
 cover_words:
   - "MUSIC"

@@ -1,4 +1,5 @@
 ---
+home_group: writing
 title: "How High the Moon：开始听见爵士语言"
 cover_words:
   - "JAZZ"

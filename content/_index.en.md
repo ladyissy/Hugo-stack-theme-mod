@@ -1,6 +1,6 @@
 ---
-title: Harper's Live Sessions
-description: Music, live shows, photographs, and ideas that have not settled yet.
+title: Harper Live Sessions
+description: WU 雾, flutist and improviser. Harper Live Sessions is the music-writing and field-notes project of WU 雾.
 ---
 
 A record of what is happening now:\

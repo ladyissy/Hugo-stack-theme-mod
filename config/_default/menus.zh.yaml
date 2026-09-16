@@ -7,6 +7,14 @@ main:
     name: 现场记录
     pageRef: /field-notes
     weight: 20
+    params:
+      fragment: live
+  - identifier: writing
+    name: 音乐随笔
+    pageRef: /field-notes
+    weight: 25
+    params:
+      fragment: writing
   - identifier: now
     name: 此刻
     pageRef: /now

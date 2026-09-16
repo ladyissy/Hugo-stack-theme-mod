@@ -1,8 +1,12 @@
 description: 一个关于现场、音乐、照片和创作过程的个人档案。
 
 identity:
-  name: Harper
-  label: "Harper’s Live Sessions"
+  name: "WU 雾"
+  label: "Harper Live Sessions"
+
+# Restore project/release UI by setting this to true. Source URLs stay intact.
+features:
+  showWorks: false
 
 home:
   projectsLimit: 3
@@ -17,4 +21,3 @@ cover:
     - /now
 
 social: []
-

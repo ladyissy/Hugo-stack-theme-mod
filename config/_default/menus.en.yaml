@@ -7,6 +7,14 @@ main:
     name: Field Notes
     pageRef: /field-notes
     weight: 20
+    params:
+      fragment: live
+  - identifier: writing
+    name: Music writing
+    pageRef: /field-notes
+    weight: 25
+    params:
+      fragment: writing
   - identifier: now
     name: Now
     pageRef: /now

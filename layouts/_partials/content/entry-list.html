@@ -1,4 +1,7 @@
 {{- $pages := .pages -}}
+{{- if not site.Params.features.showWorks -}}
+  {{- $pages = where $pages "Section" "not in" (slice "projects" "works" "music" "releases") -}}
+{{- end -}}
 {{- $variant := .variant | default "default" -}}
 
 {{ if $pages }}
@@ -28,4 +31,3 @@
 {{ else }}
   <p class="quiet-state">{{ i18n "emptyIndex" }}</p>
 {{ end }}
-

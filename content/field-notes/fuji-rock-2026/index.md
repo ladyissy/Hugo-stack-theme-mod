@@ -1,4 +1,5 @@
 ---
+home_group: live
 title: Fuji Rock 2026
 cover_words:
   - "FUJI"

@@ -1,3 +1,4 @@
+{{ if site.Params.features.showWorks }}
 {{- $projects := where site.RegularPages "Section" "projects" -}}
 {{- $featured := where $projects "Params.featured" true -}}
 {{- $projects = cond (gt (len $featured) 0) $featured $projects -}}
@@ -34,3 +35,4 @@
     <p class="quiet-state">Project documents are being prepared in the studio.</p>
   {{ end }}
 </section>
+{{ end }}

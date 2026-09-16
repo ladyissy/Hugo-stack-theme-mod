@@ -1,4 +1,5 @@
 ---
+home_group: writing
 title: "Fuji Rock, Curation, and the Art of Finding New Voices"
 cover_words:
   - "NEW"
