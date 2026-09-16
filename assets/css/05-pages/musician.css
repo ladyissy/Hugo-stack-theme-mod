@@ -10,8 +10,8 @@
   .artist-links a { text-decoration: none; font-size: .95rem; }
   .artist-links a:hover { color: var(--color-accent); }
   .artist-links .artist-links__quiet { font-size: .8rem; color: var(--color-muted); }
-  .artist-hero__photo { margin: 0; max-width: 25rem; justify-self: end; }
-  .artist-hero__photo img { display: block; width: 100%; height: auto; }
+  .artist-hero__photo { margin: 0; width: 100%; max-width: 25rem; justify-self: end; }
+  .artist-hero__photo img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: center; }
   .artist-section { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem 4rem; padding-block: 3.5rem; }
   .artist-section h2 { font-size: clamp(1.6rem, 2.4vw, 2.3rem); }
   .artist-section .entry-list { margin: 0; border: 0; }
@@ -37,7 +37,7 @@
     .artist-hero h1 { font-size: clamp(3.6rem, 17vw, 6rem); margin-block: .8rem; }
     .artist-intro { margin-top: 1.25rem; }
     .artist-links { margin-top: 1.25rem; }
-    .artist-hero__photo { width: 52%; max-width: 12rem; }
+    .artist-hero__photo { width: 100%; max-width: none; }
     .artist-section { grid-template-columns: 1fr; gap: 1.8rem; padding-block: 2rem; }
     .site-header__navigation { flex-wrap: wrap; }
     .site-nav ul { flex-wrap: wrap; width: auto; }

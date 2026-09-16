@@ -14,14 +14,12 @@
           {{ with site.GetPage "/page/about" }}<a class="artist-links__quiet" href="{{ .RelPermalink }}">{{ i18n "artistAboutLink" }}</a>{{ end }}
         </nav>
       </div>
-      {{ with resources.Get "photos/plate-portrait.jpg" }}
-        {{/* This archive scan is stored sideways even after EXIF orientation. */}}
-        {{ $oriented := .Filter images.AutoOrient }}
-        {{ $photo := $oriented.Process "r270" }}
-        {{ $small := $photo.Resize "480x webp" }}
-        {{ $large := $photo.Resize "960x webp" }}
+      {{ with resources.Get "photos/wu-abstract-hero.png" }}
+        {{ $small := .Resize "480x webp q85" }}
+        {{ $medium := .Resize "720x webp q85" }}
+        {{ $large := .Resize "960x webp q85" }}
         <figure class="artist-hero__photo">
-          <img src="{{ $large.RelPermalink }}" srcset="{{ $small.RelPermalink }} 480w, {{ $large.RelPermalink }} 960w" sizes="(max-width: 48rem) 52vw, 32vw" width="{{ $large.Width }}" height="{{ $large.Height }}" alt="{{ i18n "artistPhotoAlt" }}" fetchpriority="high">
+          <img src="{{ $large.RelPermalink }}" srcset="{{ $small.RelPermalink }} 480w, {{ $medium.RelPermalink }} 720w, {{ $large.RelPermalink }} 960w" sizes="(max-width: 48rem) calc(100vw - 2 * clamp(1.25rem, 4vw, 4.5rem)), (max-width: 78rem) 32vw, 25rem" width="{{ $large.Width }}" height="{{ $large.Height }}" alt="{{ i18n "artistArtworkAlt" }}" fetchpriority="high">
         </figure>
       {{ end }}
     </section>
